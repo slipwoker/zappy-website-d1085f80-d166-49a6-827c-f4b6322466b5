@@ -1,1 +1,4066 @@
-function hasConsentFor(t){return void 0!==window.CookieConsent&&window.CookieConsent.validConsent(t)}function withConsent(t,e){hasConsentFor(t)?e():console.log(`[WARNING] Skipping ${t} code - no user consent`)}document.addEventListener("DOMContentLoaded",function(){document.body.addEventListener("click",function(t){const e=t.target.closest('a[href^="#"]');if(!e)return;const n=e.getAttribute("href");if(!n||"#"===n)return;const o=document.querySelector(n);o&&(t.preventDefault(),o.scrollIntoView({behavior:"smooth",block:"start"}),history.pushState&&history.pushState(null,null,n))});const t=document.querySelector("nav, .navbar, [data-navbar]");if(t){const u=50,m="scrolled";function e(){(window.pageYOffset||document.documentElement.scrollTop)>u?t.classList.add(m):t.classList.remove(m)}let y=!1;window.addEventListener("scroll",function(){y||(window.requestAnimationFrame(function(){e(),y=!1}),y=!0)},{passive:!0}),e()}const n="rtl"===document.documentElement.dir||"rtl"===document.body.dir,o={required:n?"هذا الحقل مطلوب":"This field is required",email:n?"يرجى إدخال بريد إلكتروني صحيح":"Please enter a valid email address",minLength:n?"يجب أن يحتوي هذا الحقل على {min} أحرف على الأقل":"This field must be at least {min} characters",phone:n?"يرجى إدخال رقم هاتف صحيح":"Please enter a valid phone number",success:n?"تم إرسال رسالتك بنجاح!":"Your message has been sent successfully!"};function r(t,e){a(t),t.classList.add("field-error"),t.setAttribute("aria-invalid","true");const n=document.createElement("span");n.className="form-error-message",n.setAttribute("role","alert"),n.setAttribute("aria-live","polite"),n.textContent=e,t.parentNode.insertBefore(n,t.nextSibling)}function a(t){t.classList.remove("field-error"),t.removeAttribute("aria-invalid");const e=t.parentNode.querySelector(".form-error-message");e&&e.remove()}function i(t){const e=t.value.trim(),n=t.type?t.type.toLowerCase():"text",i=t.dataset.minLength?parseInt(t.dataset.minLength,10):null;if(t.required&&""===e)return r(t,o.required),!1;if(""!==e){if("email"===n){if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))return r(t,o.email),!1}if("tel"===n){if(!/^[+]?[\d\s\-().]{7,20}$/.test(e))return r(t,o.phone),!1}if(i&&e.length<i)return r(t,o.minLength.replace("{min}",i)),!1}return a(t),!0}document.body.addEventListener("submit",function(t){const e=t.target.closest(".contact-form");if(!e)return;t.preventDefault();const r=e.querySelectorAll("input, textarea, select");let a=!0,s=null;if(r.forEach(function(t){if("submit"===t.type||"button"===t.type||"reset"===t.type)return;i(t)||(a=!1,s||(s=t))}),!a)return void(s&&(s.focus(),s.scrollIntoView({behavior:"smooth",block:"center"})));const l=e.querySelector('[type="submit"]'),c=l?l.textContent:"";l&&(l.disabled=!0,l.textContent=n?"جاري الإرسال...":"Sending...");const d=e.querySelector(".form-success-message")||document.createElement("div");d.className="form-success-message",d.setAttribute("role","status"),d.setAttribute("aria-live","polite"),d.textContent=o.success,e.querySelector(".form-success-message")||e.appendChild(d),d.style.display="block",setTimeout(function(){l&&(l.disabled=!1,l.textContent=c)},3e3)}),document.body.addEventListener("blur",function(t){const e=t.target;e.closest(".contact-form")&&"submit"!==e.type&&"button"!==e.type&&"reset"!==e.type&&i(e)},!0),document.body.addEventListener("input",function(t){const e=t.target;e.closest(".contact-form")&&e.classList.contains("field-error")&&i(e)});const s="animate-fade-in",l="is-visible",c=document.querySelectorAll([".fade-in",".scroll-animate","[data-animate]",".feature-card",".service-card",".testimonial-card",".pricing-card",".team-card",".section-header",".hero-content"].join(", "));if(c.length>0)if(c.forEach(function(t,e){t.classList.add(s);const n=t.dataset.animateDelay||e%5*100;n&&(t.style.transitionDelay=n+"ms")}),"IntersectionObserver"in window){const g=new IntersectionObserver(function(t){t.forEach(function(t){t.isIntersecting&&(t.target.classList.add(l),g.unobserve(t.target))})},{root:null,rootMargin:"0px 0px -60px 0px",threshold:.1});c.forEach(function(t){g.observe(t)})}else{function d(){c.forEach(function(t){!t.classList.contains(l)&&function(t){const e=t.getBoundingClientRect(),n=window.innerHeight||document.documentElement.clientHeight;return e.top<=.9*n&&e.bottom>=0}(t)&&t.classList.add(l)})}let f=!1;window.addEventListener("scroll",function(){f||(window.requestAnimationFrame(function(){d(),f=!1}),f=!0)},{passive:!0}),d()}const p="scroll-animation-styles";if(!document.getElementById(p)){const h=document.createElement("style");h.id=p,h.textContent=["."+s+"{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}","."+s+"."+l+"{opacity:1;transform:translateY(0);}",".form-error-message{display:block;color:#e53e3e;font-size:0.85em;margin-top:4px;}",".field-error{border-color:#e53e3e !important;outline-color:#e53e3e !important;}",".form-success-message{display:none;padding:12px 16px;background:#c6f6d5;color:#276749;border-radius:6px;margin-top:12px;font-weight:500;}"].join(""),document.head.appendChild(h)}}),function(){var t=document.querySelector("nav.navbar,.navbar:not(.zappy-catalog-menu)"),e=document.querySelector(".zappy-catalog-menu,#zappy-catalog-menu");if(t){var n=(getComputedStyle(document.body).backgroundColor||"rgb(0,0,0)").match(/\d+/g),o=n?parseInt(n[0]):0,r=n?parseInt(n[1]):0,a=n?parseInt(n[2]):0,i="rgba("+o+","+r+","+a+",0.85)",s=o/255,l=r/255,c=a/255,d=.2126*(s=s<=.03928?s/12.92:Math.pow((s+.055)/1.055,2.4))+.7152*(l=l<=.03928?l/12.92:Math.pow((l+.055)/1.055,2.4))+.0722*(c=c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)),p=getComputedStyle(document.documentElement),u=p.getPropertyValue("--text-dark").trim()||"#1a1a1a",m=p.getPropertyValue("--text-light").trim()||"#ffffff",y=d>.4?u:m,g="a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link",f=["cart-link","login-link","nav-search-toggle","search-toggle","nav-cta-btn"];window._zappyNavScrollCleanup&&window._zappyNavScrollCleanup(),window.addEventListener("scroll",q,{passive:!0}),window.addEventListener("resize",q,{passive:!0}),window._zappyNavScrollCleanup=function(){window.removeEventListener("scroll",q),window.removeEventListener("resize",q)},q();var h=document.querySelector('section[class*="hero"],[data-hero-type],main>section:first-child'),v=!1;if(h){var b=getComputedStyle(h),w=b.backgroundImage;if(w&&"none"!==w)if(-1!==w.indexOf("url(")){var x=b.backgroundColor.match(/\d+/g);v=!(x&&x.length>=3)||I(parseInt(x[0]),parseInt(x[1]),parseInt(x[2]))<.4}else if(-1!==w.indexOf("gradient")){var k=w.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(k&&k.length>0){for(var z=0,S=0;S<k.length;S++){var L=k[S].match(/\d+/g);z+=I(parseInt(L[0]),parseInt(L[1]),parseInt(L[2]))}v=z/k.length<.4}else v=!0}else v=!0;else{var P=b.backgroundColor.match(/\d+/g);P&&P.length>=3&&(v=I(parseInt(P[0]),parseInt(P[1]),parseInt(P[2]))<.4)}}if(!v){window.removeEventListener("scroll",q),window.removeEventListener("resize",q),delete window._zappyNavScrollCleanup,t.classList.add("scrolled"),window.innerWidth>768&&(t.style.setProperty("--frosted-text",y),t.style.setProperty("background-image","none","important"),t.style.setProperty("background-color",i,"important"),t.style.backdropFilter="blur(12px)",t.style.webkitBackdropFilter="blur(12px)",t.style.boxShadow="0 2px 16px rgba(0,0,0,0.12)",E(t,y)),e&&(e.classList.add("scrolled"),window.innerWidth>768&&(e.style.setProperty("background",i,"important"),e.style.setProperty("backdrop-filter","blur(12px)","important"),e.style.setProperty("-webkit-backdrop-filter","blur(12px)","important"),E(e,y))),window._zappyNavNoDarkHero=!0;var C=t.classList.remove.bind(t.classList);if(t._origClassListRemove=C,t.classList.remove=function(){for(var t=[],e=0;e<arguments.length;e++)"scrolled"!==arguments[e]&&t.push(arguments[e]);t.length>0&&C.apply(null,t)},e){var _=e.classList.remove.bind(e.classList);e._origClassListRemove=_,e.classList.remove=function(){for(var t=[],e=0;e<arguments.length;e++)"scrolled"!==arguments[e]&&t.push(arguments[e]);t.length>0&&_.apply(null,t)}}}}function E(t,e){for(var n=t.querySelectorAll(g),o=0;o<n.length;o++){var r=!1;(n[o].closest(".sub-menu")||n[o].closest(".dropdown-menu"))&&(r=!0);for(var a=0;a<f.length;a++)if(n[o].classList.contains(f[a])){r=!0;break}r||n[o].style.setProperty("color",e,"important")}}function A(t){for(var e=t.querySelectorAll(g),n=0;n<e.length;n++)e[n].closest(".sub-menu")||e[n].closest(".dropdown-menu")||e[n].style.removeProperty("color")}function q(){if(!window._zappyNavOverrideActive&&!window._zappyNavNoDarkHero){if(window.innerWidth<=768)return t.style.removeProperty("background"),t.style.removeProperty("background-color"),t.style.removeProperty("background-image"),t.style.removeProperty("--frosted-text"),t.style.backdropFilter="",t.style.webkitBackdropFilter="",t.style.boxShadow="",t.classList.remove("scrolled"),A(t),void(e&&(e.style.removeProperty("background"),e.style.removeProperty("background-color"),e.style.removeProperty("backdrop-filter"),e.style.removeProperty("-webkit-backdrop-filter"),e.classList.remove("scrolled"),A(e)));if((window.scrollY||window.pageYOffset)>60)t.classList.add("scrolled"),t.style.setProperty("background-color",i,"important"),t.style.setProperty("background-image","none","important"),t.style.setProperty("--frosted-text",y),t.style.backdropFilter="blur(12px)",t.style.webkitBackdropFilter="blur(12px)",t.style.boxShadow="0 2px 16px rgba(0,0,0,0.12)",E(t,y),e&&(e.classList.add("scrolled"),e.style.setProperty("background",i,"important"),e.style.setProperty("backdrop-filter","blur(12px)","important"),e.style.setProperty("-webkit-backdrop-filter","blur(12px)","important"),E(e,y));else{if(window._zappyNavNoDarkHero)return;t.classList.remove("scrolled"),t.style.setProperty("background-color","transparent","important"),t.style.removeProperty("background-image"),t.style.removeProperty("--frosted-text"),t.style.backdropFilter="none",t.style.webkitBackdropFilter="none",t.style.boxShadow="none",A(t),e&&(e.classList.remove("scrolled"),e.style.setProperty("background","transparent","important"),e.style.setProperty("backdrop-filter","none","important"),e.style.setProperty("-webkit-backdrop-filter","none","important"),A(e))}}}function I(t,e,n){return e/=255,n/=255,.2126*(t=(t/=255)<=.03928?t/12.92:Math.pow((t+.055)/1.055,2.4))+.7152*(e=e<=.03928?e/12.92:Math.pow((e+.055)/1.055,2.4))+.0722*(n=n<=.03928?n/12.92:Math.pow((n+.055)/1.055,2.4))}}(),function(){"use strict";let t=0;function e(){if(t++,void 0===window.CookieConsent)return void(t<50&&setTimeout(e,100));const n=window.CookieConsent;try{function o(){"function"!=typeof gtag&&(window.dataLayer=window.dataLayer||[],window.gtag=function(){dataLayer.push(arguments)});var t=n.acceptedCategory("analytics"),e=n.acceptedCategory("marketing");gtag("consent","update",{analytics_storage:t?"granted":"denied",ad_storage:e?"granted":"denied",ad_user_data:e?"granted":"denied",ad_personalization:e?"granted":"denied"})}n.run({autoShow:!0,mode:"opt-in",revision:0,categories:{necessary:{enabled:!0,readOnly:!0},analytics:{enabled:!1,readOnly:!1,autoClear:{cookies:[{name:"_ga"},{name:"_ga_*"},{name:"_gid"},{name:"_gat"}]}},marketing:{enabled:!1,readOnly:!1,autoClear:{cookies:[{name:"_fbp"},{name:"_fbc"},{name:"fr"}]}}},language:{default:"he",translations:{he:{consentModal:{title:"אנחנו משתמשים בעוגיות 🍪",description:"ערן סמולר - מנהל פרוייקטים בדיגיטל משתמש בעוגיות כדי לשפר את החוויה שלך, לנתח שימוש באתר ולסייע במאמצי השיווק שלנו.",acceptAllBtn:"אשר הכל",acceptNecessaryBtn:"רק הכרחי",showPreferencesBtn:"נהל העדפות",footer:'<a href="#privacy-policy">מדיניות פרטיות</a> | <a href="#terms-conditions">תנאי שימוש</a>'},preferencesModal:{title:"העדפות עוגיות",acceptAllBtn:"אשר הכל",acceptNecessaryBtn:"רק הכרחי",savePreferencesBtn:"שמור העדפות",closeIconLabel:"סגור",sections:[{title:"עוגיות חיוניות",description:"עוגיות אלה הכרחיות לתפקוד האתר ולא ניתן להשבית אותן.",linkedCategory:"necessary"},{title:"עוגיות ניתוח",description:"עוגיות אלה עוזרות לנו להבין איך המבקרים מתקשרים עם האתר שלנו.",linkedCategory:"analytics"},{title:"עוגיות שיווקיות",description:"עוגיות אלה משמשות להצגת פרסומות מותאמות אישית.",linkedCategory:"marketing"}]}}}},guiOptions:{consentModal:{layout:"box",position:"bottom right",equalWeightButtons:!0,flipButtons:!1},preferencesModal:{layout:"box",equalWeightButtons:!0,flipButtons:!1}}}),o(),"function"==typeof n.onChange&&n.onChange(function(t,e){o()})}catch(r){}}"loading"===document.readyState?(document.addEventListener("DOMContentLoaded",e),setTimeout(e,1e3)):"interactive"===document.readyState||"complete"===document.readyState?e():setTimeout(e,500),"undefined"!=typeof window&&window.addEventListener&&window.addEventListener("load",e,{once:!0})}(),window.onload=function(){try{window.micAccessTool=new MicAccessTool({buttonPosition:"left",forceLang:"he-IL",icon:{position:{bottom:{size:50,units:"px"},left:{size:20,units:"px"},type:"fixed"},backgroundColor:"transparent",color:"transparent",img:"accessible",circular:!1},menu:{dimensions:{width:{size:300,units:"px"},height:{size:"auto",units:"px"}}}})}catch(t){}document.addEventListener("keydown",function(t){var e=t.altKey,n="KeyA"===t.code||65===t.keyCode||65===t.which||t.key&&("a"===t.key.toLowerCase()||"å"===t.key||"Å"===t.key);e&&n&&(window.innerWidth>768&&(t.preventDefault(),t.stopPropagation(),document.body.classList.contains("accessibility-widget-visible")?document.body.classList.remove("accessibility-widget-visible"):(document.body.classList.add("accessibility-widget-visible"),setTimeout(function(){var t=document.getElementById("mic-access-tool-general-button");t&&t.click()},200))))},!0)},function(){function t(){function t(t){return!!t&&(!(!t.hasAttribute||!t.hasAttribute("data-zappy-newsletter"))||(!!("znl-form"===t.id||t.classList&&t.classList.contains("znl-form"))||!(!t.closest||!t.closest(".znl-overlay, [data-zappy-newsletter]"))))}console.log("📧 Zappy: Initializing contact form handler...");const e=function(){const e=[document.querySelector(".contact-form"),document.querySelector('form[action*="contact"]'),document.querySelector("form#contact"),document.querySelector("form#contactForm"),document.getElementById("contactForm"),document.querySelector("section.contact form"),document.querySelector("section#contact form")];for(let n=0;n<e.length;n++)if(e[n]&&!t(e[n]))return e[n];const n=document.querySelectorAll("form");for(let e=0;e<n.length;e++)if(!t(n[e]))return n[e];return null}();if(!e)return void console.log("⚠️ Zappy: No contact form found on page");console.log("✅ Zappy: Contact form found:",e.className||e.id||"unnamed form");const n=e.cloneNode(!0);function o(t,e="info"){document.querySelectorAll(".zappy-notification").forEach(t=>t.remove());const n=document.createElement("div");if(n.className=`zappy-notification zappy-notification--${e}`,n.innerHTML=`\n            <div class="zappy-notification__content">\n                <span class="zappy-notification__icon">\n                    ${"success"===e?"✅":"error"===e?"❌":"ℹ️"}\n                </span>\n                <span class="zappy-notification__message">${t}</span>\n                <button class="zappy-notification__close" onclick="this.parentElement.parentElement.remove()">×</button>\n            </div>\n            `,!document.querySelector("#zappy-notification-styles")){const t=document.createElement("style");t.id="zappy-notification-styles",t.textContent="\n                .zappy-notification {\n                    position: fixed;\n                    top: 20px;\n                    right: 20px;\n                    max-width: 400px;\n                    padding: 16px;\n                    border-radius: 8px;\n                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);\n                    z-index: 10000;\n                    animation: slideInRight 0.3s ease-out;\n                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n                }\n                \n                .zappy-notification--success {\n                    background-color: #d4edda;\n                    border: 1px solid #c3e6cb;\n                    color: #155724;\n                }\n                \n                .zappy-notification--error {\n                    background-color: #f8d7da;\n                    border: 1px solid #f5c6cb;\n                    color: #721c24;\n                }\n                \n                .zappy-notification--info {\n                    background-color: #d1ecf1;\n                    border: 1px solid #bee5eb;\n                    color: #0c5460;\n                }\n                \n                .zappy-notification__content {\n                    display: flex;\n                    align-items: center;\n                    gap: 10px;\n                }\n                \n                .zappy-notification__icon {\n                    font-size: 18px;\n                    flex-shrink: 0;\n                }\n                \n                .zappy-notification__message {\n                    flex: 1;\n                    font-size: 14px;\n                    line-height: 1.4;\n                }\n                \n                .zappy-notification__close {\n                    background: none;\n                    border: none;\n                    font-size: 20px;\n                    cursor: pointer;\n                    padding: 0;\n                    width: 24px;\n                    height: 24px;\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    opacity: 0.7;\n                }\n                \n                .zappy-notification__close:hover {\n                    opacity: 1;\n                }\n                \n                @keyframes slideInRight {\n                    from {\n                        transform: translateX(100%);\n                        opacity: 0;\n                    }\n                    to {\n                        transform: translateX(0);\n                        opacity: 1;\n                    }\n                }\n                \n                .loading {\n                    position: relative;\n                    pointer-events: none;\n                }\n                \n                .loading::after {\n                    content: '';\n                    position: absolute;\n                    width: 16px;\n                    height: 16px;\n                    margin: auto;\n                    border: 2px solid transparent;\n                    border-top-color: currentColor;\n                    border-radius: 50%;\n                    animation: spin 1s linear infinite;\n                    top: 0;\n                    left: 0;\n                    bottom: 0;\n                    right: 0;\n                }\n                \n                @keyframes spin {\n                    0% { transform: rotate(0deg); }\n                    100% { transform: rotate(360deg); }\n                }\n            ",document.head.appendChild(t)}document.body.appendChild(n);setTimeout(()=>{n.parentElement&&(n.style.animation="slideInRight 0.3s ease-out reverse",setTimeout(()=>n.remove(),300))},"error"===e?8e3:5e3)}e.parentNode.replaceChild(n,e),n.addEventListener("submit",async function(t){t.preventDefault();var e=this.querySelector(".privacy-consent-checkbox");if(e&&!e.checked)return o("Please accept the Terms & Conditions and Privacy Policy to continue","error"),void e.focus();const n=new FormData(this),r={};for(const[t,e]of n.entries())void 0!==r[t]?Array.isArray(r[t])?r[t].push(e):r[t]=[r[t],e]:r[t]=e;const a=[].concat(["name","firstName","first_name","fname","lastName","last_name","lname"],["email","emailAddress","mail","e-mail"],["phone","tel","telephone","mobile","cellphone"],["message","msg","comments","comment","description","details","notes","body","text","inquiry"],["subject","topic","regarding","re"]),i=(r.name||"").trim()||[r.firstName||r.first_name||r.fname||"",r.lastName||r.last_name||r.lname||""].filter(Boolean).join(" ").trim()||(r.email||r.emailAddress||r.mail||"").trim()||"Anonymous",s=(r.email||r.emailAddress||r.mail||r["e-mail"]||"").trim(),l=r.phone||r.tel||r.telephone||r.mobile||r.cellphone||null,c=r.subject||r.topic||r.regarding||r.re||"Contact Form Submission";let d=(r.message||r.msg||r.comments||r.comment||r.description||r.details||r.notes||r.body||r.text||r.inquiry||"").trim();if(!d){const t=Object.entries(r).filter(function(t){return!a.includes(t[0])});d=t.length>0?t.map(function(t){return t[0].replace(/([A-Z])/g," $1").replace(/[_-]/g," ").trim()+": "+(Array.isArray(t[1])?t[1].join(", "):t[1])}).join("\n"):"Form submission from "+window.location.pathname}const p={};for(const[t,e]of Object.entries(r))a.includes(t)||""===e||null==e||(p[t]=e);if(!s)return console.error("❌ Validation failed: no email found in form data"),void o("Please fill in all required fields","error");if(!function(t){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t)}(s))return void o("Please enter a valid email address","error");const u=this.querySelector('button[type="submit"]'),m=u.textContent;u.textContent="Sending...",u.disabled=!0,u.classList.add("loading");try{const e=(window.ZAPPY_API_BASE||"https://api.zappy5.com").replace(/\/$/,"")+"/api/email/contact-form";let n=window.location.pathname;if(window.ZAPPY_CONFIG&&window.ZAPPY_CONFIG.currentPagePath)n=window.ZAPPY_CONFIG.currentPagePath;else try{const t=new URLSearchParams(window.location.search).get("page");t&&(n=t)}catch(t){}const r={websiteId:"d1085f80-d166-49a6-827c-f4b6322466b5",name:i,email:s,subject:c,message:d,phone:l,currentPagePath:n};Object.keys(p).length>0&&(r.extraFields=p);const a=await fetch(e,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(r)}),u=await a.json();if(u.success){if(u.thankYouPagePath&&u.ticketNumber){let t;console.log("🎁 Redirecting to thank you page:",u.thankYouPagePath);const e="ticket="+encodeURIComponent(u.ticketNumber);if(window.location.pathname.includes("/preview")&&window.ZAPPY_CONFIG){const n=window.ZAPPY_CONFIG.websiteId||"d1085f80-d166-49a6-827c-f4b6322466b5",o=window.ZAPPY_CONFIG.authToken,r=window.location.origin;t=r+"/api/website/"+(window.location.pathname.includes("fullscreen")?"preview-fullscreen":"preview")+"/"+n+"?page="+encodeURIComponent(u.thankYouPagePath)+"&"+e,o&&(t+="&auth_token="+encodeURIComponent(o))}else t=u.thankYouPagePath+"?"+e;return console.log("📍 Navigating to:",t),void(window.location.href=t)}var y=document.documentElement.lang||"",g="he"===y||"ar"!==y&&"rtl"===document.documentElement.dir?"ההודעה שלך נשלחה בהצלחה! נחזור אליך בהקדם.":"ar"===y?"تم إرسال رسالتك بنجاح! سنرد عليك قريبًا.":"Thank you for your message! We'll get back to you soon.";o(u.message||g,"success"),this.reset(),function(){var t=document.documentElement.lang||"",e="he"===t||"ar"!==t&&"rtl"===document.documentElement.dir;const n=document.createElement("div");if(n.className="zappy-success-modal",n.innerHTML=`\n            <div class="zappy-success-modal__backdrop" onclick="this.parentElement.remove()">\n                <div class="zappy-success-modal__content" onclick="event.stopPropagation()">\n                    <div class="zappy-success-modal__icon">🎉</div>\n                    <h3>${e?"ההודעה נשלחה בהצלחה!":"Message Sent Successfully!"}</h3>\n                    <p>${e?"תודה שפניתם אלינו. קיבלנו את הודעתכם ונחזור אליכם בהקדם האפשרי.":"Thank you for reaching out. We've received your message and will get back to you as soon as possible."}</p>\n                    <button onclick="this.closest('.zappy-success-modal').remove()" class="zappy-success-modal__button">\n                        ${e?"הבנתי!":"Got it!"}\n                    </button>\n                </div>\n            </div>\n        `,!document.querySelector("#zappy-modal-styles")){const t=document.createElement("style");t.id="zappy-modal-styles",t.textContent="\n                .zappy-success-modal {\n                    position: fixed;\n                    top: 0;\n                    left: 0;\n                    width: 100%;\n                    height: 100%;\n                    z-index: 10001;\n                    animation: fadeIn 0.3s ease-out;\n                }\n                \n                .zappy-success-modal__backdrop {\n                    width: 100%;\n                    height: 100%;\n                    background-color: rgba(0,0,0,0.5);\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    padding: 20px;\n                }\n                \n                .zappy-success-modal__content {\n                    background: white;\n                    padding: 40px;\n                    border-radius: 12px;\n                    text-align: center;\n                    max-width: 400px;\n                    width: 100%;\n                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);\n                    animation: slideUp 0.3s ease-out;\n                }\n                \n                .zappy-success-modal__icon {\n                    font-size: 48px;\n                    margin-bottom: 20px;\n                }\n                \n                .zappy-success-modal__content h3 {\n                    margin: 0 0 15px 0;\n                    color: #333;\n                    font-size: 24px;\n                }\n                \n                .zappy-success-modal__content p {\n                    margin: 0 0 25px 0;\n                    color: #666;\n                    line-height: 1.5;\n                }\n                \n                .zappy-success-modal__button {\n                    background: #007bff;\n                    color: white;\n                    border: none;\n                    padding: 12px 24px;\n                    border-radius: 6px;\n                    font-size: 16px;\n                    cursor: pointer;\n                    transition: background-color 0.2s;\n                }\n                \n                .zappy-success-modal__button:hover {\n                    background: #0056b3;\n                }\n                \n                @keyframes fadeIn {\n                    from { opacity: 0; }\n                    to { opacity: 1; }\n                }\n                \n                @keyframes slideUp {\n                    from { transform: translateY(30px); opacity: 0; }\n                    to { transform: translateY(0); opacity: 1; }\n                }\n            ",document.head.appendChild(t)}document.body.appendChild(n),setTimeout(()=>{n.parentElement&&n.remove()},5e3)}()}else{console.error("❌ Server returned error:",u);var f="he"===y||"ar"!==y&&"rtl"===document.documentElement.dir?"שליחת ההודעה נכשלה. אנא נסו שוב.":"ar"===y?"فشل في إرسال الرسالة. يرجى المحاولة مرة أخرى.":"Failed to send message. Please try again.";o(u.error||f,"error")}}catch(t){console.error("❌ Network error:",t),console.error("Failed to connect to:","https://api.zappy5.com/api/email/contact-form"),o("he"===y||"ar"!==y&&"rtl"===document.documentElement.dir?"לא ניתן לשלוח הודעה כרגע. אנא נסו שוב מאוחר יותר או צרו קשר ישירות.":"ar"===y?"لا يمكن إرسال الرسالة الآن. يرجى المحاولة مرة أخرى لاحقًا.":"Unable to send message right now. Please try again later or contact us directly.","error"),function(){const t=document.createElement("div");if(t.className="zappy-fallback-contact",t.innerHTML='\n            <div class="zappy-fallback-contact__content">\n                <h4>Alternative Contact Methods</h4>\n                <p>If you\'re having trouble sending your message, you can also reach us at:</p>\n                <div class="zappy-fallback-contact__methods">\n                    <a href="mailto:support@zappy5.com?subject=Contact Form Issue" class="zappy-fallback-contact__method">\n                        📧 support@zappy5.com\n                    </a>\n                </div>\n                <button onclick="this.parentElement.parentElement.remove()" class="zappy-fallback-contact__close">\n                    Close\n                </button>\n            </div>\n        ',!document.querySelector("#zappy-fallback-styles")){const t=document.createElement("style");t.id="zappy-fallback-styles",t.textContent="\n                .zappy-fallback-contact {\n                    position: fixed;\n                    bottom: 20px;\n                    right: 20px;\n                    max-width: 350px;\n                    background: white;\n                    border: 1px solid #ddd;\n                    border-radius: 8px;\n                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);\n                    z-index: 10000;\n                    animation: slideInUp 0.3s ease-out;\n                }\n                \n                .zappy-fallback-contact__content {\n                    padding: 20px;\n                }\n                \n                .zappy-fallback-contact__content h4 {\n                    margin: 0 0 10px 0;\n                    color: #333;\n                    font-size: 16px;\n                }\n                \n                .zappy-fallback-contact__content p {\n                    margin: 0 0 15px 0;\n                    color: #666;\n                    font-size: 14px;\n                    line-height: 1.4;\n                }\n                \n                .zappy-fallback-contact__methods {\n                    margin-bottom: 15px;\n                }\n                \n                .zappy-fallback-contact__method {\n                    display: block;\n                    padding: 8px 12px;\n                    background: #f8f9fa;\n                    border: 1px solid #e9ecef;\n                    border-radius: 4px;\n                    text-decoration: none;\n                    color: #495057;\n                    font-size: 14px;\n                    transition: background-color 0.2s;\n                }\n                \n                .zappy-fallback-contact__method:hover {\n                    background: #e9ecef;\n                }\n                \n                .zappy-fallback-contact__close {\n                    background: #6c757d;\n                    color: white;\n                    border: none;\n                    padding: 8px 16px;\n                    border-radius: 4px;\n                    font-size: 12px;\n                    cursor: pointer;\n                    float: right;\n                }\n                \n                @keyframes slideInUp {\n                    from {\n                        transform: translateY(100%);\n                        opacity: 0;\n                    }\n                    to {\n                        transform: translateY(0);\n                        opacity: 1;\n                    }\n                }\n            ",document.head.appendChild(t)}document.body.appendChild(t),setTimeout(()=>{t.parentElement&&t.remove()},1e4)}()}finally{u.textContent=m,u.disabled=!1,u.classList.remove("loading")}}),function(){const t=document.getElementById("mobileToggle")||document.querySelector(".mobile-toggle")||document.querySelector(".hamburger"),e=document.getElementById("navMenu")||document.querySelector(".nav-menu")||document.querySelector(".navbar-menu");if(t&&e){t.addEventListener("click",function(t){t.stopPropagation();const n=this.querySelector(".hamburger-icon"),o=this.querySelector(".close-icon");this.classList.contains("active")?(n&&(n.style.display="block"),o&&(o.style.display="none"),this.classList.remove("active"),e.classList.remove("active"),document.body.style.overflow=""):(n&&(n.style.display="none"),o&&(o.style.display="block"),this.classList.add("active"),e.classList.add("active"),document.body.style.overflow="hidden")});e.querySelectorAll("a").forEach(n=>{n.addEventListener("click",function(){const n=t.querySelector(".hamburger-icon"),o=t.querySelector(".close-icon");n&&(n.style.display="block"),o&&(o.style.display="none"),t.classList.remove("active"),e.classList.remove("active"),document.body.style.overflow=""})}),document.addEventListener("click",function(n){if(e.classList.contains("active")&&!e.contains(n.target)&&!t.contains(n.target)){const n=t.querySelector(".hamburger-icon"),o=t.querySelector(".close-icon");n&&(n.style.display="block"),o&&(o.style.display="none"),t.classList.remove("active"),e.classList.remove("active"),document.body.style.overflow=""}}),document.addEventListener("keydown",function(n){if("Escape"===n.key&&e.classList.contains("active")){const n=t.querySelector(".hamburger-icon"),o=t.querySelector(".close-icon");n&&(n.style.display="block"),o&&(o.style.display="none"),t.classList.remove("active"),e.classList.remove("active"),document.body.style.overflow=""}});const n=document.querySelector(".phone-header-btn");n&&n.addEventListener("click",function(){const t=document.querySelectorAll('a[href^="tel:"]'),e=t.length>0?t[0].getAttribute("href").replace("tel:",""):"[business_phone]";window.location.href="tel:"+e})}}(),function(){const t=["[facebook_handle]","[instagram_handle]","[whatsapp_handle]","[twitter_handle]","[linkedin_handle]","[youtube_handle]","[tiktok_handle]","[pinterest_handle]","[social_facebook]","[social instagram]","[social_instagram]","[social whatsapp]","[social_whatsapp]","[social_twitter]","[social_linkedin]","[social_youtube]","[social_tiktok]","[social_pinterest]"];document.querySelectorAll("a[href]").forEach(e=>{const n=e.getAttribute("href");t.some(t=>n&&n.includes(t))&&(e.addEventListener("click",function(t){return t.preventDefault(),t.stopPropagation(),!1}),e.style.cursor="not-allowed",e.style.opacity="0.6",e.setAttribute("aria-disabled","true"),e.setAttribute("title","Social media link not configured"),e.removeAttribute("target"),e.removeAttribute("rel"))})}()}window.zappyContactFormLoaded?console.log("📧 Zappy contact form already loaded"):(window.zappyContactFormLoaded=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t):t())}(),function(){try{if(window.__zappyPublishedLightboxInit)return;function t(t){try{return String(t||"").replace(/"/g,"&quot;")}catch(t){return""}}function e(e){try{if(!e||!e.id)return;if(0!==e.id.indexOf("zappy-lightbox-toggle-"))return;var n=e.id.replace("zappy-lightbox-toggle-",""),o=document.querySelector('label.zappy-lightbox-trigger[for="'+e.id+'"]');if(!o)return;try{o.contains(e)&&o.parentNode&&o.parentNode.insertBefore(e,o)}catch(l){}var r="zappy-lightbox-"+n,a=document.getElementById(r);if(a&&a.parentNode!==document.body)try{document.body.appendChild(a)}catch(c){}if(!a){var i=null;try{i=o.querySelector("img")}catch(d){}if(!i)try{i=document.querySelector('img[data-element-id="'+n+'"]')}catch(p){}if(!i)return;(a=document.createElement("div")).id=r,a.className="zappy-lightbox",a.setAttribute("data-zappy-image-lightbox","true"),a.style.display="none",a.innerHTML='<label class="zappy-lightbox-backdrop" for="'+e.id+'" aria-label="Close"></label><div class="zappy-lightbox-content"><label class="zappy-lightbox-close" for="'+e.id+'" aria-label="Close">×</label><img class="zappy-lightbox-image" src="'+t(i.currentSrc||i.src||i.getAttribute("src"))+'" alt="'+t(i.getAttribute("alt")||"Image")+'"></div>',document.body.appendChild(a)}function s(){try{var t=o.querySelector("img"),e=a.querySelector("img");t&&e&&(e.src=t.currentSrc||t.src||e.src,e.alt=t.alt||e.alt)}catch(t){}}e.__zappyLbBound||(e.addEventListener("change",function(){e.checked&&s(),a.style.display=e.checked?"flex":"none"}),e.__zappyLbBound=!0),a.__zappyLbBound||(a.addEventListener("click",function(t){try{var n=t.target;if(!n)return;n.classList&&(n.classList.contains("zappy-lightbox-backdrop")||n.classList.contains("zappy-lightbox-close"))&&(t.preventDefault(),e.checked=!1,a.style.display="none")}catch(t){}}),a.__zappyLbBound=!0),o.__zappyLbClick||(o.addEventListener("click",function(t){try{if(document.body&&document.body.classList&&document.body.classList.contains("zappy-edit-mode"))return;if(t&&t.target&&t.target.closest&&t.target.closest("a[href],button,input,select,textarea"))return;t.preventDefault(),t.stopPropagation(),e.checked=!0,s(),a.style.display="flex"}catch(t){}},!0),o.__zappyLbClick=!0)}catch(u){}}function n(){try{!function(){try{var t=document.head||document.querySelector("head");if(!t||t.querySelector('style[data-zappy-image-lightbox="true"]'))return;var e=document.createElement("style");e.setAttribute("data-zappy-image-lightbox","true"),e.textContent='.zappy-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px;}.zappy-lightbox-content{position:relative;max-width:min(1100px,92vw);max-height:92vh;}.zappy-lightbox-content img{max-width:92vw;max-height:92vh;display:block;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.45);}.zappy-lightbox-close{position:absolute;top:-14px;right:-14px;width:32px;height:32px;border-radius:999px;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 8px 24px rgba(0,0,0,.25);cursor:pointer;}.zappy-lightbox-backdrop{position:absolute;inset:0;display:block;cursor:pointer;}input.zappy-lightbox-toggle{position:absolute;opacity:0;pointer-events:none;}label.zappy-lightbox-trigger{display:contents;}label.zappy-lightbox-trigger{cursor:zoom-in;}label.zappy-lightbox-trigger [data-zappy-zoom-wrapper="true"],label.zappy-lightbox-trigger img{cursor:zoom-in !important;}input.zappy-lightbox-toggle:checked + label.zappy-lightbox-trigger + .zappy-lightbox{display:flex;}',t.appendChild(e)}catch(t){}}();for(var t=document.querySelectorAll('label.zappy-lightbox-trigger[for^="zappy-lightbox-toggle-"]'),n=0;n<t.length;n++){var o=t[n],r=o&&o.getAttribute?o.getAttribute("for"):null;if(r&&!document.getElementById(r)){var a=document.createElement("input");a.type="checkbox",a.id=r,a.className="zappy-lightbox-toggle",a.setAttribute("data-zappy-image-lightbox","true"),o.parentNode&&o.parentNode.insertBefore(a,o)}}for(var i=document.querySelectorAll('input.zappy-lightbox-toggle[id^="zappy-lightbox-toggle-"]'),s=0;s<i.length;s++)e(i[s]);document.__zappyLbEscBound||(document.addEventListener("keydown",function(t){try{if(!t||"Escape"!==t.key)return;var e=document.querySelector('.zappy-lightbox[style*="display: flex"]');if(e){var n=null;try{var o=e.id||"";0===o.indexOf("zappy-lightbox-")&&(n=document.getElementById("zappy-lightbox-toggle-"+o.replace("zappy-lightbox-","")))}catch(t){}n&&(n.checked=!1),e.style.display="none"}}catch(t){}}),document.__zappyLbEscBound=!0)}catch(t){}}window.__zappyPublishedLightboxInit=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n,{once:!0}):n()}catch(o){}}(),function(){try{if(window.__zappyPublishedZoomInit)return;function t(t){var e=t.querySelector("img");if(e&&("true"===e.getAttribute("data-hero-bg")||"true"===e.getAttribute("data-hero-background")))return!0;var n=(t.style.position||"").replace(/\s*!important\s*/g,"").trim(),o=(t.style.width||"").replace(/\s*!important\s*/g,"").trim(),r=(t.style.height||"").replace(/\s*!important\s*/g,"").trim();return"absolute"===n&&"100%"===o&&"100%"===r}function e(t){var e=50,n=50;try{if("string"==typeof t){var o=t.match(/(-?\d+(?:\.\d+)?)%\s+(-?\d+(?:\.\d+)?)%/);o&&(e=parseFloat(o[1]),n=parseFloat(o[2]))}}catch(t){}return isFinite(e)||(e=50),isFinite(n)||(n=50),{x:Math.max(0,Math.min(100,e)),y:Math.max(0,Math.min(100,n))}}function n(t,e){return!isFinite(t)||t<=0||!isFinite(e)||e<=0?{w:100,h:100}:t>=e?{w:t/e*100,h:100}:{w:100,h:e/t*100}}function o(o,r){var a=parseFloat(r.getAttribute("data-zappy-zoom"))||1;if(a>0||(a=1),"full"!==o.getAttribute("data-zappy-zoom-wrapper-width-mode")&&!t(o)){if(window.innerWidth<=768){var i=r.getAttribute("data-zappy-mobile-src"),s=r.getAttribute("data-zappy-mobile-object-position"),l=r.getAttribute("data-zappy-mobile-zoom"),c=parseFloat(l);i&&(r.src=i),o.style.setProperty("width","100%","important"),o.style.setProperty("max-width","100%","important"),o.style.setProperty("overflow","hidden","important"),o.style.setProperty("position","relative","important");var d=parseFloat(o.getAttribute("data-zappy-zoom-wrapper-width"))||0,p=parseFloat(o.getAttribute("data-zappy-zoom-wrapper-height"))||0;function u(t,o,r,a){var i=o.getBoundingClientRect();if(i&&i.width&&i.height){var s=t.naturalWidth||0,l=t.naturalHeight||0;if(s>0&&l>0){var c=n(s/l,i.width/i.height),d=100,p=100;if(a>=1)d=c.w*a,p=c.h*a;else{var u=(a-.5)/.5;isFinite(u)||(u=0),d=100+(u=Math.max(0,Math.min(1,u)))*(c.w-100),p=100+u*(c.h-100)}var m=e(r),y=(100-d)*(m.x/100),g=(100-p)*(m.y/100);t.style.setProperty("position","absolute","important"),t.style.setProperty("left",y+"%","important"),t.style.setProperty("top",g+"%","important"),t.style.setProperty("width",d+"%","important"),t.style.setProperty("height",p+"%","important"),t.style.setProperty("max-width","none","important"),t.style.setProperty("max-height","none","important"),t.style.setProperty("display","block","important"),t.style.setProperty("object-fit",a<1?"fill":"cover","important"),t.style.setProperty("margin","0","important")}}}d>0&&p>0&&(o.style.setProperty("padding-bottom","0","important"),o.style.setProperty("aspect-ratio",d+"/"+p,"important"),o.style.setProperty("height","auto","important"));var m=isFinite(c)&&c>0?c:a,y=s||r.getAttribute("data-zappy-object-position")||r.style.objectPosition||"50% 50%";return void(d>0&&p>0?(u(r,o,y,m),r.complete&&r.naturalWidth>0||r.addEventListener("load",function t(){r.removeEventListener("load",t);try{u(r,o,y,m)}catch(t){}})):(r.style.setProperty("position","relative","important"),r.style.setProperty("width","100%","important"),r.style.setProperty("height","auto","important"),r.style.setProperty("max-width","100%","important"),r.style.setProperty("display","block","important"),r.style.setProperty("object-fit","cover","important"),r.style.removeProperty("left"),r.style.removeProperty("top"),r.style.setProperty("margin","0","important")))}if(1===a)return o.style.setProperty("overflow","hidden","important"),o.style.setProperty("position","relative","important"),r.style.setProperty("position","absolute","important"),r.style.setProperty("width","100%","important"),r.style.setProperty("height","100%","important"),r.style.setProperty("left","0%","important"),r.style.setProperty("top","0%","important"),r.style.setProperty("max-width","none","important"),r.style.setProperty("max-height","none","important"),r.style.setProperty("object-fit","cover","important"),r.style.setProperty("display","block","important"),void r.style.setProperty("margin","0","important");var g=(r.style.position||"").replace(/s*!importants*/g,"").trim(),f=(r.style.width||"").replace(/s*!importants*/g,"").trim();if("absolute"===g&&-1!==f.indexOf("%")&&a>1)return o.style.setProperty("overflow","hidden","important"),void o.style.setProperty("position","relative","important");var h=o.getBoundingClientRect();if(h&&h.width&&h.height){var v=r.naturalWidth||0,b=r.naturalHeight||0;if(v>0&&b>0){var w=n(v/b,h.width/h.height),x=100,k=100;if(a>=1)x=w.w*a,k=w.h*a;else{var z=(a-.5)/.5;isFinite(z)||(z=0),x=100+(z=Math.max(0,Math.min(1,z)))*(w.w-100),k=100+z*(w.h-100)}var S=e(r.getAttribute("data-zappy-object-position")||r.style.objectPosition||window.getComputedStyle(r).objectPosition||"50% 50%"),L=(100-x)*(S.x/100),P=(100-k)*(S.y/100);r.style.setProperty("position","absolute","important"),r.style.setProperty("left",L+"%","important"),r.style.setProperty("top",P+"%","important"),r.style.setProperty("width",x+"%","important"),r.style.setProperty("height",k+"%","important"),r.style.setProperty("max-width","none","important"),r.style.setProperty("max-height","none","important"),r.style.setProperty("display","block","important"),r.style.setProperty("object-fit",a<1?"fill":"cover","important"),r.style.setProperty("margin","0","important")}}}}function r(e){var n=e.getAttribute("data-zappy-zoom-wrapper-width-mode")||"px";if("full"!==n&&"grid-responsive"!==n&&!t(e)){var o=e.getAttribute("data-zappy-zoom-wrapper-width"),r=e.getAttribute("data-zappy-zoom-wrapper-height");if(o||r){if("px"===n&&o){var a=(e.style.width||"").replace(/s*!importants*/g,"").trim(),i=o.replace(/s*!importants*/g,"").trim();a&&"100%"!==a&&-1===a.indexOf("%")&&a===i||(e.style.setProperty("width",o,"important"),e.style.setProperty("max-width","100%","important"))}if(r){var s=(e.style.height||"").replace(/s*!importants*/g,"").trim(),l=r.replace(/s*!importants*/g,"").trim();s&&"auto"!==s&&"100%"!==s&&-1===s.indexOf("%")&&s===l||e.style.setProperty("height",r,"important")}e.style.setProperty("overflow","hidden","important"),e.style.setProperty("position","relative","important")}}}function a(e){if(t(e)){e.style.setProperty("position","absolute","important"),e.style.setProperty("top","0","important"),e.style.setProperty("left","0","important"),e.style.setProperty("width","100%","important"),e.style.setProperty("height","100%","important"),e.style.setProperty("max-width","none","important"),e.style.setProperty("overflow","hidden","important"),e.setAttribute("data-zappy-zoom-wrapper-width-mode","full");var n=e.querySelector("img");if(n&&(n.style.setProperty("width","100%","important"),n.style.setProperty("height","100%","important"),n.style.setProperty("object-fit","cover","important"),n.style.setProperty("position","relative","important"),n.style.setProperty("top","0","important"),n.style.setProperty("left","0","important"),n.style.setProperty("max-width","none","important"),n.style.setProperty("max-height","none","important"),n.style.setProperty("display","block","important"),window.innerWidth<=768)){var o=n.getAttribute("data-zappy-mobile-src"),r=n.getAttribute("data-zappy-mobile-object-position"),a=parseFloat(n.getAttribute("data-zappy-mobile-zoom"));o&&(n.src=o),r&&n.style.setProperty("object-position",r,"important"),a>1&&(n.style.setProperty("transform","scale("+a+")","important"),n.style.setProperty("transform-origin",r||"50% 50%","important"))}}}function i(){for(var t=document.querySelectorAll('[data-zappy-zoom-wrapper="true"]'),e=0;e<t.length;e++)(function(t){var e=t.querySelector("img");e&&(t.closest&&t.closest(".zappy-carousel-js-init, .zappy-carousel-active")||(a(t),window.innerWidth>768&&r(t),e.complete&&e.naturalWidth>0?setTimeout(function(){o(t,e)},0):e.addEventListener("load",function n(){e.removeEventListener("load",n),o(t,e)},{once:!0})))})(t[e]);!function(){if(!(window.innerWidth>768))for(var t=document.querySelectorAll("img[data-zappy-zoom]"),e=0;e<t.length;e++){var n=t[e];n.closest&&n.closest('[data-zappy-zoom-wrapper="true"]')||(n.style.setProperty("position","relative","important"),n.style.setProperty("width","100%","important"),n.style.setProperty("height","auto","important"),n.style.setProperty("max-width","100%","important"),n.style.setProperty("max-height","300px","important"),n.style.setProperty("object-fit","cover","important"),n.style.removeProperty("left"),n.style.removeProperty("top"))}}()}window.__zappyPublishedZoomInit=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",i,{once:!0}):setTimeout(i,50)}catch(s){}}(),function(){try{if(window.__zappyMobileMenuToggleInit)return;function t(){var t=document.querySelector(".mobile-toggle, #mobileToggle"),e=document.querySelector("#navMenu, .nav-menu, .navbar-menu");t&&e&&(t.__zappyMobileToggleBound||(t.__zappyMobileToggleBound=!0,t.addEventListener("click",function(n){n.preventDefault(),n.stopPropagation();var o=t.querySelector(".hamburger-icon"),r=t.querySelector(".close-icon");e.classList.contains("active")||"block"===e.style.display?(e.classList.remove("active"),e.style.display="",o&&o.style.setProperty("display","block","important"),r&&r.style.setProperty("display","none","important"),document.body.style.overflow=""):(e.classList.add("active"),e.style.display="block",o&&o.style.setProperty("display","none","important"),r&&r.style.setProperty("display","block","important"),document.body.style.overflow="hidden")},!0),document.addEventListener("click",function(n){if(e.classList.contains("active")&&!t.contains(n.target)&&!e.contains(n.target)){e.classList.remove("active"),e.style.display="";var o=t.querySelector(".hamburger-icon"),r=t.querySelector(".close-icon");o&&o.style.setProperty("display","block","important"),r&&r.style.setProperty("display","none","important"),document.body.style.overflow=""}}),document.addEventListener("keydown",function(n){if("Escape"===n.key&&e.classList.contains("active")){e.classList.remove("active"),e.style.display="";var o=t.querySelector(".hamburger-icon"),r=t.querySelector(".close-icon");o&&o.style.setProperty("display","block","important"),r&&r.style.setProperty("display","none","important"),document.body.style.overflow=""}}),e.querySelectorAll("a").forEach(function(n){n.addEventListener("click",function(){e.classList.remove("active"),e.style.display="";var n=t.querySelector(".hamburger-icon"),o=t.querySelector(".close-icon");n&&n.style.setProperty("display","block","important"),o&&o.style.setProperty("display","none","important"),document.body.style.overflow=""})})))}function e(){var t=document.querySelector(".phone-header-btn");t&&!t.__zappyPhoneBound&&(t.__zappyPhoneBound=!0,t.addEventListener("click",function(){var e=t.getAttribute("data-phone")||null;if(!e){var n=document.querySelectorAll('a[href^="tel:"]');n.length>0&&(e=n[0].getAttribute("href").replace("tel:",""))}if(!e)for(var o=document.querySelectorAll("a[href]"),r=0;r<o.length;r++){var a=(o[r].getAttribute("href")||"").replace(/[-\s()]/g,"");if(/^(\+?\d{9,15}|0\d{8,9})$/.test(a)){e=a;break}}e&&-1===e.indexOf("[")&&(window.location.href="tel:"+e)}))}window.__zappyMobileMenuToggleInit=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",function(){t(),e()},{once:!0}):(t(),e())}catch(n){}}(),function(){try{if(window.__zappyFaqToggleInit)return;window.__zappyFaqToggleInit=!0;var t='[class*="faq-answer"], [class*="faq-content"], [class*="faq-body"], .accordion-content, .accordion-body';function e(){var e=document.querySelectorAll('[class*="faq-item"], .accordion-item');e.length&&(e.forEach(function(e){var n=e.querySelector('[class*="faq-question"], [class*="faq-header"], .accordion-header, .accordion-toggle');n&&(n.__zappyFaqBound||(n.__zappyFaqBound=!0,n.style.cursor="pointer",n.addEventListener("click",function(o){o.preventDefault(),o.stopPropagation();var r=e.parentElement;r&&r.querySelectorAll('[class*="faq-item"], .accordion-item').forEach(function(n){if(n!==e&&n.classList.contains("active")){n.classList.remove("active");var o=n.querySelector('[class*="faq-question"], [class*="faq-header"], .accordion-header');o&&o.setAttribute("aria-expanded","false");var r=n.querySelector(t);r&&(r.style.maxHeight="0",r.style.overflow="hidden",r.style.opacity="0",r.style.paddingTop="0",r.style.paddingBottom="0")}});var a=e.classList.toggle("active");n.setAttribute("aria-expanded",a?"true":"false");var i=e.querySelector(t);i&&(i.style.transition="max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease",a?(i.style.display="",i.style.maxHeight=i.scrollHeight+"px",i.style.overflow="hidden",i.style.opacity="1",i.style.paddingTop="",i.style.paddingBottom=""):(i.style.maxHeight="0",i.style.overflow="hidden",i.style.opacity="0",i.style.paddingTop="0",i.style.paddingBottom="0"));var s=n.querySelector('[class*="chevron"], [class*="icon"], svg');s&&(s.style.transform=a?"rotate(180deg)":"rotate(0deg)",s.style.transition="transform 0.3s ease")})))}),e.forEach(function(e){if(!e.classList.contains("active")){var n=e.querySelector(t);n&&(n.style.maxHeight="0",n.style.overflow="hidden",n.style.opacity="0",n.style.paddingTop="0",n.style.paddingBottom="0",n.style.transition="max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease")}}))}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",e,{once:!0}):e()}catch(n){}}(),function(){try{if(window.__zappyNavScrollPaddingInit)return;function t(){var t=document.querySelector("nav.navbar")||document.querySelector("nav")||document.querySelector("header");if(t){var e=window.getComputedStyle(t);if("fixed"===e.position||"sticky"===e.position){var n=t.offsetHeight;n>0&&(document.documentElement.style.scrollPaddingTop=n+"px")}}}window.__zappyNavScrollPaddingInit=!0,"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t,{once:!0}):t(),window.addEventListener("resize",t,{passive:!0})}catch(e){}}(),function(){try{var t=["contact","booking","inquiry","enquiry","register","signup","sign-up","order","request","apply"];function e(t,e,n){var o=t.querySelector(".zappy-form-feedback");o&&o.remove();var r="success"===n?"#d4edda":"error"===n?"#f8d7da":"#d1ecf1",a="success"===n?"#155724":"error"===n?"#721c24":"#0c5460",i="success"===n?"#c3e6cb":"error"===n?"#f5c6cb":"#bee5eb",s="success"===n?"✅":"error"===n?"❌":"ℹ️",l=document.createElement("div");if(l.className="zappy-form-feedback",l.setAttribute("role","alert"),l.style.cssText="padding:14px 18px;border-radius:8px;margin:12px 0 0;font-size:14px;line-height:1.5;background:"+r+";color:"+a+";border:1px solid "+i+";text-align:center;font-family:inherit;",l.innerHTML='<span style="margin-inline-end:6px">'+s+"</span>"+e,"success"===n){t.reset();for(var c=t.children,d=0;d<c.length;d++)c[d]!==l&&(c[d].style.display="none");t.appendChild(l),l.style.cssText+="padding:32px 24px;font-size:16px;"}else{var p=t.querySelector('button[type="submit"],input[type="submit"]');p?p.parentNode.insertBefore(l,p.nextSibling):t.appendChild(l),setTimeout(function(){l.parentElement&&l.remove()},8e3)}}var n=[].concat(["name","firstName","first_name","fname","lastName","last_name","lname"],["email","emailAddress","mail","e-mail"],["phone","tel","telephone","mobile","cellphone"],["message","msg","comments","comment","description","details","notes","body","text","inquiry"],["subject","topic","regarding","re"]);document.addEventListener("submit",function(o){var r=o.target;if(r&&"FORM"===r.tagName&&function(e){var n=(e.className||"").toLowerCase(),o=(e.id||"").toLowerCase(),r=(e.getAttribute("action")||"").toLowerCase();if(t.some(function(t){return-1!==n.indexOf(t)||-1!==o.indexOf(t)||-1!==r.indexOf(t)}))return!0;var a=e.closest&&e.closest("section");if(a){var i=(a.className||"").toLowerCase(),s=(a.id||"").toLowerCase();if(t.some(function(t){return-1!==i.indexOf(t)||-1!==s.indexOf(t)}))return!0;if(-1!==i.indexOf("form-section")||-1!==i.indexOf("form_section"))return!0}if(window.zappyContactFormLoaded){for(var l=e.querySelectorAll("input,textarea,select"),c=!1,d=!1,p=0,u=0;u<l.length;u++){var m=l[u],y=(m.type||"").toLowerCase(),g=(m.name||"").toLowerCase();"hidden"!==y&&"submit"!==y&&"button"!==y&&"reset"!==y&&(p++,"email"!==y&&-1===g.indexOf("email")&&-1===g.indexOf("mail")||(c=!0),"password"===y&&(d=!0))}if(c&&p>=2&&!d)return!0}return!1}(r)){o.preventDefault(),o.stopPropagation();var a=r.submit;if(r.submit=function(){},!r.__zappySubmitting){r.__zappySubmitting=!0;var i=r.querySelector(".zappy-form-feedback");i&&i.remove();var s=r.querySelector('button[type="submit"],input[type="submit"]'),l=s?s.value||s.textContent:"";s&&("INPUT"===s.tagName?s.value="Sending...":s.textContent="Sending...",s.disabled=!0);var c=new FormData(r),d={};for(var p of c.entries())void 0!==d[p[0]]?Array.isArray(d[p[0]])?d[p[0]].push(p[1]):d[p[0]]=[d[p[0]],p[1]]:d[p[0]]=p[1];var u=(d.name||"").trim()||[d.firstName||d.first_name||d.fname||"",d.lastName||d.last_name||d.lname||""].filter(Boolean).join(" ").trim()||(d.email||d.emailAddress||d.mail||"").trim()||"Anonymous",m=(d.email||d.emailAddress||d.mail||d["e-mail"]||"").trim(),y=d.phone||d.tel||d.telephone||d.mobile||d.cellphone||null,g=d.subject||d.topic||d.regarding||d.re||"Contact Form Submission",f=(d.message||d.msg||d.comments||d.comment||d.description||d.details||d.notes||d.body||d.text||d.inquiry||"").trim();if(!f){var h=Object.entries(d).filter(function(t){return-1===n.indexOf(t[0])});f=h.length>0?h.map(function(t){return t[0].replace(/([A-Z])/g," $1").replace(/[_-]/g," ").trim()+": "+(Array.isArray(t[1])?t[1].join(", "):t[1])}).join("\n"):"Form submission from "+window.location.pathname}var v={};Object.keys(d).forEach(function(t){-1===n.indexOf(t)&&""!==d[t]&&null!=d[t]&&(v[t]=d[t])});var b=window.location.pathname;try{var w=new URLSearchParams(window.location.search).get("page");w&&(b=w)}catch(t){}var x=(window.ZAPPY_API_BASE||"https://api.zappy5.com").replace(/\/$/,"");x+="/api/email/contact-form";var k={websiteId:"d1085f80-d166-49a6-827c-f4b6322466b5",name:u,email:m,subject:g,message:f,phone:y,currentPagePath:b};Object.keys(v).length>0&&(k.extraFields=v),fetch(x,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(k)}).then(function(t){return t.json()}).then(function(t){if(t.success){if(t.thankYouPagePath&&t.ticketNumber)return void(window.location.href=t.thankYouPagePath+"?ticket="+encodeURIComponent(t.ticketNumber));e(r,t.message||"Thank you! We will get back to you soon.","success")}else e(r,t.error||"Failed to send. Please try again.","error")}).catch(function(){e(r,"Unable to send message right now. Please try again later.","error")}).finally(function(){r.__zappySubmitting=!1,r.submit=a,s&&("INPUT"===s.tagName?s.value=l:s.textContent=l,s.disabled=!1)})}}},!0)}catch(o){}}(),function(){try{if(window.__zappyGridCenteringInit)return;function t(){for(var t=document.querySelectorAll('[data-zappy-explicit-columns="true"], [data-zappy-auto-grid="true"]'),e=0;e<t.length;e++)try{var n=t[e];if("true"===n.getAttribute("data-zappy-grid-centered")){for(var o=Array.from(n.children),r=0;r<o.length;r++)o[r].getAttribute&&"1"===o[r].getAttribute("data-zappy-gc")&&(o[r].style.transform=o[r].getAttribute("data-zappy-gc-orig")||"",o[r].removeAttribute("data-zappy-gc"),o[r].removeAttribute("data-zappy-gc-orig"));n.removeAttribute("data-zappy-grid-centered")}for(var a=[],i=0;i<n.children.length;i++){var s=n.children[i];if(s&&s.tagName){var l=s.tagName.toLowerCase();if("script"!==l&&"style"!==l&&"true"!==s.getAttribute("aria-hidden")&&"true"!==s.getAttribute("data-zappy-internal")){var c=window.getComputedStyle(s).position;"absolute"!==c&&"fixed"!==c&&a.push(s)}}}var d=a.length;if(0===d)continue;var p=window.getComputedStyle(n);if("grid"!==p.display)continue;var u=(p.gridTemplateAreas||"").trim();if(u&&"none"!==u)continue;var m=(p.gridTemplateColumns||"").trim();if(!m||"none"===m)continue;var y=m.split(" ").filter(function(t){return t&&parseFloat(t)>0}),g=y.length;if(g<=1)continue;var f=d%g;if(0===f)continue;var h=parseFloat(y[0])||0,v=parseFloat(p.columnGap);isNaN(v)&&(v=parseFloat(p.gap)||0);for(var b=(g-f)*(h+v)/2,w="rtl"===(p.direction||"ltr")?-b:b,x=d-f,k=[],z=x;z<d;z++){var S=a[z];k.push(S.style.transition),S.style.transition="none";var L=S.style.transform||"";S.setAttribute("data-zappy-gc-orig",L);var P=L?L+" translateX("+w+"px)":"translateX("+w+"px)";S.style.transform=P,S.setAttribute("data-zappy-gc","1")}n.offsetHeight;for(var C=x;C<d;C++)a[C].style.transition=k[C-x];n.setAttribute("data-zappy-grid-centered","true")}catch(t){}}window.__zappyGridCenteringInit=!0,"complete"===document.readyState?t():window.addEventListener("load",t);try{new MutationObserver(function(){t()}).observe(document.documentElement,{attributes:!0,attributeFilter:["dir"]})}catch(e){}}catch(n){}}(),function(){try{if(window.__zappyContentAlignInit)return;window.__zappyContentAlignInit=!0;var t={top:-.5,upper:-.25,center:0,lower:.25,bottom:.5},e={left:-.5,"mid-left":-.25,center:0,"mid-right":.25,right:.5};function n(){for(var t=document.querySelectorAll("[data-zappy-content-align]"),e=0;e<t.length;e++)try{o(t[e])}catch(t){}}function o(n){var o=n.querySelector("[data-zappy-align-target]");if(o){var r=n.getAttribute("data-zappy-content-align")||"center-center",a=r.indexOf("-");if(-1!==a){var i=r.substring(0,a)||"center",s=r.substring(a+1)||"center";n.id||(n.id="zappy-section-"+Date.now()+"-"+Math.random().toString(36).substr(2,6));var l="#"+n.id,c=n.querySelector("style[data-zappy-align-style]");c&&c.remove();var d=window.getComputedStyle(o),p="flex"===d.display||"inline-flex"===d.display,u=("column"===d.flexDirection||d.flexDirection,n.getBoundingClientRect()),m=u.width||n.offsetWidth||0,y=u.height||n.offsetHeight||0,g=o.style.cssText;o.style.setProperty("width","fit-content","important"),o.style.setProperty("height","auto","important"),o.style.setProperty("min-height","0","important"),o.style.setProperty("max-height","none","important"),o.style.setProperty("align-self","flex-start","important"),o.style.setProperty("flex","none","important");var f=o.getBoundingClientRect(),h=f.width||0,v=f.height||0;o.style.cssText=g;var b=Math.max(0,m-h),w=Math.max(0,y-v),x=Math.round((e[s]||0)*b),k=Math.round((t[i]||0)*w),z=[];z.push("margin:auto!important"),0===x&&0===k||z.push("transform:translate("+x+"px,"+k+"px)!important"),p?(z.push("align-items:center!important"),z.push("justify-content:center!important")):(z.push("display:flex!important"),z.push("flex-direction:column!important"),z.push("align-items:center!important"));var S=["justify-content:center!important"];p||"center"===s||(S.push("min-width:33.33%!important"),S.push("text-align:start!important"));var L="";0===x&&0===k||(L+=l+"{overflow:hidden!important}"),L+=l+">[data-zappy-align-target]{"+z.join(";")+"}",L+=l+">[data-zappy-align-target]>*{"+S.join(";")+"}",L+="@media(max-width:768px){"+l+">[data-zappy-align-target]{align-items:center!important;margin-left:auto!important;margin-right:auto!important;"+(0!==k?"transform:translateY("+k+"px)!important":"transform:none!important")+"}"+l+">[data-zappy-align-target]>*{margin-left:auto!important;margin-right:auto!important}}";var P=document.createElement("style");P.setAttribute("data-zappy-align-style","true"),P.textContent=L,n.insertBefore(P,n.firstChild)}}}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n):n();var r=null;window.addEventListener("resize",function(){clearTimeout(r),r=setTimeout(n,200)}),window.addEventListener("orientationchange",function(){clearTimeout(r),r=setTimeout(n,200)})}catch(a){}}(),function(){function t(){document.querySelectorAll("section").forEach(function(t){if(!t.id){var e=(t.className||"").split(/\s+/)[0];e&&!document.getElementById(e)&&(t.id=e)}})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t,{once:!0}):t()}(),function(){function t(){document.querySelectorAll(".sub-menu, .dropdown-menu").forEach(function(t){for(var e=!1,n=0;n<t.children.length;n++)if("none"!==window.getComputedStyle(t.children[n]).display){e=!0;break}t.classList.toggle("zappy-empty-submenu",!e)})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t,{once:!0}):t()}(),function(){try{function t(){var t=/\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt|csv|rtf|odt|ods|odp)(\?|$)/i;document.querySelectorAll('a[target="_blank"]').forEach(function(e){var n=e.getAttribute("href");n&&-1===n.indexOf("://")&&0!==n.indexOf("mailto:")&&0!==n.indexOf("tel:")&&(t.test(n)||(e.removeAttribute("target"),e.removeAttribute("rel")))})}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t):t()}catch(e){}}(),function(){try{if(window.__zappyIosViewportGapInit)return;function t(){try{var t=window.innerWidth,e=document.documentElement.clientWidth,n=Math.max(0,(t||0)-(e||0));document.documentElement.style.setProperty("--ios-viewport-gap",n+"px");var o=document.querySelector("nav.navbar, .navbar, header nav, header.navbar");if(o){var r=o.getBoundingClientRect(),a=Math.round(r.bottom);a>0&&document.documentElement.style.setProperty("--zappy-navbar-bottom",a+"px")}}catch(t){}}window.__zappyIosViewportGapInit=!0,t(),window.addEventListener("resize",t,{passive:!0}),window.addEventListener("orientationchange",t,{passive:!0}),window.visualViewport&&window.visualViewport.addEventListener("resize",t),document.addEventListener("DOMContentLoaded",t),window.addEventListener("load",t),setTimeout(t,250),setTimeout(t,1e3)}catch(e){}}(),function(){"use strict";function t(){if(window.innerWidth>768){var t=document.querySelector(".mobile-toggle"),e=document.querySelector(".phone-header-btn");t&&(t.style.removeProperty("position"),t.style.removeProperty("top"),t.style.removeProperty("transform"),t.style.removeProperty("z-index"),t.style.removeProperty("left"),t.style.removeProperty("right")),e&&(e.style.removeProperty("position"),e.style.removeProperty("top"),e.style.removeProperty("transform"),e.style.removeProperty("z-index"),e.style.removeProperty("left"),e.style.removeProperty("right")),console.log("📦 [00-config] Cleared mobile navbar inline styles on desktop")}}var e;"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t):t(),window.addEventListener("load",t),window.addEventListener("resize",t),(e=document.createElement("style")).id="zappy-layout-norm",e.textContent="section.layout-section { overflow: hidden; }",document.head.appendChild(e),function(){function t(){try{for(var t=document.querySelectorAll(".zappy-inserted-element"),e=0;e<t.length;e++){var n=t[e],o=n.getAttribute("style")||"";if(-1!==o.indexOf("display: flex")||-1!==o.indexOf("display:flex"))if(-1===o.indexOf("flex-direction"))n.querySelector(".zappy-inserted-element")&&(n.style.flexDirection="column",n.style.alignItems="center")}}catch(t){}}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t):t()}(),function(){if(!document.getElementById("zappy-variant-visual-css")){var t=document.createElement("style");t.id="zappy-variant-visual-css",t.textContent=".variant-option.disabled { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }.variant-option.disabled::after, .variant-option.disabled::before { content: none !important; }.variant-option.color-swatch.disabled { text-decoration: none !important; }.variant-option.out-of-stock { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }.variant-option.out-of-stock::after, .variant-option.out-of-stock::before { content: none !important; }.variant-option.color-swatch.out-of-stock { text-decoration: none !important; }",document.head.appendChild(t)}var e=!1;function n(){e||("function"==typeof window.initVariantSelection&&(e=!0),window.initVariantSelection=function(t,e){if(t&&t.variants&&t.variants.length>0){r=t;var n=e||{};if(!n.pleaseSelect){var o="rtl"===document.documentElement.getAttribute("dir")||"rtl"===document.body.getAttribute("dir");n.pleaseSelect=o?"נא לבחור":"Please select"}a=n,setTimeout(function(){try{u()}catch(t){}},0)}})}n();var o={},r=null,a={};function i(){return r?(r.variants||[]).filter(function(t){return!1!==t.is_active}):[]}function s(){var t=[],e={};return document.querySelectorAll(".variant-option").forEach(function(n){var o=n.getAttribute("data-attr");o&&!e[o]&&(e[o]=!0,t.push(o))}),t}function l(t){return i().filter(function(e){if(!e.attributes)return!1;for(var n in t)if(t.hasOwnProperty(n)&&e.attributes[n]!==t[n])return!1;return!0})}function c(t){return"out_of_stock"===t.stock_status||null!==t.stock_quantity&&void 0!==t.stock_quantity&&t.stock_quantity<=0}function d(){0!==i().length&&document.querySelectorAll(".variant-option").forEach(function(t){var e=t.getAttribute("data-attr"),n=t.getAttribute("data-value"),r={};for(var a in o)o.hasOwnProperty(a)&&a!==e&&(r[a]=o[a]);r[e]=n;var i=l(r);t.classList.remove("disabled","out-of-stock"),t.disabled=!1,0===i.length?t.classList.add("disabled"):i.every(function(t){return c(t)})&&(t.classList.add("disabled"),t.classList.add("out-of-stock"))})}function p(){var t=a,e=r;if(e){var n=s(),i=n.every(function(t){return o.hasOwnProperty(t)}),d=document.getElementById("product-stock-display"),p=document.getElementById("product-price-display"),u=document.getElementById("add-to-cart-btn");n.forEach(function(t){var e=document.querySelector('.variant-group[data-group="'+t+'"] .variant-selected-value');if(e){var n=document.querySelector('.variant-option[data-attr="'+t+'"].selected');e.textContent=n&&n.getAttribute("data-display-value")||o[t]||""}});var m=document.getElementById("product-main-image");if(m&&!window._originalMainImageSrc&&(window._originalMainImageSrc=m.src),i){var y=l(o);if(y.length>0){var g=y[0];if(window.selectedVariant=g,c(g)?(d&&(d.className="product-stock out-of-stock",d.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>'+(t.outOfStock||"Out of Stock")),u&&(u.disabled=!0,u.style.opacity="0.5",u.style.cursor="not-allowed")):(d&&(d.className="product-stock in-stock",d.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>'+(t.inStock||"In Stock")),u&&(u.disabled=!1,u.style.opacity="",u.style.cursor="")),p){var f=e.currency||t.currency||"₪",h=window.productBasePrice||parseFloat(e.price)||0,v=window.productOriginalPrice||parseFloat(e.compare_at_price||e.original_price||0),b=window.productHasSalePrice,w=null!=g.price?parseFloat(g.price):h,x=f+w.toFixed(2);null!=g.price?v&&v>w&&(x+=' <span class="original-price">'+f+v.toFixed(2)+"</span>"):b&&v>w&&(x+=' <span class="original-price">'+f+v.toFixed(2)+"</span>"),p.innerHTML=x}if("function"==typeof updatePricePerUnitDisplay){var k=null!=g.price?parseFloat(g.price):window.productBasePrice||parseFloat(e.price)||0;updatePricePerUnitDisplay(k,e,t)}var z=document.getElementById("product-sku-display");if(z){var S="function"==typeof getEcomText?getEcomText("sku",t.sku||"SKU"):t.sku||"SKU";g.sku?z.textContent=S+": "+g.sku:e.sku&&(z.textContent=S+": "+e.sku)}if(m&&g.image){var L=g.image;window.resolveProductImageUrl&&(L=window.resolveProductImageUrl(g.image)),m.src=L}else m&&window._originalMainImageSrc&&(m.src=window._originalMainImageSrc)}}else{window.selectedVariant=null;var P=document.getElementById("product-sku-display");if(P&&e.sku){var C="function"==typeof getEcomText?getEcomText("sku",t.sku||"SKU"):t.sku||"SKU";P.textContent=C+": "+e.sku}if(d&&(d.className="product-stock in-stock",d.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>'+(t.inStock||"In Stock")),u&&(u.disabled=!1,u.style.opacity="",u.style.cursor=""),p){f=e.currency||t.currency||"₪",h=window.productBasePrice||parseFloat(e.price)||0,v=window.productOriginalPrice||parseFloat(e.compare_at_price||e.original_price||0),b=window.productHasSalePrice;var _=window.productHasVariantPriceRange,E=window.productVariantMinPrice;if(_&&null!=E&&isFinite(E)){var A="function"==typeof getEcomText?getEcomText("startingAt",t.startingAt||"Starting at"):t.startingAt||"Starting at";p.textContent=A+" "+f+E.toFixed(2)}else b&&v>h?p.innerHTML=f+h.toFixed(2)+' <span class="original-price">'+f+v.toFixed(2)+"</span>":p.textContent=f+h.toFixed(2)}if("function"==typeof updatePricePerUnitDisplay){_=window.productHasVariantPriceRange,E=window.productVariantMinPrice,h=window.productBasePrice||parseFloat(e.price)||0;var q=_&&null!=E&&isFinite(E)?E:h;updatePricePerUnitDisplay(q,e,t)}m&&window._originalMainImageSrc&&(m.src=window._originalMainImageSrc)}}}function u(){n();var t=r||window.currentProduct,e=a||window.productTranslations||{};if(t&&t.variants&&0!==t.variants.length&&0!==document.querySelectorAll(".variant-option").length&&!window._zappyVariantFixed){if(window._zappyVariantFixed=!0,r=t,!e.pleaseSelect){var u="rtl"===document.documentElement.getAttribute("dir")||"rtl"===document.body.getAttribute("dir");e.pleaseSelect=u?"נא לבחור":"Please select"}a=e;var m=document.getElementById("zappy-variant-state-css");m&&m.remove(),document.querySelectorAll(".variant-option").forEach(function(t){t.style.display="",t.disabled=!1}),function(){if(r&&r.variants){var t=i();if(0!==t.length){var e={xxxs:0,xxs:1,xs:2,s:3,m:4,l:5,xl:6,xxl:7,"2xl":7,xxxl:8,"3xl":8,"4xl":9,"5xl":10};document.querySelectorAll(".variant-group").forEach(function(e){var o=e.getAttribute("data-group");if(o&&"variant"!==o){var r=Array.prototype.slice.call(e.querySelectorAll(".variant-option"));if(0!==r.length){var a={},i=[];t.forEach(function(t){if(t.attributes&&Object.prototype.hasOwnProperty.call(t.attributes,o)){var e=t.attributes[o];null==e||a[e]||(a[e]=!0,i.push(e))}}),0!==i.length&&i.length===r.length&&(i.sort(n),r.forEach(function(t,e){var n=String(i[e]);(t.getAttribute("data-value")||"")!==n&&(t.setAttribute("data-value",n),t.setAttribute("data-display-value",n),t.classList.contains("color-swatch")||(t.textContent=n),t.title&&(t.title=n))}))}}})}}function n(t,n){var o=e[String(t).toLowerCase()],r=e[String(n).toLowerCase()],a=void 0===o?parseFloat(t):NaN,i=void 0===r?parseFloat(n):NaN;if(!isNaN(a)&&!isNaN(i))return a-i;if(void 0!==o&&void 0!==r)return o-r;var s=isNaN(a)?void 0!==o?1:2:0,l=isNaN(i)?void 0!==r?1:2:0;return s!==l?s-l:String(t).localeCompare(String(n))}}();var y={xxxs:0,xxs:1,xs:2,s:3,m:4,l:5,xl:6,xxl:7,"2xl":7,xxxl:8,"3xl":8,"4xl":9,"5xl":10};document.querySelectorAll(".variant-options").forEach(function(t){var e=Array.from(t.querySelectorAll(".variant-option"));e.length<2||(e.sort(function(t,e){var n=t.getAttribute("data-value")||"",o=e.getAttribute("data-value")||"",r=y[n.toLowerCase()],a=y[o.toLowerCase()],i=void 0===r?parseFloat(n):NaN,s=void 0===a?parseFloat(o):NaN;if(!isNaN(i)&&!isNaN(s))return i-s;if(void 0!==r&&void 0!==a)return r-a;var l=isNaN(i)?void 0!==r?1:2:0,c=isNaN(s)?void 0!==a?1:2:0;return l!==c?l-c:n.localeCompare(o)}),e.forEach(function(e){t.appendChild(e)}))});var g=window.addProductToCart;window.addProductToCart=function(){for(var t=s(),n=0;n<t.length;n++)if(!o.hasOwnProperty(t[n])){var r=document.querySelector('.variant-group[data-group="'+t[n]+'"]'),a=r?r.querySelector(".variant-group-label"):null,i=a?a.textContent.replace(/[:\s]+$/,"").trim():t[n],d=document.getElementById("product-stock-display");return d&&(d.className="product-stock out-of-stock",d.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>'+(e.pleaseSelect||"Please select")+" "+i),void(r&&(r.style.transition="background 0.3s",r.style.background="rgba(255,0,0,0.05)",r.style.borderRadius="8px",setTimeout(function(){r.style.background=""},2e3)))}var p=l(o);p.length>0&&p.every(function(t){return c(t)})||g&&g.apply(this,arguments)},o={},document.querySelectorAll(".variant-option").forEach(function(t){t.classList.remove("selected","disabled","out-of-stock"),t.disabled=!1}),f(),d(),f(),p()}function f(){document.querySelectorAll(".variant-group").forEach(function(t){var e=t.getAttribute("data-group");if(e&&"variant"!==e&&!t.querySelector(".variant-option.selected")){var n=Array.prototype.slice.call(t.querySelectorAll(".variant-option")).filter(function(t){return t.getAttribute("data-attr")&&t.getAttribute("data-value")&&!t.classList.contains("disabled")&&!t.classList.contains("out-of-stock")});if(1===n.length){var r=n[0],a=r.getAttribute("data-value");r.classList.add("selected"),o[e]=a;var i=t.querySelector(".variant-selected-value");i&&(i.textContent=r.getAttribute("data-display-value")||a)}}})}}function m(){setTimeout(u,100)}document.addEventListener("click",function(t){var e=t.target.closest?t.target.closest(".variant-option"):null;if(e&&r&&0!==i().length){t.preventDefault(),t.stopImmediatePropagation();var n,a=e.getAttribute("data-attr"),s=e.getAttribute("data-value");if(a&&s)if(o[a]!==s)document.querySelectorAll('.variant-option[data-attr="'+a+'"]').forEach(function(t){t.classList.remove("selected")}),o[a]=s,e.classList.add("selected"),Object.keys(o).length>1&&(n=o,i().some(function(t){if(!t.attributes)return!1;for(var e in n)if(n.hasOwnProperty(e)&&t.attributes[e]!==n[e])return!1;return!0})||(document.querySelectorAll(".variant-option").forEach(function(t){t.classList.remove("selected")}),(o={})[a]=s,e.classList.add("selected"))),d(),p()}},!0),document.addEventListener("click",function(t){if((t.target.closest?t.target.closest('.add-to-cart-btn, .add-to-cart, #add-to-cart-btn, [onclick*="addProductToCart"]'):null)&&r&&0!==i().length){for(var e=a||{},n=s(),d=0;d<n.length;d++)if(!o.hasOwnProperty(n[d])){t.preventDefault(),t.stopImmediatePropagation();var p=document.querySelector('.variant-group[data-group="'+n[d]+'"]'),u=p?p.querySelector(".variant-group-label"):null,m=u?u.textContent.replace(/[:\s]+$/,"").trim():n[d],y=document.getElementById("product-stock-display");return y&&(y.className="product-stock out-of-stock",y.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>'+(e.pleaseSelect||"Please select")+" "+m),void(p&&(p.style.transition="background 0.3s",p.style.background="rgba(255,0,0,0.05)",p.style.borderRadius="8px",setTimeout(function(){p.style.background=""},2e3)))}var g=l(o);return g.length>0&&g.every(function(t){return c(t)})?(t.preventDefault(),void t.stopImmediatePropagation()):void 0}},!0),"complete"===document.readyState?m():window.addEventListener("load",m),setTimeout(u,2e3)}(),function(){if(!document.getElementById("zappy-terms-checkbox-css")){var t=document.createElement("style");t.id="zappy-terms-checkbox-css",t.textContent=".terms-checkbox-wrapper { margin: 16px 0; padding: 12px; background: var(--surface-color, var(--surface, #f9fafb)); border-radius: 8px; }.terms-checkbox-label { display: flex !important; align-items: center !important; gap: 10px !important; cursor: pointer; font-size: 14px; color: var(--text-color, var(--text, #374151)); }.terms-checkbox { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-color, var(--primary, #ff0083)); flex-shrink: 0; }.terms-link { color: var(--primary-color, var(--primary, #ff0083)); text-decoration: underline; font-weight: 500; }",document.head.appendChild(t)}}(),function(){function t(t){t&&t.querySelectorAll(".cart-item-attr").forEach(function(t){if(!t.querySelector(".cart-item-color-swatch")){var e=t.querySelector(".cart-item-attr-label");if(e){var n=(e.textContent||"").replace(/[:\s]+$/,"").toLowerCase();if(-1!==["color","colour","צבע","لون","farbe","couleur","color","colore"].indexOf(n)){var o=t.textContent||"",r=e.textContent||"",a=o.replace(r,"").trim();if(a){var i=a;if(!/^#[0-9A-Fa-f]{3,6}$/.test(a)){var s=a.toLowerCase();i={"dark grey":"#555","dark gray":"#555","light grey":"#d3d3d3","light gray":"#d3d3d3","light blue":"lightblue","dark blue":"darkblue","light green":"lightgreen","dark green":"darkgreen","dark red":"darkred","light pink":"lightpink","dark orange":"darkorange","sky blue":"skyblue","royal blue":"royalblue","navy blue":"navy","forest green":"forestgreen","olive green":"olivedrab","hot pink":"hotpink","deep pink":"deeppink","dark violet":"darkviolet","slate grey":"slategrey","slate gray":"slategray","dim grey":"dimgrey","dim gray":"dimgray","off white":"#f5f5f0",burgundy:"#800020",charcoal:"#36454f",champagne:"#f7e7ce",sand:"#c2b280",taupe:"#483c32",wine:"#722f37",rust:"#b7410e",sage:"#bcb88a",mint:"#98ff98",peach:"#ffcba4",cream:"#fffdd0",mauve:"#e0b0ff"}[s]||s}var l=document.createElement("span");l.className="cart-item-color-swatch",l.title=a,l.style.cssText="display:inline-block;width:14px;height:14px;border-radius:50%;background-color:"+i+";border:1px solid rgba(0,0,0,0.15);vertical-align:middle;margin-inline-start:4px;",t.textContent="",t.appendChild(e.cloneNode(!0)),t.appendChild(document.createTextNode(" ")),t.appendChild(l)}}}}})}function e(){var e=document.getElementById("cart-drawer")||document.getElementById("cart-drawer-items");e&&(t(e),new MutationObserver(function(){t(e)}).observe(e,{childList:!0,subtree:!0}))}"complete"===document.readyState?setTimeout(e,200):window.addEventListener("load",function(){setTimeout(e,200)});var n=new MutationObserver(function(){document.getElementById("cart-drawer")&&(e(),n.disconnect())});document.body?n.observe(document.body,{childList:!0,subtree:!0}):document.addEventListener("DOMContentLoaded",function(){n.observe(document.body,{childList:!0,subtree:!0})})}(),function(){function t(t){if(null==t||""===t)return NaN;if("number"==typeof t)return isFinite(t)?t:NaN;var e=String(t).replace(/[^\d.,-]/g,"").replace(/,/g,""),n=parseFloat(e);return isFinite(n)?n:NaN}function e(e){var n=function(e){if(!e)return 0;if(e.selectedVariant&&null!==e.selectedVariant.price&&void 0!==e.selectedVariant.price&&""!==e.selectedVariant.price){var n=t(e.selectedVariant.price);if(isFinite(n))return n}var o=t(e.displayPrice);if(isFinite(o))return o;var r=t(e.price),a=t(e.sale_price);return isFinite(a)&&isFinite(r)&&a<r?a:isFinite(r)?r:0}(e),o=parseFloat(e&&e.quantity)||1,r=parseFloat(e&&(e.quantityStep||e.quantity_step))||1;return"piece"===(e&&(e.quantityUnit||e.quantity_unit)||"piece")?n*o:n*(o/r)}function n(){var t=document.getElementById("cart-drawer");if(t){var n=function(){var t=window.ZAPPY_WEBSITE_ID||window.CONFIG&&window.CONFIG.websiteId;if(!t)return[];try{return JSON.parse(localStorage.getItem("zappy_cart_"+t)||"[]")}catch(t){return[]}}();if(n.length){var o=(window.ZAPPY_CURRENCY_SYMBOL||"").trim(),r=function(t,e){if(!t)return null;var n=document.getElementById("cart-drawer-total");if(n)return n;var o=t.querySelector(".cart-drawer-total");if(!o)return null;var r=o.textContent||"",a=r.match(/^([^:]+):/),i=a?a[1].trim():window.zappyI18n&&window.zappyI18n.t?window.zappyI18n.t("ecom_total"):"Total";return i&&"ecom_total"!==i||(i=-1!==r.indexOf("סה")?'סה"כ':"Total"),o.innerHTML="<span>"+i+':</span><span id="cart-drawer-total">'+(e||"₪")+"0</span>",document.getElementById("cart-drawer-total")}(t,o);if(!o&&r){var a=(r.textContent||"").match(/^[^\d\s-]+/);o=a?a[0]:"₪"}var i=0,s=t.querySelectorAll(".cart-item-price, .cart-drawer-item-price");if(n.forEach(function(t,n){var r=e(t);if(i+=r,s[n]){var a=o+r.toFixed(2);s[n].textContent!==a&&(s[n].textContent=a)}}),r){var l=o+i.toFixed(2);r.textContent!==l&&(r.textContent=l)}}}}function o(){n();var t=document.getElementById("cart-drawer")||document.body;if(t){var e=!1;new MutationObserver(function(){e||(e=!0,setTimeout(function(){e=!1,n()},0))}).observe(t,{childList:!0,subtree:!0,characterData:!0})}}"complete"===document.readyState?setTimeout(o,250):window.addEventListener("load",function(){setTimeout(o,250)})}(),function(){var t={en:{inStock:"In Stock",outOfStock:"Out of Stock",color:"Color",size:"Size",material:"Material",style:"Style",weight:"Weight",capacity:"Capacity",length:"Length"},he:{inStock:"במלאי",outOfStock:"אזל מהמלאי",color:"צבע",size:"מידה",material:"חומר",style:"סגנון",weight:"משקל",capacity:"קיבולת",length:"אורך"}};function e(){if(window.zappyI18n&&"function"==typeof window.zappyI18n.getCurrentLanguage){var t=String(window.zappyI18n.getCurrentLanguage()||"").split("-")[0].toLowerCase();if(t)return t}try{var e=String(localStorage.getItem("zappy_lang")||localStorage.getItem("zappy-language")||localStorage.getItem("selectedLanguage")||"").split("-")[0].toLowerCase();if(e)return e}catch(t){}return String(document.documentElement.lang||"en").split("-")[0].toLowerCase()}function n(n){var o=e();if(t[o]&&t[o][n])return t[o][n];if(window.zappyI18n&&"function"==typeof window.zappyI18n.t){var r=window.zappyI18n.t("ecom_"+n);if(r&&r!=="ecom_"+n)return r}return t.en&&t.en[n]||n}function o(){if("function"==typeof window.getVariantAttributeLabels&&!window.getVariantAttributeLabels.__zappyRuntimeI18nWrapped){var t=window.getVariantAttributeLabels;window.getVariantAttributeLabels=function(e,o){var r=t(e,o)||{};return["color","size","material","style","weight","capacity","length"].forEach(function(t){r[t]=n(t)}),r},window.getVariantAttributeLabels.__zappyRuntimeI18nWrapped=!0}document.querySelectorAll(".variant-group").forEach(function(t){var o=t.getAttribute("data-group");if(o){var r=n(String(o).toLowerCase()),a=t.querySelector(".variant-group-label");if(a){var i=a.querySelector(".variant-selected-value"),s=i?i.textContent:"";(a.textContent||"").trim()!==(r+": "+s).trim()&&(a.textContent=r+": ",i&&a.appendChild(i))}t.querySelectorAll(".variant-option").forEach(function(t){var n=t.getAttribute("data-value"),r=function(t,n){for(var o=window.currentProduct,r=o&&Array.isArray(o.variants)?o.variants:[],a=e(),i=0;i<r.length;i++){var s=r[i],l=s&&(s.attributes_source||s.attributes||{});if(String(l[t])===String(n)){var c=s.attributes_translations&&s.attributes_translations[a];if(c&&c[t])return c[t];var d=s.attributes_display||{};if(d[t])return d[t]}}return n}(o,n);t.getAttribute("data-display-value")!==r&&t.setAttribute("data-display-value",r),t.getAttribute("title")!==r&&t.setAttribute("title",r),t.classList.contains("color-swatch")||t.textContent===r||(t.textContent=r)})}});var o=document.getElementById("product-stock-display");if(o){var r=o.classList.contains("in-stock")&&!o.classList.contains("out-of-stock"),a=o.querySelector("svg"),i=n(r?"inStock":"outOfStock");(o.textContent||"").trim()!==i&&(o.textContent="",a&&o.appendChild(a),o.appendChild(document.createTextNode(i)))}}function r(){setTimeout(o,100),setTimeout(o,500)}"complete"===document.readyState?r():window.addEventListener("load",r),window.zappyI18n&&"function"==typeof window.zappyI18n.onLanguageChange&&window.zappyI18n.onLanguageChange(r);var a=new MutationObserver(function(){r()});document.body&&a.observe(document.body,{childList:!0,subtree:!0})}(),function(){var t={en:{agreeToTerms:"I agree to the",termsAndConditions:"Terms of Use",subtotal:"Subtotal",vatIncluded:"Including VAT",shipping:"Shipping",discount:"Discount",totalToPay:"Total to Pay",days:"days",free:"Free"},he:{agreeToTerms:"אני מסכים/ה ל",termsAndConditions:"תנאי השימוש",subtotal:"סכום ביניים",vatIncluded:'כולל מע"מ',shipping:"משלוח",discount:"הנחה",totalToPay:'סה"כ לתשלום',days:"ימים",free:"חינם"}};function e(){if(window.zappyI18n&&"function"==typeof window.zappyI18n.getCurrentLanguage){var t=String(window.zappyI18n.getCurrentLanguage()||"").split("-")[0].toLowerCase();if(t)return t}try{var e=String(localStorage.getItem("zappy_lang")||"").split("-")[0].toLowerCase();if(e)return e}catch(t){}var n=String(document.documentElement.lang||"").split("-")[0].toLowerCase();if(n)return n;var o=document.querySelector(".checkout-section h1, h1");return o&&/checkout/i.test(o.textContent||""),"en"}function n(n){var o=e();return t[o]&&t[o][n]||t.en&&t.en[n]||""}function o(t,e){var o=document.querySelector(t);if(o&&o.parentElement){var r=o.parentElement.querySelector("span:first-child");if(r&&r!==o){var a=n(e)+":";r.textContent!==a&&(r.textContent=a)}}}function r(){var t,e,o,r=document.getElementById("discount"),a=document.getElementById("discount-row")||r&&r.closest(".discount-row, .order-totals-row");if(r&&Math.abs((t=r.textContent,e=String(t||"").replace(/[^\d.,-]/g,"").replace(/,/g,""),o=parseFloat(e),isFinite(o)?o:0))<.005){var i=(window.ZAPPY_CURRENCY_SYMBOL||"₪")+"0";r.textContent!==i&&(r.textContent=i),a&&"none"!==a.style.display&&(a.style.display="none")}var s=document.getElementById("shipping-cost");if(s&&/^(חינם|FREE)$/i.test((s.textContent||"").trim())){var l=n("free");s.textContent!==l&&(s.textContent=l)}}function a(t){return t?String(t).replace(/הוד השרון/g,"Hod Hasharon").replace(/הרדוף/g,"Harduf"):""}function i(){var t;(t=document.querySelectorAll(".order-totals-row")).length&&[{key:"subtotal",id:"subtotal",fallback:"₪0"},{key:"vatIncluded",id:"vat-amount",fallback:"₪0"},{key:"shipping",id:"shipping-cost",fallback:"₪0"},{key:"discount",id:"discount",fallback:"₪0"},{key:"totalToPay",id:"order-total",fallback:"₪0"}].forEach(function(e,o){var r=t[o];if(r&&!r.querySelector("#"+e.id)){var a=(r.textContent||"").match(/-?\s*[₪$€£]\s*\d[\d,.]*/),i=a?a[0].replace(/\s+/g,""):e.fallback;r.innerHTML='<span data-ecom-label="'+e.key+'">'+n(e.key)+':</span><span id="'+e.id+'">'+i+"</span>"}});var e=document.querySelector('[data-i18n="ecom_agreeToTerms"]')||document.querySelector(".terms-checkbox-label > span > span:first-child");e&&e.textContent!==n("agreeToTerms")&&(e.textContent=n("agreeToTerms"));var a=document.querySelector('[data-i18n="ecom_termsAndConditions"]')||document.querySelector(".terms-checkbox-label .terms-link");a&&a.textContent!==n("termsAndConditions")&&(a.textContent=n("termsAndConditions")),o("#subtotal","subtotal"),o("#vat-amount","vatIncluded"),o("#shipping-cost","shipping"),o("#discount","discount"),o("#order-total","totalToPay");var i=document.getElementById("shipping-cost");i&&/^(חינם|FREE)$/i.test((i.textContent||"").trim())&&(i.textContent=n("free")),r()}var s=!1;async function l(){var t=document.getElementById("shipping-methods"),o=window.ZAPPY_WEBSITE_ID||window.CONFIG&&window.CONFIG.websiteId;if(t&&o&&!s){s=!0;try{var r=e(),i=window.ZAPPY_API_BASE||"",l=await fetch(i+"/api/ecommerce/storefront/shipping?websiteId="+encodeURIComponent(o)+"&lang="+encodeURIComponent(r)),c=await l.json();(c&&c.data?c.data:[]).forEach(function(o){var r=t.querySelector('.shipping-method-block[data-method-id="'+o.id+'"]');if(r){var i=r.querySelector(".shipping-name");i&&o.name&&(i.textContent=o.name);var s=r.querySelector(".shipping-desc"),l=o.estimated_days?String(o.estimated_days)+" "+n("days"):"",c=o.description||"",d=c&&l?c+" ("+l+")":c||l;if(s)s.textContent=d;else if(d){var p=r.querySelector(".shipping-info");if(p){var u=document.createElement("div");u.className="shipping-desc",u.textContent=d,p.appendChild(u)}}var m=r.querySelector(".shipping-price.free");m&&(m.textContent=n("free"));var y=r.querySelector(".shipping-address"),g=function(t){var n=t&&t.pickup_address;if(!n||!n.street)return"";var o=e();n.translations&&n.translations[o]&&(n=Object.assign({},n,n.translations[o]));var r=n.street,i=n.city;return"en"===o&&(r=a(r),i=a(i)),[r,i].filter(Boolean).join(", ")}(o);y&&g&&(y.textContent=g)}})}catch(t){}finally{s=!1}}}function c(){i(),l(),r()}var d=document.createElement("style");d.id="zappy-checkout-runtime-i18n-css",d.textContent=".checkout-order-details .order-totals-row{display:flex!important;justify-content:space-between!important;align-items:baseline!important;gap:12px!important}.checkout-order-details .order-totals-row span:first-child{flex:1 1 auto;min-width:0}.checkout-order-details .order-totals-row span:last-child{flex:0 0 auto;text-align:end}",document.getElementById(d.id)||document.head.appendChild(d),"complete"===document.readyState?setTimeout(c,300):window.addEventListener("load",function(){setTimeout(c,300)}),setTimeout(c,1500),setTimeout(c,3500);var p=!1,u=new MutationObserver(function(){p||(p=!0,setTimeout(function(){p=!1,i()},50))});document.body&&u.observe(document.body,{childList:!0,subtree:!0,characterData:!0}),window.zappyI18n&&"function"==typeof window.zappyI18n.onLanguageChange&&window.zappyI18n.onLanguageChange(function(){setTimeout(c,300)})}()}(),function(){if(!window.__zappyEcomLanguageRoutingRuntime){window.__zappyEcomLanguageRoutingRuntime=!0,function(){var t=n()||e()||function(){try{if("string"==typeof window.__zappyDefaultLang&&window.__zappyDefaultLang)return window.__zappyDefaultLang.toLowerCase();if("string"==typeof zappyAdditionalDefaultLanguage&&zappyAdditionalDefaultLanguage)return zappyAdditionalDefaultLanguage.toLowerCase();if("string"==typeof zappyEcomDefaultLanguage&&zappyEcomDefaultLanguage)return zappyEcomDefaultLanguage.toLowerCase()}catch(t){}var t=document.documentElement.getAttribute("lang");return t?t.split("-")[0].toLowerCase():"he"}();if(t){t=String(t).split("-")[0].toLowerCase();try{localStorage.setItem("zappy_lang",t),localStorage.setItem("zappy-language",t),localStorage.setItem("selectedLanguage",t),localStorage.setItem("language",t)}catch(t){}document.documentElement.setAttribute("lang",t),document.documentElement.setAttribute("dir","he"===t||"ar"===t||"iw"===t?"rtl":"ltr")}}(),function(){var t=n();if(t&&!e()){var o=window.location.pathname||"";if(/^\/(product|category)(?:\/|$)/i.test(o))try{var r=new URL(window.location.href);r.searchParams.delete("lang");var a="/"+t.toLowerCase()+o,i=r.origin+a+(r.searchParams.toString()?"?"+r.searchParams.toString():"")+r.hash;window.location.replace(i)}catch(t){}}}();var t=null;window.addEventListener("resize",function(){t&&clearTimeout(t),t=setTimeout(a,200)},{passive:!0}),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",i):i(),window.addEventListener("popstate",function(){setTimeout(i,0)}),window.addEventListener("zappy:languageChanged",function(){setTimeout(i,0)}),window.addEventListener("languageChanged",function(){setTimeout(i,0)}),new MutationObserver(function(t){t.some(function(t){return Array.prototype.some.call(t.addedNodes||[],function(t){return 1===t.nodeType&&(t.matches&&t.matches("a[href], .zappy-products-dropdown, #zappy-catalog-menu")||t.querySelector&&t.querySelector("a[href], .zappy-products-dropdown, #zappy-catalog-menu"))})})&&setTimeout(i,0)}).observe(document.documentElement,{childList:!0,subtree:!0}),setTimeout(i,250),setTimeout(i,1500)}function e(){return(window.location.pathname.match(/^\/([a-z]{2})(?:\/|$)/i)||[])[1]}function n(){try{return new URLSearchParams(window.location.search).get("lang")}catch(t){return null}}function o(){try{if(window.zappyI18n&&"function"==typeof window.zappyI18n.getCurrentLanguage){var t=window.zappyI18n.getCurrentLanguage();if(t)return String(t).split("-")[0].toLowerCase()}if(window.zappyI18n&&window.zappyI18n.language)return String(window.zappyI18n.language).split("-")[0].toLowerCase()}catch(t){}try{var o=localStorage.getItem("zappy_lang")||localStorage.getItem("zappy-language")||localStorage.getItem("selectedLanguage")||localStorage.getItem("language");if(o)return String(o).split("-")[0].toLowerCase()}catch(t){}var r=n();if(r)return r.toLowerCase();var a=e();if(a)return a.toLowerCase();var i=document.documentElement.getAttribute("lang");return i?i.split("-")[0].toLowerCase():""}function r(t){if(!t||/^https?:\/\//i.test(t)||"#"===t.charAt(0))return t;var e="/"===t.charAt(0)?t:"/"+t,n=o(),r=window.__zappyDefaultLang||"he";if(!n||n===r)return e.replace(/^\/[a-z]{2}(?=\/)/i,"");var a=e.replace(/^\/[a-z]{2}(?=\/)/i,""),i="/"+n;return a===i||0===a.indexOf(i+"/")?a:i+a}function a(){if(!(window.matchMedia?window.matchMedia("(max-width: 768px)").matches:window.innerWidth<=768))return document.querySelectorAll('.mobile-submenu-toggle[data-zappy-runtime="ecom-routing"]').forEach(function(t){t.remove()}),document.querySelectorAll(".sub-menu.mobile-expanded").forEach(function(t){t.classList.remove("mobile-expanded")}),void document.querySelectorAll('.zappy-products-dropdown > a > svg.dropdown-arrow[data-zappy-mobile-hidden="1"]').forEach(function(t){t.style.display="",t.removeAttribute("data-zappy-mobile-hidden")});document.querySelectorAll(".zappy-products-dropdown, .menu-item-has-children, .nav-menu li:has(> .sub-menu), nav li:has(> .sub-menu)").forEach(function(t){if(t&&t.querySelector){var e=t.querySelector(":scope > .sub-menu"),n=t.querySelector(":scope > a");if(e&&n&&!t.querySelector(":scope > .mobile-submenu-toggle")){var o=n.querySelector("svg.dropdown-arrow");o&&!o.hasAttribute("data-zappy-mobile-hidden")&&(o.style.display="none",o.setAttribute("data-zappy-mobile-hidden","1"));var r=document.createElement("button");r.type="button",r.className="mobile-submenu-toggle",r.setAttribute("aria-label","Toggle submenu"),r.setAttribute("aria-expanded","false"),r.setAttribute("data-zappy-runtime","ecom-routing"),r.addEventListener("click",function(t){t.preventDefault(),t.stopPropagation(),"function"==typeof t.stopImmediatePropagation&&t.stopImmediatePropagation(),document.querySelectorAll(".sub-menu.mobile-expanded").forEach(function(t){if(t!==e){t.classList.remove("mobile-expanded");var n=t.parentElement&&t.parentElement.querySelector(":scope > .mobile-submenu-toggle");n&&(n.classList.remove("expanded"),n.setAttribute("aria-expanded","false"))}});var n=!e.classList.contains("mobile-expanded");e.classList.toggle("mobile-expanded",n),r.classList.toggle("expanded",n),r.setAttribute("aria-expanded",n?"true":"false")},!0),n.insertAdjacentElement("afterend",r)}}})}function i(){var t;!function(){if(!document.getElementById("zappy-ecom-routing-runtime-css")){var t=document.createElement("style");t.id="zappy-ecom-routing-runtime-css",t.setAttribute("data-zappy-runtime","ecom-routing"),t.textContent='@media (min-width: 769px){html[dir="ltr"] .nav-container > .nav-brand,body[dir="ltr"] .nav-container > .nav-brand{order:-1!important}html[dir="ltr"] .nav-container > .nav-menu,body[dir="ltr"] .nav-container > .nav-menu{order:1!important;margin-inline-start:auto!important;margin-inline-end:24px!important;flex:0 1 auto!important}html[dir="ltr"] .nav-container > .lang-switcher,body[dir="ltr"] .nav-container > .lang-switcher,html[dir="ltr"] .nav-container > .nav-ecommerce-icons,body[dir="ltr"] .nav-container > .nav-ecommerce-icons{order:2!important}html[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left,body[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left{margin-inline-start:0!important}html[dir="ltr"] .zappy-products-dropdown > a .dropdown-arrow,body[dir="ltr"] .zappy-products-dropdown > a .dropdown-arrow{display:inline-block!important;flex:0 0 auto!important;margin-inline-start:6px!important}html[dir="ltr"] .zappy-catalog-menu,html[dir="ltr"] .zappy-catalog-menu .catalog-menu-container,html[dir="ltr"] .zappy-catalog-menu .catalog-menu-categories{direction:ltr!important}html[dir="ltr"] .zappy-catalog-menu .catalog-menu-container{align-items:flex-start!important}html[dir="ltr"] .zappy-catalog-menu .catalog-menu-categories{display:flex!important;align-items:flex-start!important;align-content:flex-start!important;row-gap:4px!important;column-gap:2px!important}html[dir="ltr"] .zappy-catalog-menu .catalog-menu-item{padding-inline:10px!important}html[dir="ltr"] .zappy-catalog-menu .catalog-menu-all{margin-top:0!important;align-self:flex-start!important}}@media (max-width:768px){.navbar .zappy-products-dropdown,nav.navbar .zappy-products-dropdown,.zappy-products-dropdown{position:relative!important}.navbar .zappy-products-dropdown > a,nav.navbar .zappy-products-dropdown > a,.zappy-products-dropdown > a{width:100%!important;min-width:0!important;padding-inline-end:56px!important;padding-inline-start:0!important;box-sizing:border-box!important}.navbar .zappy-products-dropdown > .mobile-submenu-toggle,nav.navbar .zappy-products-dropdown > .mobile-submenu-toggle,.zappy-products-dropdown > .mobile-submenu-toggle{display:flex!important;position:absolute!important;top:0!important;inset-inline-end:4px!important;inset-inline-start:auto!important;width:48px!important;height:44px!important;min-height:44px!important;align-items:center!important;justify-content:center!important;z-index:5!important;pointer-events:auto!important;margin:0!important;padding:0!important;background:transparent!important;border:none!important}}',(document.head||document.documentElement).appendChild(t)}}(),((t=document)&&t.querySelectorAll?t:document).querySelectorAll("a[href]").forEach(function(t){var e=t.getAttribute("href");if(function(t){return/^\/(?:[a-z]{2}\/)?(?:product|category|products)(?:\/|\?|#|$)/i.test(t||"")}(e)){var n=r(e);e!==n&&t.setAttribute("href",n)}}),function(){var t=document.querySelector(".zappy-products-dropdown > a");if(t&&(t.setAttribute("href",r("/products")),!t.querySelector("svg.dropdown-arrow"))){var e=document.createElementNS("http://www.w3.org/2000/svg","svg");e.setAttribute("class","dropdown-arrow"),e.setAttribute("width","12"),e.setAttribute("height","12"),e.setAttribute("viewBox","0 0 24 24"),e.setAttribute("fill","none"),e.setAttribute("stroke","currentColor"),e.setAttribute("stroke-width","2");var n=document.createElementNS("http://www.w3.org/2000/svg","path");n.setAttribute("d","M6 9l6 6 6-6"),e.appendChild(n),t.appendChild(document.createTextNode(" ")),t.appendChild(e)}}(),a(),function(){var t=document.getElementById("zappy-catalog-menu");if(t){var e=document.documentElement.getAttribute("dir")||("he"===o()?"rtl":"ltr");t.classList.toggle("rtl","rtl"===e),t.classList.toggle("ltr","rtl"!==e),t.setAttribute("dir",e),t.querySelectorAll(".catalog-menu-item, .sub-menu").forEach(function(t){t.setAttribute("dir",e)})}}()}}();
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ─── 1. Smooth Scroll for Anchor Links ───────────────────────────────────────
+  document.body.addEventListener('click', function (e) {
+    const target = e.target.closest('a[href^="#"]');
+    if (!target) return;
+
+    const hash = target.getAttribute('href');
+    if (!hash || hash === '#') return;
+
+    const destination = document.querySelector(hash);
+    if (!destination) return;
+
+    e.preventDefault();
+
+    destination.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+
+    if (history.pushState) {
+      history.pushState(null, null, hash);
+    }
+  });
+
+  // ─── 2. Navbar Scroll Effect ─────────────────────────────────────────────────
+  const navbar = document.querySelector('nav, .navbar, [data-navbar]');
+
+  if (navbar) {
+    const SCROLL_THRESHOLD = 50;
+    const SCROLLED_CLASS = 'scrolled';
+
+    function handleNavbarScroll() {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollY > SCROLL_THRESHOLD) {
+        navbar.classList.add(SCROLLED_CLASS);
+      } else {
+        navbar.classList.remove(SCROLLED_CLASS);
+      }
+    }
+
+    let navbarTicking = false;
+    window.addEventListener('scroll', function () {
+      if (!navbarTicking) {
+        window.requestAnimationFrame(function () {
+          handleNavbarScroll();
+          navbarTicking = false;
+        });
+        navbarTicking = true;
+      }
+    }, { passive: true });
+
+    handleNavbarScroll();
+  }
+
+  // ─── 3. Contact Form Validation ───────────────────────────────────────────────
+  const isRTL = document.documentElement.dir === 'rtl' ||
+    document.body.dir === 'rtl';
+
+  const messages = {
+    required: isRTL ? 'هذا الحقل مطلوب' : 'This field is required',
+    email: isRTL ? 'يرجى إدخال بريد إلكتروني صحيح' : 'Please enter a valid email address',
+    minLength: isRTL ? 'يجب أن يحتوي هذا الحقل على {min} أحرف على الأقل' : 'This field must be at least {min} characters',
+    phone: isRTL ? 'يرجى إدخال رقم هاتف صحيح' : 'Please enter a valid phone number',
+    success: isRTL ? 'تم إرسال رسالتك بنجاح!' : 'Your message has been sent successfully!'
+  };
+
+  function showFieldError(field, message) {
+    clearFieldError(field);
+
+    field.classList.add('field-error');
+    field.setAttribute('aria-invalid', 'true');
+
+    const errorEl = document.createElement('span');
+    errorEl.className = 'form-error-message';
+    errorEl.setAttribute('role', 'alert');
+    errorEl.setAttribute('aria-live', 'polite');
+    errorEl.textContent = message;
+
+    field.parentNode.insertBefore(errorEl, field.nextSibling);
+  }
+
+  function clearFieldError(field) {
+    field.classList.remove('field-error');
+    field.removeAttribute('aria-invalid');
+
+    const existingError = field.parentNode.querySelector('.form-error-message');
+    if (existingError) {
+      existingError.remove();
+    }
+  }
+
+  function validateField(field) {
+    const value = field.value.trim();
+    const type = field.type ? field.type.toLowerCase() : 'text';
+    const minLength = field.dataset.minLength ? parseInt(field.dataset.minLength, 10) : null;
+
+    if (field.required && value === '') {
+      showFieldError(field, messages.required);
+      return false;
+    }
+
+    if (value !== '') {
+      if (type === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          showFieldError(field, messages.email);
+          return false;
+        }
+      }
+
+      if (type === 'tel') {
+        const phoneRegex = /^[+]?[\d\s\-().]{7,20}$/;
+        if (!phoneRegex.test(value)) {
+          showFieldError(field, messages.phone);
+          return false;
+        }
+      }
+
+      if (minLength && value.length < minLength) {
+        showFieldError(field, messages.minLength.replace('{min}', minLength));
+        return false;
+      }
+    }
+
+    clearFieldError(field);
+    return true;
+  }
+
+  document.body.addEventListener('submit', function (e) {
+    const form = e.target.closest('.contact-form');
+    if (!form) return;
+
+    e.preventDefault();
+
+    const fields = form.querySelectorAll('input, textarea, select');
+    let isFormValid = true;
+    let firstInvalidField = null;
+
+    fields.forEach(function (field) {
+      if (field.type === 'submit' || field.type === 'button' || field.type === 'reset') return;
+
+      const fieldValid = validateField(field);
+      if (!fieldValid) {
+        isFormValid = false;
+        if (!firstInvalidField) {
+          firstInvalidField = field;
+        }
+      }
+    });
+
+    if (!isFormValid) {
+      if (firstInvalidField) {
+        firstInvalidField.focus();
+        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    const submitBtn = form.querySelector('[type="submit"]');
+    const originalText = submitBtn ? submitBtn.textContent : '';
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = isRTL ? 'جاري الإرسال...' : 'Sending...';
+    }
+
+    const successEl = form.querySelector('.form-success-message') || document.createElement('div');
+    successEl.className = 'form-success-message';
+    successEl.setAttribute('role', 'status');
+    successEl.setAttribute('aria-live', 'polite');
+    successEl.textContent = messages.success;
+
+    if (!form.querySelector('.form-success-message')) {
+      form.appendChild(successEl);
+    }
+
+    successEl.style.display = 'block';
+
+    setTimeout(function () {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    }, 3000);
+  });
+
+  document.body.addEventListener('blur', function (e) {
+    const field = e.target;
+    if (!field.closest('.contact-form')) return;
+    if (field.type === 'submit' || field.type === 'button' || field.type === 'reset') return;
+
+    validateField(field);
+  }, true);
+
+  document.body.addEventListener('input', function (e) {
+    const field = e.target;
+    if (!field.closest('.contact-form')) return;
+    if (!field.classList.contains('field-error')) return;
+
+    validateField(field);
+  });
+
+  // ─── 4. Scroll Animations (Fade-in on Scroll) ────────────────────────────────
+  const ANIMATION_CLASS = 'animate-fade-in';
+  const VISIBLE_CLASS = 'is-visible';
+  const ANIMATION_SELECTORS = [
+    '.fade-in',
+    '.scroll-animate',
+    '[data-animate]',
+    '.feature-card',
+    '.service-card',
+    '.testimonial-card',
+    '.pricing-card',
+    '.team-card',
+    '.section-header',
+    '.hero-content'
+  ];
+
+  const animatableElements = document.querySelectorAll(ANIMATION_SELECTORS.join(', '));
+
+  if (animatableElements.length > 0) {
+    animatableElements.forEach(function (el, index) {
+      el.classList.add(ANIMATION_CLASS);
+
+      const delay = el.dataset.animateDelay || (index % 5) * 100;
+      if (delay) {
+        el.style.transitionDelay = delay + 'ms';
+      }
+    });
+
+    if ('IntersectionObserver' in window) {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -60px 0px',
+        threshold: 0.1
+      };
+
+      const intersectionObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(VISIBLE_CLASS);
+            intersectionObserver.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      animatableElements.forEach(function (el) {
+        intersectionObserver.observe(el);
+      });
+
+    } else {
+      // Fallback for browsers without IntersectionObserver
+      function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        return rect.top <= windowHeight * 0.9 && rect.bottom >= 0;
+      }
+
+      function handleScrollAnimation() {
+        animatableElements.forEach(function (el) {
+          if (!el.classList.contains(VISIBLE_CLASS) && isElementInViewport(el)) {
+            el.classList.add(VISIBLE_CLASS);
+          }
+        });
+      }
+
+      let scrollTicking = false;
+      window.addEventListener('scroll', function () {
+        if (!scrollTicking) {
+          window.requestAnimationFrame(function () {
+            handleScrollAnimation();
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
+      }, { passive: true });
+
+      handleScrollAnimation();
+    }
+  }
+
+  // ─── Inject Base Animation Styles ────────────────────────────────────────────
+  const styleId = 'scroll-animation-styles';
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = [
+      '.' + ANIMATION_CLASS + '{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}',
+      '.' + ANIMATION_CLASS + '.' + VISIBLE_CLASS + '{opacity:1;transform:translateY(0);}',
+      '.form-error-message{display:block;color:#e53e3e;font-size:0.85em;margin-top:4px;}',
+      '.field-error{border-color:#e53e3e !important;outline-color:#e53e3e !important;}',
+      '.form-success-message{display:none;padding:12px 16px;background:#c6f6d5;color:#276749;border-radius:6px;margin-top:12px;font-weight:500;}'
+    ].join('');
+    document.head.appendChild(style);
+  }
+
+});
+/* === NAVBAR SCROLL JS OVERRIDE START === */
+(function(){var nb=document.querySelector('nav.navbar,.navbar:not(.zappy-catalog-menu)');var cm=document.querySelector('.zappy-catalog-menu,#zappy-catalog-menu');if(!nb)return;var bodyBg=getComputedStyle(document.body).backgroundColor||'rgb(0,0,0)';var m=bodyBg.match(/\d+/g);var cr=m?parseInt(m[0]):0,cg=m?parseInt(m[1]):0,cb=m?parseInt(m[2]):0;var fb='rgba('+cr+','+cg+','+cb+',0.85)';var sR=cr/255,sG=cg/255,sB=cb/255;sR=sR<=0.03928?sR/12.92:Math.pow((sR+0.055)/1.055,2.4);sG=sG<=0.03928?sG/12.92:Math.pow((sG+0.055)/1.055,2.4);sB=sB<=0.03928?sB/12.92:Math.pow((sB+0.055)/1.055,2.4);var lum=0.2126*sR+0.7152*sG+0.0722*sB;var rs=getComputedStyle(document.documentElement);var td=rs.getPropertyValue('--text-dark').trim()||'#1a1a1a';var tl=rs.getPropertyValue('--text-light').trim()||'#ffffff';var st=(lum>0.4)?td:tl;var th=60;var neSel='a,.navbar-brand,.navbar-brand a,.dropdown-toggle,.mobile-toggle,.phone-header-btn,.mobile-hamburger-btn,.mobile-close-btn,.mobile-submenu-toggle,.nav-link';var skipCls=['cart-link','login-link','nav-search-toggle','search-toggle','nav-cta-btn'];function sTC(c,clr){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){var sk=false;if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu')){sk=true;}for(var j=0;j<skipCls.length;j++){if(els[i].classList.contains(skipCls[j])){sk=true;break;}}if(!sk)els[i].style.setProperty('color',clr,'important');}}function cTC(c){var els=c.querySelectorAll(neSel);for(var i=0;i<els.length;i++){if(els[i].closest('.sub-menu')||els[i].closest('.dropdown-menu'))continue;els[i].style.removeProperty('color');}}function onS(){if(window._zappyNavOverrideActive)return;if(window._zappyNavNoDarkHero)return;if(window.innerWidth<=768){nb.style.removeProperty('background');nb.style.removeProperty('background-color');nb.style.removeProperty('background-image');nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='';nb.style.webkitBackdropFilter='';nb.style.boxShadow='';nb.classList.remove('scrolled');cTC(nb);if(cm){cm.style.removeProperty('background');cm.style.removeProperty('background-color');cm.style.removeProperty('backdrop-filter');cm.style.removeProperty('-webkit-backdrop-filter');cm.classList.remove('scrolled');cTC(cm);}return;}var y=window.scrollY||window.pageYOffset;if(y>th){nb.classList.add('scrolled');nb.style.setProperty('background-color',fb,'important');nb.style.setProperty('background-image','none','important');nb.style.setProperty('--frosted-text',st);nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';sTC(nb,st);if(cm){cm.classList.add('scrolled');cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}else{if(window._zappyNavNoDarkHero)return;nb.classList.remove('scrolled');nb.style.setProperty('background-color','transparent','important');nb.style.removeProperty('background-image');nb.style.removeProperty('--frosted-text');nb.style.backdropFilter='none';nb.style.webkitBackdropFilter='none';nb.style.boxShadow='none';cTC(nb);if(cm){cm.classList.remove('scrolled');cm.style.setProperty('background','transparent','important');cm.style.setProperty('backdrop-filter','none','important');cm.style.setProperty('-webkit-backdrop-filter','none','important');cTC(cm);}}}if(window._zappyNavScrollCleanup)window._zappyNavScrollCleanup();window.addEventListener('scroll',onS,{passive:true});window.addEventListener('resize',onS,{passive:true});window._zappyNavScrollCleanup=function(){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);};onS();function sLum(rv,gv,bv){rv/=255;gv/=255;bv/=255;rv=rv<=0.03928?rv/12.92:Math.pow((rv+0.055)/1.055,2.4);gv=gv<=0.03928?gv/12.92:Math.pow((gv+0.055)/1.055,2.4);bv=bv<=0.03928?bv/12.92:Math.pow((bv+0.055)/1.055,2.4);return 0.2126*rv+0.7152*gv+0.0722*bv;}var heroEl=document.querySelector('section[class*="hero"],[data-hero-type],main>section:first-child');var hasDH=false;if(heroEl){var hCs=getComputedStyle(heroEl);var hBI=hCs.backgroundImage;if(hBI&&hBI!=='none'){if(hBI.indexOf('url(')!==-1){var hM2=hCs.backgroundColor.match(/\d+/g);if(hM2&&hM2.length>=3){hasDH=sLum(parseInt(hM2[0]),parseInt(hM2[1]),parseInt(hM2[2]))<0.4;}else{hasDH=true;}}else if(hBI.indexOf('gradient')!==-1){var cM=hBI.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g);if(cM&&cM.length>0){var tLm=0;for(var ci=0;ci<cM.length;ci++){var pts=cM[ci].match(/\d+/g);tLm+=sLum(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));}hasDH=(tLm/cM.length)<0.4;}else{hasDH=true;}}else{hasDH=true;}}else{var hM=hCs.backgroundColor.match(/\d+/g);if(hM&&hM.length>=3){hasDH=sLum(parseInt(hM[0]),parseInt(hM[1]),parseInt(hM[2]))<0.4;}}}if(!hasDH){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS);delete window._zappyNavScrollCleanup;nb.classList.add('scrolled');if(window.innerWidth>768){nb.style.setProperty('--frosted-text',st);nb.style.setProperty('background-image','none','important');nb.style.setProperty('background-color',fb,'important');nb.style.backdropFilter='blur(12px)';nb.style.webkitBackdropFilter='blur(12px)';nb.style.boxShadow='0 2px 16px rgba(0,0,0,0.12)';sTC(nb,st);}if(cm){cm.classList.add('scrolled');if(window.innerWidth>768){cm.style.setProperty('background',fb,'important');cm.style.setProperty('backdrop-filter','blur(12px)','important');cm.style.setProperty('-webkit-backdrop-filter','blur(12px)','important');sTC(cm,st);}}window._zappyNavNoDarkHero=true;var origNbR=nb.classList.remove.bind(nb.classList);nb._origClassListRemove=origNbR;nb.classList.remove=function(){var a=[];for(var i=0;i<arguments.length;i++){if(arguments[i]!=='scrolled')a.push(arguments[i]);}if(a.length>0)origNbR.apply(null,a);};if(cm){var origCmR=cm.classList.remove.bind(cm.classList);cm._origClassListRemove=origCmR;cm.classList.remove=function(){var a=[];for(var i=0;i<arguments.length;i++){if(arguments[i]!=='scrolled')a.push(arguments[i]);}if(a.length>0)origCmR.apply(null,a);};}}})();
+/* === NAVBAR SCROLL JS OVERRIDE END === */
+
+
+/* Cookie Consent */
+
+// Helper function to check cookie consent
+function hasConsentFor(category) {
+  if (typeof window.CookieConsent === 'undefined') {
+    return false; // Default to no consent if cookie consent not loaded
+  }
+  
+  return window.CookieConsent.validConsent(category);
+}
+
+// Helper function to execute code only with consent
+function withConsent(category, callback) {
+  if (hasConsentFor(category)) {
+    callback();
+  } else {
+    console.log(`[WARNING] Skipping ${category} code - no user consent`);
+  }
+}
+
+// Cookie Consent Initialization
+
+(function() {
+  'use strict';
+  
+  let initAttempts = 0;
+  const maxAttempts = 50; // 5 seconds max wait
+  
+  // Wait for DOM and vanilla-cookieconsent to be ready
+  function initCookieConsent() {
+    initAttempts++;
+    
+    
+    if (typeof window.CookieConsent === 'undefined') {
+      if (initAttempts < maxAttempts) {
+        setTimeout(initCookieConsent, 100);
+      } else {
+      }
+      return;
+    }
+
+    const cc = window.CookieConsent;
+    
+    
+    // Initialize cookie consent
+    try {
+      cc.run({
+  "autoShow": true,
+  "mode": "opt-in",
+  "revision": 0,
+  "categories": {
+    "necessary": {
+      "enabled": true,
+      "readOnly": true
+    },
+    "analytics": {
+      "enabled": false,
+      "readOnly": false,
+      "autoClear": {
+        "cookies": [
+          {
+            "name": "_ga"
+          },
+          {
+            "name": "_ga_*"
+          },
+          {
+            "name": "_gid"
+          },
+          {
+            "name": "_gat"
+          }
+        ]
+      }
+    },
+    "marketing": {
+      "enabled": false,
+      "readOnly": false,
+      "autoClear": {
+        "cookies": [
+          {
+            "name": "_fbp"
+          },
+          {
+            "name": "_fbc"
+          },
+          {
+            "name": "fr"
+          }
+        ]
+      }
+    }
+  },
+  "language": {
+    "default": "he",
+    "translations": {
+      "he": {
+        "consentModal": {
+          "title": "אנחנו משתמשים בעוגיות 🍪",
+          "description": "ערן סמולר - מנהל פרוייקטים בדיגיטל משתמש בעוגיות כדי לשפר את החוויה שלך, לנתח שימוש באתר ולסייע במאמצי השיווק שלנו.",
+          "acceptAllBtn": "אשר הכל",
+          "acceptNecessaryBtn": "רק הכרחי",
+          "showPreferencesBtn": "נהל העדפות",
+          "footer": "<a href=\"#privacy-policy\">מדיניות פרטיות</a> | <a href=\"#terms-conditions\">תנאי שימוש</a>"
+        },
+        "preferencesModal": {
+          "title": "העדפות עוגיות",
+          "acceptAllBtn": "אשר הכל",
+          "acceptNecessaryBtn": "רק הכרחי",
+          "savePreferencesBtn": "שמור העדפות",
+          "closeIconLabel": "סגור",
+          "sections": [
+            {
+              "title": "עוגיות חיוניות",
+              "description": "עוגיות אלה הכרחיות לתפקוד האתר ולא ניתן להשבית אותן.",
+              "linkedCategory": "necessary"
+            },
+            {
+              "title": "עוגיות ניתוח",
+              "description": "עוגיות אלה עוזרות לנו להבין איך המבקרים מתקשרים עם האתר שלנו.",
+              "linkedCategory": "analytics"
+            },
+            {
+              "title": "עוגיות שיווקיות",
+              "description": "עוגיות אלה משמשות להצגת פרסומות מותאמות אישית.",
+              "linkedCategory": "marketing"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "guiOptions": {
+    "consentModal": {
+      "layout": "box",
+      "position": "bottom right",
+      "equalWeightButtons": true,
+      "flipButtons": false
+    },
+    "preferencesModal": {
+      "layout": "box",
+      "equalWeightButtons": true,
+      "flipButtons": false
+    }
+  }
+});
+      
+      // Google Consent Mode v2 integration
+      // Update consent state based on accepted cookie categories
+      function updateGoogleConsentMode() {
+        if (typeof gtag !== 'function') {
+          // Define gtag if not already defined (needed for consent updates)
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){dataLayer.push(arguments);};
+        }
+        
+        var analyticsAccepted = cc.acceptedCategory('analytics');
+        var marketingAccepted = cc.acceptedCategory('marketing');
+        
+        gtag('consent', 'update', {
+          'analytics_storage': analyticsAccepted ? 'granted' : 'denied',
+          'ad_storage': marketingAccepted ? 'granted' : 'denied',
+          'ad_user_data': marketingAccepted ? 'granted' : 'denied',
+          'ad_personalization': marketingAccepted ? 'granted' : 'denied'
+        });
+      }
+      
+      // Update consent on initial load (if user previously accepted)
+      updateGoogleConsentMode();
+      
+      // Handle consent changes via onChange callback
+      if (typeof cc.onChange === 'function') {
+        cc.onChange(function(cookie, changed_preferences) {
+          updateGoogleConsentMode();
+        });
+      }
+
+      // Note: Cookie Preferences button removed per marketing guidelines
+      // Footer should be clean and minimal - users can manage cookies via banner
+    } catch (error) {
+    }
+  }
+
+  // Initialize when DOM is ready - multiple approaches for reliability
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCookieConsent);
+    // Backup timeout in case DOMContentLoaded doesn't fire
+    setTimeout(initCookieConsent, 1000);
+  } else if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    initCookieConsent();
+  } else {
+    // Fallback - try after a short delay
+    setTimeout(initCookieConsent, 500);
+  }
+  
+  // Additional fallback - try after page load
+  if (typeof window !== 'undefined') {
+    if (window.addEventListener) {
+      window.addEventListener('load', initCookieConsent, { once: true });
+    }
+  }
+})();
+
+/* Accessibility Features */
+
+/* Mickidum Accessibility Toolbar Initialization - Zappy Style */
+
+window.onload = function() {
+    
+    try {
+        window.micAccessTool = new MicAccessTool({
+            buttonPosition: 'left', // Position on left side
+            forceLang: 'he-IL', // Force language
+            icon: {
+                position: {
+                    bottom: { size: 50, units: 'px' },
+                    left: { size: 20, units: 'px' },
+                    type: 'fixed'
+                },
+                backgroundColor: 'transparent', // Transparent to allow CSS styling
+                color: 'transparent', // Let CSS handle coloring
+                img: 'accessible',
+                circular: false // Square button for consistent styling
+            },
+            menu: {
+                dimensions: {
+                    width: { size: 300, units: 'px' },
+                    height: { size: 'auto', units: 'px' }
+                }
+            }
+        });
+        
+    } catch (error) {
+    }
+    
+    // Keyboard shortcut handler: ALT+A (Option+A on Mac) to toggle accessibility widget visibility (desktop only)
+    document.addEventListener('keydown', function(event) {
+        // Check if ALT+A is pressed (ALT on Windows/Linux, Option on Mac)
+        var isAltOrOption = event.altKey;
+        // Use event.code for reliable physical key detection (works regardless of Option key character output)
+        var isAKey = event.code === 'KeyA' || event.keyCode === 65 || event.which === 65 || 
+                      (event.key && (event.key.toLowerCase() === 'a' || event.key === 'å' || event.key === 'Å'));
+        
+        if (isAltOrOption && isAKey) {
+            // Only work on desktop (screen width > 768px)
+            if (window.innerWidth > 768) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                // Toggle visibility class on body
+                var isVisible = document.body.classList.contains('accessibility-widget-visible');
+                
+                if (isVisible) {
+                    // Hide the widget
+                    document.body.classList.remove('accessibility-widget-visible');
+                } else {
+                    // Show the widget
+                    document.body.classList.add('accessibility-widget-visible');
+                    
+                    // After a short delay, click the button to open the menu
+                    setTimeout(function() {
+                        var accessButton = document.getElementById('mic-access-tool-general-button');
+                        if (accessButton) {
+                            accessButton.click();
+                        }
+                    }, 200);
+                }
+            }
+        }
+    }, true);
+};
+
+
+    // Enhanced contact form handling with Elastic Email integration
+    // API URL: https://api.zappy5.com
+    (function() {
+        // Check if contact form handler is already loaded
+        if (window.zappyContactFormLoaded) {
+            console.log('📧 Zappy contact form already loaded');
+            return;
+        }
+        window.zappyContactFormLoaded = true;
+        
+        // Wait for DOM to be ready before initializing
+        function initContactForm() {
+            console.log('📧 Zappy: Initializing contact form handler...');
+
+            // Newsletter popup forms (data-zappy-newsletter / #znl-form / forms inside
+            // .znl-overlay) own their own submit handler that posts to
+            // /api/newsletter/public/.../subscribe. They must NEVER be picked up by
+            // the contact-form integration — otherwise the popup's submit gets
+            // hijacked into POST /api/email/contact-form and surfaces a misleading
+            // "Business contact email not configured" error.
+            function isNewsletterPopupForm(f) {
+                if (!f) return false;
+                if (f.hasAttribute && f.hasAttribute('data-zappy-newsletter')) return true;
+                if (f.id === 'znl-form' || (f.classList && f.classList.contains('znl-form'))) return true;
+                if (f.closest && f.closest('.znl-overlay, [data-zappy-newsletter]')) return true;
+                return false;
+            }
+            function pickContactForm() {
+                const candidates = [
+                    document.querySelector('.contact-form'),
+                    document.querySelector('form[action*="contact"]'),
+                    document.querySelector('form#contact'),
+                    document.querySelector('form#contactForm'),
+                    document.getElementById('contactForm'),
+                    document.querySelector('section.contact form'),
+                    document.querySelector('section#contact form')
+                ];
+                for (let i = 0; i < candidates.length; i++) {
+                    if (candidates[i] && !isNewsletterPopupForm(candidates[i])) return candidates[i];
+                }
+                // Last-resort: first <form> on the page that isn't a newsletter popup.
+                // Without this filter, sites with no real contact form (landing pages,
+                // single-section sites) end up cloning the newsletter popup form and
+                // hijacking its submit handler.
+                const all = document.querySelectorAll('form');
+                for (let j = 0; j < all.length; j++) {
+                    if (!isNewsletterPopupForm(all[j])) return all[j];
+                }
+                return null;
+            }
+            const contactForm = pickContactForm();
+
+            if (!contactForm) {
+                console.log('⚠️ Zappy: No contact form found on page');
+                return;
+            }
+            
+            console.log('✅ Zappy: Contact form found:', contactForm.className || contactForm.id || 'unnamed form');
+            
+            // Remove any existing submit handlers by cloning the form element
+            const newContactForm = contactForm.cloneNode(true);
+            contactForm.parentNode.replaceChild(newContactForm, contactForm);
+            
+            // Now add our handler to the clean form
+            newContactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validate privacy consent checkbox if present (required for GDPR)
+            var privacyCheckbox = this.querySelector('.privacy-consent-checkbox');
+            if (privacyCheckbox && !privacyCheckbox.checked) {
+                showNotification('Please accept the Terms & Conditions and Privacy Policy to continue', 'error');
+                privacyCheckbox.focus();
+                return;
+            }
+            
+            // Get form data with multi-value support (checkboxes, multi-selects)
+            const formData = new FormData(this);
+            const data = {};
+            for (const [key, value] of formData.entries()) {
+                if (data[key] !== undefined) {
+                    if (Array.isArray(data[key])) data[key].push(value);
+                    else data[key] = [data[key], value];
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            // Smart name resolution: name > firstName+lastName > email
+            const _coreNameFields = ['name','firstName','first_name','fname','lastName','last_name','lname'];
+            const _coreEmailFields = ['email','emailAddress','mail','e-mail'];
+            const _corePhoneFields = ['phone','tel','telephone','mobile','cellphone'];
+            const _coreMsgFields = ['message','msg','comments','comment','description','details','notes','body','text','inquiry'];
+            const _coreSubjectFields = ['subject','topic','regarding','re'];
+            const _allCoreFields = [].concat(_coreNameFields, _coreEmailFields, _corePhoneFields, _coreMsgFields, _coreSubjectFields);
+            
+            const name = (data.name || '').trim()
+                || [data.firstName || data.first_name || data.fname || '', data.lastName || data.last_name || data.lname || ''].filter(Boolean).join(' ').trim()
+                || (data.email || data.emailAddress || data.mail || '').trim()
+                || 'Anonymous';
+            
+            const email = (data.email || data.emailAddress || data.mail || data['e-mail'] || '').trim();
+            
+            const phone = data.phone || data.tel || data.telephone || data.mobile || data.cellphone || null;
+            
+            const subject = data.subject || data.topic || data.regarding || data.re || 'Contact Form Submission';
+            
+            // Smart message resolution: use message field, or build summary from all non-core fields
+            let message = (data.message || data.msg || data.comments || data.comment || data.description || data.details || data.notes || data.body || data.text || data.inquiry || '').trim();
+            if (!message) {
+                const extraEntries = Object.entries(data).filter(function(e) { return !_allCoreFields.includes(e[0]); });
+                if (extraEntries.length > 0) {
+                    message = extraEntries.map(function(e) {
+                        const label = e[0].replace(/([A-Z])/g, ' $1').replace(/[_-]/g, ' ').trim();
+                        const val = Array.isArray(e[1]) ? e[1].join(', ') : e[1];
+                        return label + ': ' + val;
+                    }).join('\n');
+                } else {
+                    message = 'Form submission from ' + window.location.pathname;
+                }
+            }
+            
+            // Collect extra fields (anything not in the core set)
+            const extraFields = {};
+            for (const [key, value] of Object.entries(data)) {
+                if (!_allCoreFields.includes(key) && value !== '' && value !== null && value !== undefined) {
+                    extraFields[key] = value;
+                }
+            }
+            
+            if (!email) {
+                console.error('❌ Validation failed: no email found in form data');
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            // Email validation
+            if (!isValidEmail(email)) {
+                showNotification('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Get submit button and show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Add loading animation
+            submitBtn.classList.add('loading');
+            
+            try {
+                // Send to Zappy email API - prefer ZAPPY_API_BASE (set per-deployment) over build-time URL
+                const apiUrl = (window.ZAPPY_API_BASE || 'https://api.zappy5.com').replace(/\/$/, '');
+                const endpoint = apiUrl + '/api/email/contact-form';
+                
+                // Get current page path for thank you page lookup
+                // In preview mode, use ZAPPY_CONFIG.currentPagePath; otherwise use pathname
+                let currentPagePath = window.location.pathname;
+                if (window.ZAPPY_CONFIG && window.ZAPPY_CONFIG.currentPagePath) {
+                    currentPagePath = window.ZAPPY_CONFIG.currentPagePath;
+                } else {
+                    // Try to extract page from URL query param (fullscreen preview mode)
+                    try {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const pageParam = urlParams.get('page');
+                        if (pageParam) currentPagePath = pageParam;
+                    } catch (e) {}
+                }
+                
+                const payload = {
+                    websiteId: 'd1085f80-d166-49a6-827c-f4b6322466b5',
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    phone: phone,
+                    currentPagePath: currentPagePath
+                };
+                if (Object.keys(extraFields).length > 0) {
+                    payload.extraFields = extraFields;
+                }
+                
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Check if there's a thank you page to redirect to
+                    if (result.thankYouPagePath && result.ticketNumber) {
+                        console.log('🎁 Redirecting to thank you page:', result.thankYouPagePath);
+                        
+                        // Build the redirect URL based on the current environment
+                        let thankYouUrl;
+                        const ticketParam = 'ticket=' + encodeURIComponent(result.ticketNumber);
+                        
+                        // Check if we're in preview mode (URL contains /preview/ or /preview-fullscreen/)
+                        const isPreviewMode = window.location.pathname.includes('/preview');
+                        
+                        if (isPreviewMode && window.ZAPPY_CONFIG) {
+                            // In preview mode, use the preview URL format
+                            const websiteId = window.ZAPPY_CONFIG.websiteId || 'd1085f80-d166-49a6-827c-f4b6322466b5';
+                            const authToken = window.ZAPPY_CONFIG.authToken;
+                            const baseUrl = window.location.origin;
+                            const previewType = window.location.pathname.includes('fullscreen') ? 'preview-fullscreen' : 'preview';
+                            
+                            thankYouUrl = baseUrl + '/api/website/' + previewType + '/' + websiteId + '?page=' + encodeURIComponent(result.thankYouPagePath) + '&' + ticketParam;
+                            if (authToken) {
+                                thankYouUrl += '&auth_token=' + encodeURIComponent(authToken);
+                            }
+                        } else {
+                            // In deployed/production mode, navigate directly to the page
+                            thankYouUrl = result.thankYouPagePath + '?' + ticketParam;
+                        }
+                        
+                        console.log('📍 Navigating to:', thankYouUrl);
+                        window.location.href = thankYouUrl;
+                        return; // Don't show notification since we're redirecting
+                    }
+                    
+                    // No thank you page - show standard notification
+                    var _siteLang = document.documentElement.lang || '';
+                    var _isHeSite = _siteLang === 'he' || (_siteLang !== 'ar' && document.documentElement.dir === 'rtl');
+                    var _isArSite = _siteLang === 'ar';
+                    var _successFallback = _isHeSite ? 'ההודעה שלך נשלחה בהצלחה! נחזור אליך בהקדם.' : _isArSite ? 'تم إرسال رسالتك بنجاح! سنرد عليك قريبًا.' : 'Thank you for your message! We\'ll get back to you soon.';
+                    showNotification(result.message || _successFallback, 'success');
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Optional: Show additional success UI
+                    showSuccessModal();
+                } else {
+                    // Error from server
+                    console.error('❌ Server returned error:', result);
+                    var _isHeSiteErr = _siteLang === 'he' || (_siteLang !== 'ar' && document.documentElement.dir === 'rtl');
+                    var _isArSiteErr = _siteLang === 'ar';
+                    var _errFallback = _isHeSiteErr ? 'שליחת ההודעה נכשלה. אנא נסו שוב.' : _isArSiteErr ? 'فشل في إرسال الرسالة. يرجى المحاولة مرة أخرى.' : 'Failed to send message. Please try again.';
+                    showNotification(result.error || _errFallback, 'error');
+                }
+                
+            } catch (error) {
+                console.error('❌ Network error:', error);
+                console.error('Failed to connect to:', 'https://api.zappy5.com/api/email/contact-form');
+                
+                // Fallback: Show error message and provide alternative contact info
+                var _isHeSiteNet = _siteLang === 'he' || (_siteLang !== 'ar' && document.documentElement.dir === 'rtl');
+                var _isArSiteNet = _siteLang === 'ar';
+                var _netFallback = _isHeSiteNet ? 'לא ניתן לשלוח הודעה כרגע. אנא נסו שוב מאוחר יותר או צרו קשר ישירות.' : _isArSiteNet ? 'لا يمكن إرسال الرسالة الآن. يرجى المحاولة مرة أخرى لاحقًا.' : 'Unable to send message right now. Please try again later or contact us directly.';
+                showNotification(_netFallback, 'error');
+                
+                // Show fallback contact info
+                showFallbackContact();
+            } finally {
+                // Reset button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+            }
+        });
+        
+        // Email validation helper
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.zappy-notification');
+            existingNotifications.forEach(notification => notification.remove());
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `zappy-notification zappy-notification--${type}`;
+            notification.innerHTML = `
+            <div class="zappy-notification__content">
+                <span class="zappy-notification__icon">
+                    ${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}
+                </span>
+                <span class="zappy-notification__message">${message}</span>
+                <button class="zappy-notification__close" onclick="this.parentElement.parentElement.remove()">×</button>
+            </div>
+            `;
+            
+            // Add styles if not already present
+            if (!document.querySelector('#zappy-notification-styles')) {
+                const styles = document.createElement('style');
+            styles.id = 'zappy-notification-styles';
+            styles.textContent = `
+                .zappy-notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    max-width: 400px;
+                    padding: 16px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 10000;
+                    animation: slideInRight 0.3s ease-out;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                }
+                
+                .zappy-notification--success {
+                    background-color: #d4edda;
+                    border: 1px solid #c3e6cb;
+                    color: #155724;
+                }
+                
+                .zappy-notification--error {
+                    background-color: #f8d7da;
+                    border: 1px solid #f5c6cb;
+                    color: #721c24;
+                }
+                
+                .zappy-notification--info {
+                    background-color: #d1ecf1;
+                    border: 1px solid #bee5eb;
+                    color: #0c5460;
+                }
+                
+                .zappy-notification__content {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                
+                .zappy-notification__icon {
+                    font-size: 18px;
+                    flex-shrink: 0;
+                }
+                
+                .zappy-notification__message {
+                    flex: 1;
+                    font-size: 14px;
+                    line-height: 1.4;
+                }
+                
+                .zappy-notification__close {
+                    background: none;
+                    border: none;
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding: 0;
+                    width: 24px;
+                    height: 24px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    opacity: 0.7;
+                }
+                
+                .zappy-notification__close:hover {
+                    opacity: 1;
+                }
+                
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                
+                .loading {
+                    position: relative;
+                    pointer-events: none;
+                }
+                
+                .loading::after {
+                    content: '';
+                    position: absolute;
+                    width: 16px;
+                    height: 16px;
+                    margin: auto;
+                    border: 2px solid transparent;
+                    border-top-color: currentColor;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                }
+                
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(styles);
+        }
+        
+        // Add to page
+        document.body.appendChild(notification);
+        
+        // Auto-remove after 5 seconds for success, 8 seconds for errors
+        const timeout = type === 'error' ? 8000 : 5000;
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => notification.remove(), 300);
+            }
+        }, timeout);
+    }
+    
+    // Success modal for enhanced UX
+    function showSuccessModal() {
+        var _modalLang = document.documentElement.lang || '';
+        var _isHeSiteModal = _modalLang === 'he' || (_modalLang !== 'ar' && document.documentElement.dir === 'rtl');
+        const modal = document.createElement('div');
+        modal.className = 'zappy-success-modal';
+        modal.innerHTML = `
+            <div class="zappy-success-modal__backdrop" onclick="this.parentElement.remove()">
+                <div class="zappy-success-modal__content" onclick="event.stopPropagation()">
+                    <div class="zappy-success-modal__icon">🎉</div>
+                    <h3>${ _isHeSiteModal ? 'ההודעה נשלחה בהצלחה!' : 'Message Sent Successfully!' }</h3>
+                    <p>${ _isHeSiteModal ? 'תודה שפניתם אלינו. קיבלנו את הודעתכם ונחזור אליכם בהקדם האפשרי.' : "Thank you for reaching out. We've received your message and will get back to you as soon as possible." }</p>
+                    <button onclick="this.closest('.zappy-success-modal').remove()" class="zappy-success-modal__button">
+                        ${ _isHeSiteModal ? 'הבנתי!' : 'Got it!' }
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // Add modal styles
+        if (!document.querySelector('#zappy-modal-styles')) {
+            const styles = document.createElement('style');
+            styles.id = 'zappy-modal-styles';
+            styles.textContent = `
+                .zappy-success-modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 10001;
+                    animation: fadeIn 0.3s ease-out;
+                }
+                
+                .zappy-success-modal__backdrop {
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0,0,0,0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
+                }
+                
+                .zappy-success-modal__content {
+                    background: white;
+                    padding: 40px;
+                    border-radius: 12px;
+                    text-align: center;
+                    max-width: 400px;
+                    width: 100%;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                    animation: slideUp 0.3s ease-out;
+                }
+                
+                .zappy-success-modal__icon {
+                    font-size: 48px;
+                    margin-bottom: 20px;
+                }
+                
+                .zappy-success-modal__content h3 {
+                    margin: 0 0 15px 0;
+                    color: #333;
+                    font-size: 24px;
+                }
+                
+                .zappy-success-modal__content p {
+                    margin: 0 0 25px 0;
+                    color: #666;
+                    line-height: 1.5;
+                }
+                
+                .zappy-success-modal__button {
+                    background: #007bff;
+                    color: white;
+                    border: none;
+                    padding: 12px 24px;
+                    border-radius: 6px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    transition: background-color 0.2s;
+                }
+                
+                .zappy-success-modal__button:hover {
+                    background: #0056b3;
+                }
+                
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                
+                @keyframes slideUp {
+                    from { transform: translateY(30px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(styles);
+        }
+        
+        document.body.appendChild(modal);
+        
+        // Auto-close after 5 seconds
+        setTimeout(() => {
+            if (modal.parentElement) {
+                modal.remove();
+            }
+        }, 5000);
+    }
+    
+    // Fallback contact information
+    function showFallbackContact() {
+        const fallback = document.createElement('div');
+        fallback.className = 'zappy-fallback-contact';
+        fallback.innerHTML = `
+            <div class="zappy-fallback-contact__content">
+                <h4>Alternative Contact Methods</h4>
+                <p>If you're having trouble sending your message, you can also reach us at:</p>
+                <div class="zappy-fallback-contact__methods">
+                    <a href="mailto:support@zappy5.com?subject=Contact Form Issue" class="zappy-fallback-contact__method">
+                        📧 support@zappy5.com
+                    </a>
+                </div>
+                <button onclick="this.parentElement.parentElement.remove()" class="zappy-fallback-contact__close">
+                    Close
+                </button>
+            </div>
+        `;
+        
+        // Add fallback styles
+        if (!document.querySelector('#zappy-fallback-styles')) {
+            const styles = document.createElement('style');
+            styles.id = 'zappy-fallback-styles';
+            styles.textContent = `
+                .zappy-fallback-contact {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    max-width: 350px;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 10000;
+                    animation: slideInUp 0.3s ease-out;
+                }
+                
+                .zappy-fallback-contact__content {
+                    padding: 20px;
+                }
+                
+                .zappy-fallback-contact__content h4 {
+                    margin: 0 0 10px 0;
+                    color: #333;
+                    font-size: 16px;
+                }
+                
+                .zappy-fallback-contact__content p {
+                    margin: 0 0 15px 0;
+                    color: #666;
+                    font-size: 14px;
+                    line-height: 1.4;
+                }
+                
+                .zappy-fallback-contact__methods {
+                    margin-bottom: 15px;
+                }
+                
+                .zappy-fallback-contact__method {
+                    display: block;
+                    padding: 8px 12px;
+                    background: #f8f9fa;
+                    border: 1px solid #e9ecef;
+                    border-radius: 4px;
+                    text-decoration: none;
+                    color: #495057;
+                    font-size: 14px;
+                    transition: background-color 0.2s;
+                }
+                
+                .zappy-fallback-contact__method:hover {
+                    background: #e9ecef;
+                }
+                
+                .zappy-fallback-contact__close {
+                    background: #6c757d;
+                    color: white;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    cursor: pointer;
+                    float: right;
+                }
+                
+                @keyframes slideInUp {
+                    from {
+                        transform: translateY(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(styles);
+        }
+        
+        document.body.appendChild(fallback);
+        
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+            if (fallback.parentElement) {
+                fallback.remove();
+            }
+        }, 10000);
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // 🍔 MOBILE MENU TOGGLE HANDLER
+        // ═══════════════════════════════════════════════════════════════
+        (function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileToggle') || 
+                               document.querySelector('.mobile-toggle') || 
+                               document.querySelector('.hamburger');
+            const navMenu = document.getElementById('navMenu') || 
+                          document.querySelector('.nav-menu') ||
+                          document.querySelector('.navbar-menu');
+            
+            if (mobileToggle && navMenu) {
+                
+                // Toggle menu on button click
+                mobileToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const hamburgerIcon = this.querySelector('.hamburger-icon');
+                    const closeIcon = this.querySelector('.close-icon');
+                    const isActive = this.classList.contains('active');
+                    
+                    if (isActive) {
+                        // Show hamburger, hide X
+                        if (hamburgerIcon) hamburgerIcon.style.display = 'block';
+                        if (closeIcon) closeIcon.style.display = 'none';
+                        this.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    } else {
+                        // Show X, hide hamburger  
+                        if (hamburgerIcon) hamburgerIcon.style.display = 'none';
+                        if (closeIcon) closeIcon.style.display = 'block';
+                        this.classList.add('active');
+                        navMenu.classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Prevent scroll when menu open
+                    }
+                });
+                
+                // Close menu when clicking a nav link
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+                        const closeIcon = mobileToggle.querySelector('.close-icon');
+                        if (hamburgerIcon) hamburgerIcon.style.display = 'block';
+                        if (closeIcon) closeIcon.style.display = 'none';
+                        mobileToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (navMenu.classList.contains('active') && 
+                        !navMenu.contains(e.target) && 
+                        !mobileToggle.contains(e.target)) {
+                        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+                        const closeIcon = mobileToggle.querySelector('.close-icon');
+                        if (hamburgerIcon) hamburgerIcon.style.display = 'block';
+                        if (closeIcon) closeIcon.style.display = 'none';
+                        mobileToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+                
+                // Handle escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+                        const closeIcon = mobileToggle.querySelector('.close-icon');
+                        if (hamburgerIcon) hamburgerIcon.style.display = 'block';
+                        if (closeIcon) closeIcon.style.display = 'none';
+                        mobileToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+                
+                // Phone header button functionality
+                const phoneHeaderBtn = document.querySelector('.phone-header-btn');
+                if (phoneHeaderBtn) {
+                    phoneHeaderBtn.addEventListener('click', function() {
+                        // Dynamically get phone number from existing tel: links on the page
+                        // This ensures the phone button uses the same number as other phone links
+                        // Falls back to [business_phone] placeholder which businessInfoUpdater can replace
+                        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+                        const phoneNumber = phoneLinks.length > 0 
+                            ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+                            : '[business_phone]';
+                        window.location.href = 'tel:' + phoneNumber;
+                    });
+                }
+            }
+        })();
+        
+        // ═══════════════════════════════════════════════════════════════
+        // 🔗 DISABLE SOCIAL MEDIA LINKS WITH PLACEHOLDERS
+        // ═══════════════════════════════════════════════════════════════
+        (function disablePlaceholderLinks() {
+            // List of social media placeholders to check for (both old and new formats)
+            const socialPlaceholders = [
+                // New format (handle placeholders within URLs)
+                '[facebook_handle]',
+                '[instagram_handle]',
+                '[whatsapp_handle]',
+                '[twitter_handle]',
+                '[linkedin_handle]',
+                '[youtube_handle]',
+                '[tiktok_handle]',
+                '[pinterest_handle]',
+                // Old format (full URL placeholders)
+                '[social_facebook]',
+                '[social instagram]',
+                '[social_instagram]',
+                '[social whatsapp]',
+                '[social_whatsapp]',
+                '[social_twitter]',
+                '[social_linkedin]',
+                '[social_youtube]',
+                '[social_tiktok]',
+                '[social_pinterest]'
+            ];
+            
+            // Find all links that might contain placeholders
+            const allLinks = document.querySelectorAll('a[href]');
+            
+            allLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                
+                // Check if href contains any placeholder
+                const hasPlaceholder = socialPlaceholders.some(placeholder => 
+                    href && href.includes(placeholder)
+                );
+                
+                if (hasPlaceholder) {
+                    // Prevent navigation
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    });
+                    
+                    // Add visual indication that link is disabled
+                    link.style.cursor = 'not-allowed';
+                    link.style.opacity = '0.6';
+                    link.setAttribute('aria-disabled', 'true');
+                    link.setAttribute('title', 'Social media link not configured');
+                    
+                    // Remove target="_blank" to prevent opening empty tabs
+                    link.removeAttribute('target');
+                    link.removeAttribute('rel');
+                }
+            });
+        })();
+        } // End of initContactForm
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initContactForm);
+        } else {
+            // DOM is already ready, initialize immediately
+            initContactForm();
+        }
+    })(); // End of IIFE
+    
+
+
+/* ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
+(function(){
+  try {
+    if (window.__zappyPublishedLightboxInit) return;
+    window.__zappyPublishedLightboxInit = true;
+
+    function safeText(s){ try { return String(s || '').replace(/"/g,'&quot;'); } catch(e){ return ''; } }
+
+    function ensureOverlayForToggle(toggle){
+      try {
+        if (!toggle || !toggle.id) return;
+        if (toggle.id.indexOf('zappy-lightbox-toggle-') !== 0) return;
+        var elementId = toggle.id.replace('zappy-lightbox-toggle-','');
+        var label = document.querySelector('label.zappy-lightbox-trigger[for="' + toggle.id + '"]');
+        if (!label) return;
+
+        // If toggle is inside the label (corrupted), move it before the label so the for attribute works consistently.
+        try {
+          if (label.contains(toggle) && label.parentNode) {
+            label.parentNode.insertBefore(toggle, label);
+          }
+        } catch (e0) {}
+
+        var lightboxId = 'zappy-lightbox-' + elementId;
+        var lb = document.getElementById(lightboxId);
+        if (lb && lb.parentNode !== document.body) {
+          try { document.body.appendChild(lb); } catch (eMove) {}
+        }
+
+        if (!lb) {
+          var img = null;
+          try { img = label.querySelector('img'); } catch (eImg0) {}
+          if (!img) {
+            try { img = document.querySelector('img[data-element-id="' + elementId + '"]'); } catch (eImg1) {}
+          }
+          if (!img) return;
+
+          lb = document.createElement('div');
+          lb.id = lightboxId;
+          lb.className = 'zappy-lightbox';
+          lb.setAttribute('data-zappy-image-lightbox','true');
+          lb.style.display = 'none';
+          lb.innerHTML =
+            '<label class="zappy-lightbox-backdrop" for="' + toggle.id + '" aria-label="Close"></label>' +
+            '<div class="zappy-lightbox-content">' +
+              '<label class="zappy-lightbox-close" for="' + toggle.id + '" aria-label="Close">×</label>' +
+              '<img class="zappy-lightbox-image" src="' + safeText(img.currentSrc || img.src || img.getAttribute('src')) + '" alt="' + safeText(img.getAttribute('alt') || 'Image') + '">' +
+            '</div>';
+          document.body.appendChild(lb);
+        }
+
+        // Keep overlay image in sync at open time (in case src changed / responsive currentSrc)
+        function syncOverlayImage(){
+          try {
+            var imgCur = label.querySelector('img');
+            var imgLb = lb.querySelector('img');
+            if (imgCur && imgLb) {
+              imgLb.src = imgCur.currentSrc || imgCur.src || imgLb.src;
+              imgLb.alt = imgCur.alt || imgLb.alt;
+            }
+          } catch (eSync) {}
+        }
+
+        if (!toggle.__zappyLbBound) {
+          toggle.addEventListener('change', function(){
+            if (toggle.checked) syncOverlayImage();
+            lb.style.display = toggle.checked ? 'flex' : 'none';
+          });
+          toggle.__zappyLbBound = true;
+        }
+
+        if (!lb.__zappyLbBound) {
+          lb.addEventListener('click', function(ev){
+            try {
+              var t = ev.target;
+              if (!t) return;
+              if (t.classList && (t.classList.contains('zappy-lightbox-backdrop') || t.classList.contains('zappy-lightbox-close'))) {
+                ev.preventDefault();
+                toggle.checked = false;
+                lb.style.display = 'none';
+              }
+            } catch (e2) {}
+          });
+          lb.__zappyLbBound = true;
+        }
+
+        if (!label.__zappyLbClick) {
+          label.addEventListener('click', function(ev){
+            try {
+              if (document.body && document.body.classList && document.body.classList.contains('zappy-edit-mode')) return;
+              if (ev && ev.target && ev.target.closest && ev.target.closest('a[href],button,input,select,textarea')) return;
+              ev.preventDefault();
+              ev.stopPropagation();
+              toggle.checked = true;
+              syncOverlayImage();
+              lb.style.display = 'flex';
+            } catch (e3) {}
+          }, true);
+          label.__zappyLbClick = true;
+        }
+      } catch (e) {}
+    }
+
+    function ensureLightboxCss(){
+      try {
+        var head = document.head || document.querySelector('head');
+        if (!head || head.querySelector('style[data-zappy-image-lightbox="true"]')) return;
+        var s = document.createElement('style');
+        s.setAttribute('data-zappy-image-lightbox','true');
+        s.textContent =
+          '.zappy-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px;}'+
+          '.zappy-lightbox-content{position:relative;max-width:min(1100px,92vw);max-height:92vh;}'+
+          '.zappy-lightbox-content img{max-width:92vw;max-height:92vh;display:block;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.45);}'+
+          '.zappy-lightbox-close{position:absolute;top:-14px;right:-14px;width:32px;height:32px;border-radius:999px;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 8px 24px rgba(0,0,0,.25);cursor:pointer;}'+
+          '.zappy-lightbox-backdrop{position:absolute;inset:0;display:block;cursor:pointer;}'+
+          'input.zappy-lightbox-toggle{position:absolute;opacity:0;pointer-events:none;}'+
+          'label.zappy-lightbox-trigger{display:contents;}'+
+          'label.zappy-lightbox-trigger{cursor:zoom-in;}'+
+          'label.zappy-lightbox-trigger [data-zappy-zoom-wrapper="true"],'+
+          'label.zappy-lightbox-trigger img{cursor:zoom-in !important;}'+
+          'input.zappy-lightbox-toggle:checked + label.zappy-lightbox-trigger + .zappy-lightbox{display:flex;}';
+        head.appendChild(s);
+      } catch(e){}
+    }
+
+    function initZappyPublishedLightboxes(){
+      try {
+        ensureLightboxCss();
+        // Repair orphaned labels (label has for=toggleId but input is missing)
+        var orphanLabels = document.querySelectorAll('label.zappy-lightbox-trigger[for^="zappy-lightbox-toggle-"]');
+        for (var i=0;i<orphanLabels.length;i++){
+          var lbl = orphanLabels[i];
+          var forId = lbl && lbl.getAttribute ? lbl.getAttribute('for') : null;
+          if (!forId) continue;
+          if (!document.getElementById(forId)) {
+            var t = document.createElement('input');
+            t.type = 'checkbox';
+            t.id = forId;
+            t.className = 'zappy-lightbox-toggle';
+            t.setAttribute('data-zappy-image-lightbox','true');
+            if (lbl.parentNode) lbl.parentNode.insertBefore(t, lbl);
+          }
+        }
+
+        var toggles = document.querySelectorAll('input.zappy-lightbox-toggle[id^="zappy-lightbox-toggle-"]');
+        for (var j=0;j<toggles.length;j++){
+          ensureOverlayForToggle(toggles[j]);
+        }
+
+        // Close on ESC if any lightbox is open
+        if (!document.__zappyLbEscBound) {
+          document.addEventListener('keydown', function(ev){
+            try {
+              if (!ev || ev.key !== 'Escape') return;
+              var openLb = document.querySelector('.zappy-lightbox[style*="display: flex"]');
+              if (openLb) {
+                var openToggle = null;
+                try {
+                  var id = openLb.id || '';
+                  if (id.indexOf('zappy-lightbox-') === 0) {
+                    openToggle = document.getElementById('zappy-lightbox-toggle-' + id.replace('zappy-lightbox-',''));
+                  }
+                } catch (e4) {}
+                if (openToggle) openToggle.checked = false;
+                openLb.style.display = 'none';
+              }
+            } catch (e5) {}
+          });
+          document.__zappyLbEscBound = true;
+        }
+      } catch (eInit) {}
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initZappyPublishedLightboxes, { once: true });
+    } else {
+      initZappyPublishedLightboxes();
+    }
+  } catch (eOuter) {}
+})();
+/* END ZAPPY_PUBLISHED_LIGHTBOX_RUNTIME */
+
+
+/* ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME */
+(function(){
+  try {
+    if (window.__zappyPublishedZoomInit) return;
+    window.__zappyPublishedZoomInit = true;
+
+    function isHeroBgWrapper(wrapper) {
+      var img = wrapper.querySelector('img');
+      if (img && (img.getAttribute('data-hero-bg') === 'true' || img.getAttribute('data-hero-background') === 'true')) return true;
+      var pos = (wrapper.style.position || '').replace(/\s*!important\s*/g, '').trim();
+      var w = (wrapper.style.width || '').replace(/\s*!important\s*/g, '').trim();
+      var h = (wrapper.style.height || '').replace(/\s*!important\s*/g, '').trim();
+      if (pos === 'absolute' && w === '100%' && h === '100%') return true;
+      return false;
+    }
+
+    // SYNC: These helpers must match sharedZoomCropMath.js
+    function parseObjPos(op) {
+      var x = 50, y = 50;
+      try {
+        if (typeof op === 'string') {
+          var m = op.match(/(-?\d+(?:\.\d+)?)%\s+(-?\d+(?:\.\d+)?)%/);
+          if (m) { x = parseFloat(m[1]); y = parseFloat(m[2]); }
+        }
+      } catch (e) {}
+      if (!isFinite(x)) x = 50; if (!isFinite(y)) y = 50;
+      return { x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) };
+    }
+
+    function coverPercents(imgA, contA) {
+      if (!isFinite(imgA) || imgA <= 0 || !isFinite(contA) || contA <= 0)
+        return { w: 100, h: 100 };
+      if (imgA >= contA) return { w: (imgA / contA) * 100, h: 100 };
+      return { w: 100, h: (contA / imgA) * 100 };
+    }
+
+    function applyZoom(wrapper, img) {
+      var zoom = parseFloat(img.getAttribute('data-zappy-zoom')) || 1;
+      if (!(zoom > 0)) zoom = 1;
+
+      var widthMode = wrapper.getAttribute('data-zappy-zoom-wrapper-width-mode');
+      if (widthMode === 'full') return;
+      if (isHeroBgWrapper(wrapper)) return;
+
+      var isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        var mSrc = img.getAttribute('data-zappy-mobile-src');
+        var mPos = img.getAttribute('data-zappy-mobile-object-position');
+        var mZoomStr = img.getAttribute('data-zappy-mobile-zoom');
+        var mZoom = parseFloat(mZoomStr);
+        if (mSrc) img.src = mSrc;
+
+        wrapper.style.setProperty('width', '100%', 'important');
+        wrapper.style.setProperty('max-width', '100%', 'important');
+        wrapper.style.setProperty('overflow', 'hidden', 'important');
+        wrapper.style.setProperty('position', 'relative', 'important');
+
+        var _sW = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-width')) || 0;
+        var _sH = parseFloat(wrapper.getAttribute('data-zappy-zoom-wrapper-height')) || 0;
+        if (_sW > 0 && _sH > 0) {
+          wrapper.style.setProperty('padding-bottom', '0', 'important');
+          wrapper.style.setProperty('aspect-ratio', _sW + '/' + _sH, 'important');
+          wrapper.style.setProperty('height', 'auto', 'important');
+        }
+
+        function applyMobileZoomCrop(_img, _wrapper, _effPos, _effZoom) {
+          var rect = _wrapper.getBoundingClientRect();
+          if (!rect || !rect.width || !rect.height) return;
+          var nW = _img.naturalWidth || 0, nH = _img.naturalHeight || 0;
+          if (!(nW > 0 && nH > 0)) return;
+          var imgA = nW / nH;
+          var contA = rect.width / rect.height;
+          var cover = coverPercents(imgA, contA);
+          var wP = 100, hP = 100;
+          if (_effZoom >= 1) { wP = cover.w * _effZoom; hP = cover.h * _effZoom; }
+          else { var t2 = (_effZoom - 0.5) / 0.5; if (!isFinite(t2)) t2 = 0; t2 = Math.max(0, Math.min(1, t2)); wP = 100 + t2 * (cover.w - 100); hP = 100 + t2 * (cover.h - 100); }
+          var p2 = parseObjPos(_effPos);
+          var lP = (100 - wP) * (p2.x / 100);
+          var tP = (100 - hP) * (p2.y / 100);
+          _img.style.setProperty('position', 'absolute', 'important');
+          _img.style.setProperty('left', lP + '%', 'important');
+          _img.style.setProperty('top', tP + '%', 'important');
+          _img.style.setProperty('width', wP + '%', 'important');
+          _img.style.setProperty('height', hP + '%', 'important');
+          _img.style.setProperty('max-width', 'none', 'important');
+          _img.style.setProperty('max-height', 'none', 'important');
+          _img.style.setProperty('display', 'block', 'important');
+          _img.style.setProperty('object-fit', _effZoom < 1 ? 'fill' : 'cover', 'important');
+          _img.style.setProperty('margin', '0', 'important');
+        }
+
+        var effZoom = (isFinite(mZoom) && mZoom > 0) ? mZoom : zoom;
+        var effPos = mPos || img.getAttribute('data-zappy-object-position') || img.style.objectPosition || '50% 50%';
+        if (_sW > 0 && _sH > 0) {
+          applyMobileZoomCrop(img, wrapper, effPos, effZoom);
+          if (!(img.complete && img.naturalWidth > 0)) {
+            img.addEventListener('load', function _onLoad() {
+              img.removeEventListener('load', _onLoad);
+              try { applyMobileZoomCrop(img, wrapper, effPos, effZoom); } catch(e) {}
+            });
+          }
+        } else {
+          img.style.setProperty('position', 'relative', 'important');
+          img.style.setProperty('width', '100%', 'important');
+          img.style.setProperty('height', 'auto', 'important');
+          img.style.setProperty('max-width', '100%', 'important');
+          img.style.setProperty('display', 'block', 'important');
+          img.style.setProperty('object-fit', 'cover', 'important');
+          img.style.removeProperty('left');
+          img.style.removeProperty('top');
+          img.style.setProperty('margin', '0', 'important');
+        }
+        return;
+      }
+
+      // Desktop zoom === 1: image fills the wrapper exactly — no crop math
+      // needed. Always set 100%/100% to override any stale inline styles
+      // that may have been baked in with incorrect values.
+      if (zoom === 1) {
+        wrapper.style.setProperty('overflow', 'hidden', 'important');
+        wrapper.style.setProperty('position', 'relative', 'important');
+        img.style.setProperty('position', 'absolute', 'important');
+        img.style.setProperty('width', '100%', 'important');
+        img.style.setProperty('height', '100%', 'important');
+        img.style.setProperty('left', '0%', 'important');
+        img.style.setProperty('top', '0%', 'important');
+        img.style.setProperty('max-width', 'none', 'important');
+        img.style.setProperty('max-height', 'none', 'important');
+        img.style.setProperty('object-fit', 'cover', 'important');
+        img.style.setProperty('display', 'block', 'important');
+        img.style.setProperty('margin', '0', 'important');
+        return;
+      }
+
+      // Desktop zoom > 1: if the image already has zoom styles saved from
+      // the editor (position:absolute + percentage-based width), trust
+      // them.  Sites published before the zoom-out fix had wrong values
+      // baked in for zoom < 1 (used cover*zoom instead of the
+      // interpolation formula), so those must always be recalculated.
+      var existingPos = (img.style.position || '').replace(/s*!importants*/g, '').trim();
+      var existingW = (img.style.width || '').replace(/s*!importants*/g, '').trim();
+      if (existingPos === 'absolute' && existingW.indexOf('%') !== -1 && zoom > 1) {
+        wrapper.style.setProperty('overflow', 'hidden', 'important');
+        wrapper.style.setProperty('position', 'relative', 'important');
+        return;
+      }
+
+      // Image lacks saved zoom styles — calculate from scratch
+      var rect = wrapper.getBoundingClientRect();
+      if (!rect || !rect.width || !rect.height) return;
+
+      var nW = img.naturalWidth || 0, nH = img.naturalHeight || 0;
+      if (!(nW > 0 && nH > 0)) return;
+
+      var imgA = nW / nH;
+      var contA = rect.width / rect.height;
+      var cover = coverPercents(imgA, contA);
+
+      var wPct = 100, hPct = 100;
+      if (zoom >= 1) {
+        wPct = cover.w * zoom;
+        hPct = cover.h * zoom;
+      } else {
+        var t = (zoom - 0.5) / 0.5;
+        if (!isFinite(t)) t = 0;
+        t = Math.max(0, Math.min(1, t));
+        wPct = 100 + t * (cover.w - 100);
+        hPct = 100 + t * (cover.h - 100);
+      }
+
+      var op = img.getAttribute('data-zappy-object-position') || img.style.objectPosition || window.getComputedStyle(img).objectPosition || '50% 50%';
+      var pos = parseObjPos(op);
+      var leftPct = (100 - wPct) * (pos.x / 100);
+      var topPct = (100 - hPct) * (pos.y / 100);
+
+      img.style.setProperty('position', 'absolute', 'important');
+      img.style.setProperty('left', leftPct + '%', 'important');
+      img.style.setProperty('top', topPct + '%', 'important');
+      img.style.setProperty('width', wPct + '%', 'important');
+      img.style.setProperty('height', hPct + '%', 'important');
+      img.style.setProperty('max-width', 'none', 'important');
+      img.style.setProperty('max-height', 'none', 'important');
+      img.style.setProperty('display', 'block', 'important');
+      img.style.setProperty('object-fit', zoom < 1 ? 'fill' : 'cover', 'important');
+      img.style.setProperty('margin', '0', 'important');
+    }
+
+    function fixOrphanedZoomImages() {
+      if (window.innerWidth > 768) return;
+      var zoomImgs = document.querySelectorAll('img[data-zappy-zoom]');
+      for (var j = 0; j < zoomImgs.length; j++) {
+        var img = zoomImgs[j];
+        if (img.closest && img.closest('[data-zappy-zoom-wrapper="true"]')) continue;
+        img.style.setProperty('position', 'relative', 'important');
+        img.style.setProperty('width', '100%', 'important');
+        img.style.setProperty('height', 'auto', 'important');
+        img.style.setProperty('max-width', '100%', 'important');
+        img.style.setProperty('max-height', '300px', 'important');
+        img.style.setProperty('object-fit', 'cover', 'important');
+        img.style.removeProperty('left');
+        img.style.removeProperty('top');
+      }
+    }
+
+    function restoreWrapperDimensions(wrapper) {
+      var widthMode = wrapper.getAttribute('data-zappy-zoom-wrapper-width-mode') || 'px';
+      if (widthMode === 'full' || widthMode === 'grid-responsive') return;
+      if (isHeroBgWrapper(wrapper)) return;
+
+      var storedW = wrapper.getAttribute('data-zappy-zoom-wrapper-width');
+      var storedH = wrapper.getAttribute('data-zappy-zoom-wrapper-height');
+      if (!storedW && !storedH) return;
+
+      if (widthMode === 'px' && storedW) {
+        var curW = (wrapper.style.width || '').replace(/s*!importants*/g, '').trim();
+        var storedWNorm = storedW.replace(/s*!importants*/g, '').trim();
+        if (!curW || curW === '100%' || curW.indexOf('%') !== -1 || curW !== storedWNorm) {
+          wrapper.style.setProperty('width', storedW, 'important');
+          wrapper.style.setProperty('max-width', '100%', 'important');
+        }
+      }
+      if (storedH) {
+        var curH = (wrapper.style.height || '').replace(/s*!importants*/g, '').trim();
+        var storedHNorm = storedH.replace(/s*!importants*/g, '').trim();
+        if (!curH || curH === 'auto' || curH === '100%' || curH.indexOf('%') !== -1 || curH !== storedHNorm) {
+          wrapper.style.setProperty('height', storedH, 'important');
+        }
+      }
+      wrapper.style.setProperty('overflow', 'hidden', 'important');
+      wrapper.style.setProperty('position', 'relative', 'important');
+    }
+
+    function fixHeroBgWrapperStyles(wrapper) {
+      if (!isHeroBgWrapper(wrapper)) return;
+      wrapper.style.setProperty('position', 'absolute', 'important');
+      wrapper.style.setProperty('top', '0', 'important');
+      wrapper.style.setProperty('left', '0', 'important');
+      wrapper.style.setProperty('width', '100%', 'important');
+      wrapper.style.setProperty('height', '100%', 'important');
+      wrapper.style.setProperty('max-width', 'none', 'important');
+      wrapper.style.setProperty('overflow', 'hidden', 'important');
+      wrapper.setAttribute('data-zappy-zoom-wrapper-width-mode', 'full');
+      var img = wrapper.querySelector('img');
+      if (img) {
+        img.style.setProperty('width', '100%', 'important');
+        img.style.setProperty('height', '100%', 'important');
+        img.style.setProperty('object-fit', 'cover', 'important');
+        img.style.setProperty('position', 'relative', 'important');
+        img.style.setProperty('top', '0', 'important');
+        img.style.setProperty('left', '0', 'important');
+        img.style.setProperty('max-width', 'none', 'important');
+        img.style.setProperty('max-height', 'none', 'important');
+        img.style.setProperty('display', 'block', 'important');
+        if (window.innerWidth <= 768) {
+          var mSrc = img.getAttribute('data-zappy-mobile-src');
+          var mPos = img.getAttribute('data-zappy-mobile-object-position');
+          var mZoom = parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
+          if (mSrc) img.src = mSrc;
+          if (mPos) img.style.setProperty('object-position', mPos, 'important');
+          if (mZoom > 1) {
+            img.style.setProperty('transform', 'scale(' + mZoom + ')', 'important');
+            img.style.setProperty('transform-origin', mPos || '50% 50%', 'important');
+          }
+        }
+      }
+    }
+
+    function initZoomWrappers() {
+      var wrappers = document.querySelectorAll('[data-zappy-zoom-wrapper="true"]');
+      for (var i = 0; i < wrappers.length; i++) {
+        (function(wrapper) {
+          var img = wrapper.querySelector('img');
+          if (!img) return;
+          if (wrapper.closest && wrapper.closest('.zappy-carousel-js-init, .zappy-carousel-active')) return;
+          fixHeroBgWrapperStyles(wrapper);
+          if (window.innerWidth > 768) restoreWrapperDimensions(wrapper);
+          if (img.complete && img.naturalWidth > 0) {
+            setTimeout(function() { applyZoom(wrapper, img); }, 0);
+          } else {
+            img.addEventListener('load', function onLoad() {
+              img.removeEventListener('load', onLoad);
+              applyZoom(wrapper, img);
+            }, { once: true });
+          }
+        })(wrappers[i]);
+      }
+      fixOrphanedZoomImages();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initZoomWrappers, { once: true });
+    } else {
+      setTimeout(initZoomWrappers, 50);
+    }
+  } catch (eOuter) {}
+})();
+/* END ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME */
+
+
+/* ZAPPY_MOBILE_MENU_TOGGLE */
+(function(){
+  try {
+    if (window.__zappyMobileMenuToggleInit) return;
+    window.__zappyMobileMenuToggleInit = true;
+
+    function initMobileToggle() {
+      var toggle = document.querySelector('.mobile-toggle, #mobileToggle');
+      var navMenu = document.querySelector('#navMenu, .nav-menu, .navbar-menu');
+      if (!toggle || !navMenu) return;
+
+      // Skip if this toggle already has a click handler from the site's own JS
+      if (toggle.__zappyMobileToggleBound) return;
+      toggle.__zappyMobileToggleBound = true;
+
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var hamburgerIcon = toggle.querySelector('.hamburger-icon');
+        var closeIcon = toggle.querySelector('.close-icon');
+        var isOpen = navMenu.classList.contains('active') || navMenu.style.display === 'block';
+
+        if (isOpen) {
+          navMenu.classList.remove('active');
+          navMenu.style.display = '';
+          if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+          if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+          document.body.style.overflow = '';
+        } else {
+          navMenu.classList.add('active');
+          navMenu.style.display = 'block';
+          if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+          if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+          document.body.style.overflow = 'hidden';
+        }
+      }, true);
+
+      // Close on clicking outside
+      document.addEventListener('click', function(e) {
+        if (!navMenu.classList.contains('active')) return;
+        if (toggle.contains(e.target) || navMenu.contains(e.target)) return;
+        navMenu.classList.remove('active');
+        navMenu.style.display = '';
+        var hi = toggle.querySelector('.hamburger-icon');
+        var ci = toggle.querySelector('.close-icon');
+        if (hi) hi.style.setProperty('display', 'block', 'important');
+        if (ci) ci.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+          navMenu.style.display = '';
+          var hi = toggle.querySelector('.hamburger-icon');
+          var ci = toggle.querySelector('.close-icon');
+          if (hi) hi.style.setProperty('display', 'block', 'important');
+          if (ci) ci.style.setProperty('display', 'none', 'important');
+          document.body.style.overflow = '';
+        }
+      });
+
+      // Close when clicking a nav link (navigating)
+      navMenu.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          navMenu.classList.remove('active');
+          navMenu.style.display = '';
+          var hi = toggle.querySelector('.hamburger-icon');
+          var ci = toggle.querySelector('.close-icon');
+          if (hi) hi.style.setProperty('display', 'block', 'important');
+          if (ci) ci.style.setProperty('display', 'none', 'important');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
+    function initPhoneButton() {
+      var phoneBtn = document.querySelector('.phone-header-btn');
+      if (!phoneBtn || phoneBtn.__zappyPhoneBound) return;
+      phoneBtn.__zappyPhoneBound = true;
+
+      phoneBtn.addEventListener('click', function() {
+        var phoneNumber = phoneBtn.getAttribute('data-phone') || null;
+
+        if (!phoneNumber) {
+          var telLinks = document.querySelectorAll('a[href^="tel:"]');
+          if (telLinks.length > 0) {
+            phoneNumber = telLinks[0].getAttribute('href').replace('tel:', '');
+          }
+        }
+
+        if (!phoneNumber) {
+          var allLinks = document.querySelectorAll('a[href]');
+          for (var i = 0; i < allLinks.length; i++) {
+            var h = allLinks[i].getAttribute('href') || '';
+            var cleaned = h.replace(/[-\s()]/g, '');
+            if (/^(\+?\d{9,15}|0\d{8,9})$/.test(cleaned)) {
+              phoneNumber = cleaned;
+              break;
+            }
+          }
+        }
+
+        if (phoneNumber && phoneNumber.indexOf('[') === -1) {
+          window.location.href = 'tel:' + phoneNumber;
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() { initMobileToggle(); initPhoneButton(); }, { once: true });
+    } else {
+      initMobileToggle();
+      initPhoneButton();
+    }
+  } catch (e) {}
+})();
+/* END ZAPPY_MOBILE_MENU_TOGGLE */
+
+
+/* ZAPPY_FAQ_ACCORDION_TOGGLE */
+(function(){
+  try {
+    if (window.__zappyFaqToggleInit) return;
+    window.__zappyFaqToggleInit = true;
+
+    var answerSel = '[class*="faq-answer"], [class*="faq-content"], [class*="faq-body"], .accordion-content, .accordion-body';
+
+    function initFaqToggle() {
+      var items = document.querySelectorAll('[class*="faq-item"], .accordion-item');
+      if (!items.length) return;
+
+      items.forEach(function(item) {
+        var question = item.querySelector(
+          '[class*="faq-question"], [class*="faq-header"], .accordion-header, .accordion-toggle'
+        );
+        if (!question) return;
+        if (question.__zappyFaqBound) return;
+        question.__zappyFaqBound = true;
+        question.style.cursor = 'pointer';
+
+        question.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          var parent = item.parentElement;
+          if (parent) {
+            var siblings = parent.querySelectorAll('[class*="faq-item"], .accordion-item');
+            siblings.forEach(function(sib) {
+              if (sib !== item && sib.classList.contains('active')) {
+                sib.classList.remove('active');
+                var sibQ = sib.querySelector('[class*="faq-question"], [class*="faq-header"], .accordion-header');
+                if (sibQ) sibQ.setAttribute('aria-expanded', 'false');
+                var sibA = sib.querySelector(answerSel);
+                if (sibA) {
+                  sibA.style.maxHeight = '0';
+                  sibA.style.overflow = 'hidden';
+                  sibA.style.opacity = '0';
+                  sibA.style.paddingTop = '0';
+                  sibA.style.paddingBottom = '0';
+                }
+              }
+            });
+          }
+
+          var isActive = item.classList.toggle('active');
+          question.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+
+          var answer = item.querySelector(answerSel);
+          if (answer) {
+            answer.style.transition = 'max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease';
+            if (isActive) {
+              answer.style.display = '';
+              answer.style.maxHeight = answer.scrollHeight + 'px';
+              answer.style.overflow = 'hidden';
+              answer.style.opacity = '1';
+              answer.style.paddingTop = '';
+              answer.style.paddingBottom = '';
+            } else {
+              answer.style.maxHeight = '0';
+              answer.style.overflow = 'hidden';
+              answer.style.opacity = '0';
+              answer.style.paddingTop = '0';
+              answer.style.paddingBottom = '0';
+            }
+          }
+
+          var chevron = question.querySelector('[class*="chevron"], [class*="icon"], svg');
+          if (chevron) {
+            chevron.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+            chevron.style.transition = 'transform 0.3s ease';
+          }
+        });
+      });
+
+      items.forEach(function(item) {
+        if (item.classList.contains('active')) return;
+        var answer = item.querySelector(answerSel);
+        if (answer) {
+          answer.style.maxHeight = '0';
+          answer.style.overflow = 'hidden';
+          answer.style.opacity = '0';
+          answer.style.paddingTop = '0';
+          answer.style.paddingBottom = '0';
+          answer.style.transition = 'max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease';
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFaqToggle, { once: true });
+    } else {
+      initFaqToggle();
+    }
+  } catch (e) {}
+})();
+/* END ZAPPY_FAQ_ACCORDION_TOGGLE */
+
+
+/* ZAPPY_NAV_SCROLL_PADDING */
+(function(){
+  try {
+    if (window.__zappyNavScrollPaddingInit) return;
+    window.__zappyNavScrollPaddingInit = true;
+    function updateScrollPadding() {
+      var nav = document.querySelector('nav.navbar') || document.querySelector('nav') || document.querySelector('header');
+      if (!nav) return;
+      var s = window.getComputedStyle(nav);
+      if (s.position !== 'fixed' && s.position !== 'sticky') return;
+      var h = nav.offsetHeight;
+      if (h > 0) document.documentElement.style.scrollPaddingTop = h + 'px';
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateScrollPadding, { once: true });
+    } else {
+      updateScrollPadding();
+    }
+    window.addEventListener('resize', updateScrollPadding, { passive: true });
+  } catch (e) {}
+})();
+/* END ZAPPY_NAV_SCROLL_PADDING */
+
+
+/* ZAPPY_CONTACT_FORM_PREVENT_DEFAULT */
+(function(){
+  try {
+    var _kw=['contact','booking','inquiry','enquiry','register','signup','sign-up','order','request','apply'];
+    function isContactForm(form) {
+      var cls=(form.className||'').toLowerCase();
+      var id=(form.id||'').toLowerCase();
+      var act=(form.getAttribute('action')||'').toLowerCase();
+      if(_kw.some(function(k){return cls.indexOf(k)!==-1||id.indexOf(k)!==-1||act.indexOf(k)!==-1;})) return true;
+      var sec=form.closest&&form.closest('section');
+      if(sec){
+        var sc=(sec.className||'').toLowerCase();
+        var si=(sec.id||'').toLowerCase();
+        if(_kw.some(function(k){return sc.indexOf(k)!==-1||si.indexOf(k)!==-1;})) return true;
+        if(sc.indexOf('form-section')!==-1||sc.indexOf('form_section')!==-1) return true;
+      }
+      if(window.zappyContactFormLoaded){
+        var inputs=form.querySelectorAll('input,textarea,select');
+        var hasEmail=false,hasPassword=false,visibleCount=0;
+        for(var i=0;i<inputs.length;i++){
+          var inp=inputs[i];
+          var t=(inp.type||'').toLowerCase();
+          var n=(inp.name||'').toLowerCase();
+          if(t==='hidden'||t==='submit'||t==='button'||t==='reset') continue;
+          visibleCount++;
+          if(t==='email'||n.indexOf('email')!==-1||n.indexOf('mail')!==-1) hasEmail=true;
+          if(t==='password') hasPassword=true;
+        }
+        if(hasEmail&&visibleCount>=2&&!hasPassword) return true;
+      }
+      return false;
+    }
+
+    function showFormFeedback(form, msg, type) {
+      var old = form.querySelector('.zappy-form-feedback');
+      if (old) old.remove();
+
+      var bg = type==='success'?'#d4edda':type==='error'?'#f8d7da':'#d1ecf1';
+      var fg = type==='success'?'#155724':type==='error'?'#721c24':'#0c5460';
+      var bd = type==='success'?'#c3e6cb':type==='error'?'#f5c6cb':'#bee5eb';
+      var ic = type==='success'?'\u2705':type==='error'?'\u274C':'\u2139\uFE0F';
+
+      var el = document.createElement('div');
+      el.className = 'zappy-form-feedback';
+      el.setAttribute('role', 'alert');
+      el.style.cssText = 'padding:14px 18px;border-radius:8px;margin:12px 0 0;font-size:14px;line-height:1.5;background:'+bg+';color:'+fg+';border:1px solid '+bd+';text-align:center;font-family:inherit;';
+      el.innerHTML = '<span style="margin-inline-end:6px">'+ic+'</span>'+msg;
+
+      if (type === 'success') {
+        form.reset();
+        var formChildren = form.children;
+        for (var i = 0; i < formChildren.length; i++) {
+          if (formChildren[i] !== el) formChildren[i].style.display = 'none';
+        }
+        form.appendChild(el);
+        el.style.cssText += 'padding:32px 24px;font-size:16px;';
+      } else {
+        var btn = form.querySelector('button[type="submit"],input[type="submit"]');
+        if (btn) btn.parentNode.insertBefore(el, btn.nextSibling);
+        else form.appendChild(el);
+        setTimeout(function(){ if(el.parentElement) el.remove(); }, 8000);
+      }
+    }
+
+    var _coreNameFields=['name','firstName','first_name','fname','lastName','last_name','lname'];
+    var _coreEmailFields=['email','emailAddress','mail','e-mail'];
+    var _corePhoneFields=['phone','tel','telephone','mobile','cellphone'];
+    var _coreMsgFields=['message','msg','comments','comment','description','details','notes','body','text','inquiry'];
+    var _coreSubjectFields=['subject','topic','regarding','re'];
+    var _allCoreFields=[].concat(_coreNameFields,_coreEmailFields,_corePhoneFields,_coreMsgFields,_coreSubjectFields);
+
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      if (!form || form.tagName !== 'FORM' || !isContactForm(form)) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      var origSubmit = form.submit;
+      form.submit = function(){ };
+
+      if (form.__zappySubmitting) return;
+      form.__zappySubmitting = true;
+
+      var oldFeedback = form.querySelector('.zappy-form-feedback');
+      if (oldFeedback) oldFeedback.remove();
+
+      var btn = form.querySelector('button[type="submit"],input[type="submit"]');
+      var origText = btn ? (btn.value || btn.textContent) : '';
+      if (btn) {
+        if (btn.tagName === 'INPUT') btn.value = 'Sending...';
+        else btn.textContent = 'Sending...';
+        btn.disabled = true;
+      }
+
+      var fd = new FormData(form);
+      var data = {};
+      for(var pair of fd.entries()){
+        if(data[pair[0]]!==undefined){
+          if(Array.isArray(data[pair[0]])) data[pair[0]].push(pair[1]);
+          else data[pair[0]]=[data[pair[0]],pair[1]];
+        } else data[pair[0]]=pair[1];
+      }
+
+      var resolvedName=(data.name||'').trim()
+        ||[data.firstName||data.first_name||data.fname||'',data.lastName||data.last_name||data.lname||''].filter(Boolean).join(' ').trim()
+        ||(data.email||data.emailAddress||data.mail||'').trim()
+        ||'Anonymous';
+      var resolvedEmail=(data.email||data.emailAddress||data.mail||data['e-mail']||'').trim();
+      var resolvedPhone=data.phone||data.tel||data.telephone||data.mobile||data.cellphone||null;
+      var resolvedSubject=data.subject||data.topic||data.regarding||data.re||'Contact Form Submission';
+      var resolvedMsg=(data.message||data.msg||data.comments||data.comment||data.description||data.details||data.notes||data.body||data.text||data.inquiry||'').trim();
+      if(!resolvedMsg){
+        var _extra=Object.entries(data).filter(function(e){return _allCoreFields.indexOf(e[0])===-1;});
+        if(_extra.length>0) resolvedMsg=_extra.map(function(e){var l=e[0].replace(/([A-Z])/g,' $1').replace(/[_-]/g,' ').trim();var v=Array.isArray(e[1])?e[1].join(', '):e[1];return l+': '+v;}).join('\n');
+        else resolvedMsg='Form submission from '+window.location.pathname;
+      }
+
+      var extraFields={};
+      Object.keys(data).forEach(function(k){if(_allCoreFields.indexOf(k)===-1&&data[k]!==''&&data[k]!=null) extraFields[k]=data[k];});
+
+      var currentPath = window.location.pathname;
+      try { var pg=new URLSearchParams(window.location.search).get('page'); if(pg) currentPath=pg; } catch(x){}
+
+      var wid = 'd1085f80-d166-49a6-827c-f4b6322466b5';
+
+      var apiBase = (window.ZAPPY_API_BASE || 'https://api.zappy5.com').replace(/\/$/,'');
+      apiBase = apiBase + '/api/email/contact-form';
+
+      var payload={
+        websiteId: wid,
+        name: resolvedName,
+        email: resolvedEmail,
+        subject: resolvedSubject,
+        message: resolvedMsg,
+        phone: resolvedPhone,
+        currentPagePath: currentPath
+      };
+      if(Object.keys(extraFields).length>0) payload.extraFields=extraFields;
+
+      fetch(apiBase, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r){ return r.json(); }).then(function(result){
+        if (result.success) {
+          if (result.thankYouPagePath && result.ticketNumber) {
+            window.location.href = result.thankYouPagePath + '?ticket=' + encodeURIComponent(result.ticketNumber);
+            return;
+          }
+          showFormFeedback(form, result.message || 'Thank you! We will get back to you soon.', 'success');
+        } else {
+          showFormFeedback(form, result.error || 'Failed to send. Please try again.', 'error');
+        }
+      }).catch(function(){
+        showFormFeedback(form, 'Unable to send message right now. Please try again later.', 'error');
+      }).finally(function(){
+        form.__zappySubmitting = false;
+        form.submit = origSubmit;
+        if (btn) {
+          if (btn.tagName === 'INPUT') btn.value = origText;
+          else btn.textContent = origText;
+          btn.disabled = false;
+        }
+      });
+    }, true);
+  } catch (e) {}
+})();
+/* END ZAPPY_CONTACT_FORM_PREVENT_DEFAULT */
+
+
+/* ZAPPY_PUBLISHED_GRID_CENTERING */
+(function(){
+  try {
+    if (window.__zappyGridCenteringInit) return;
+    window.__zappyGridCenteringInit = true;
+
+    function centerPartialGridRows() {
+      var grids = document.querySelectorAll('[data-zappy-explicit-columns="true"], [data-zappy-auto-grid="true"]');
+      for (var g = 0; g < grids.length; g++) {
+        try {
+          var container = grids[g];
+
+          // Clear previous centering so we can recalculate (e.g. after i18n direction change)
+          if (container.getAttribute('data-zappy-grid-centered') === 'true') {
+            var prevItems = Array.from(container.children);
+            for (var p = 0; p < prevItems.length; p++) {
+              if (prevItems[p].getAttribute && prevItems[p].getAttribute('data-zappy-gc') === '1') {
+                prevItems[p].style.transform = prevItems[p].getAttribute('data-zappy-gc-orig') || '';
+                prevItems[p].removeAttribute('data-zappy-gc');
+                prevItems[p].removeAttribute('data-zappy-gc-orig');
+              }
+            }
+            container.removeAttribute('data-zappy-grid-centered');
+          }
+
+          var items = [];
+          for (var c = 0; c < container.children.length; c++) {
+            var ch = container.children[c];
+            if (!ch || !ch.tagName) continue;
+            var tag = ch.tagName.toLowerCase();
+            if (tag === 'script' || tag === 'style') continue;
+            if (ch.getAttribute('aria-hidden') === 'true') continue;
+            if (ch.getAttribute('data-zappy-internal') === 'true') continue;
+            var pos = window.getComputedStyle(ch).position;
+            if (pos === 'absolute' || pos === 'fixed') continue;
+            items.push(ch);
+          }
+          var totalItems = items.length;
+          if (totalItems === 0) continue;
+
+          var cs = window.getComputedStyle(container);
+          if (cs.display !== 'grid') continue;
+          var gta = (cs.gridTemplateAreas || '').trim();
+          if (gta && gta !== 'none') continue;
+          var gtc = (cs.gridTemplateColumns || '').trim();
+          if (!gtc || gtc === 'none') continue;
+          var colWidths = gtc.split(' ').filter(function(v) { return v && parseFloat(v) > 0; });
+          var colCount = colWidths.length;
+          if (colCount <= 1) continue;
+
+          var itemsInLastRow = totalItems % colCount;
+          if (itemsInLastRow === 0) continue;
+
+          var colWidth = parseFloat(colWidths[0]) || 0;
+          var gap = parseFloat(cs.columnGap);
+          if (isNaN(gap)) gap = parseFloat(cs.gap) || 0;
+
+          var missingCols = colCount - itemsInLastRow;
+          var offset = missingCols * (colWidth + gap) / 2;
+
+          // Detect RTL — use the computed direction which already accounts for
+          // CSS cascade, html[dir], and inheritance. Do NOT walk up checking inline
+          // styles because multi-language sites may have stale direction:rtl on
+          // parent elements from the primary language while serving an LTR page.
+          var dir = cs.direction || 'ltr';
+          var translateValue = dir === 'rtl' ? -offset : offset;
+
+          var startIndex = totalItems - itemsInLastRow;
+          var savedTransitions = [];
+          for (var i = startIndex; i < totalItems; i++) {
+            var item = items[i];
+            savedTransitions.push(item.style.transition);
+            item.style.transition = 'none';
+            var existingTransform = item.style.transform || '';
+            item.setAttribute('data-zappy-gc-orig', existingTransform);
+            var newTransform = existingTransform
+              ? existingTransform + ' translateX(' + translateValue + 'px)'
+              : 'translateX(' + translateValue + 'px)';
+            item.style.transform = newTransform;
+            item.setAttribute('data-zappy-gc', '1');
+          }
+
+          void container.offsetHeight;
+
+          for (var j = startIndex; j < totalItems; j++) {
+            items[j].style.transition = savedTransitions[j - startIndex];
+          }
+
+          container.setAttribute('data-zappy-grid-centered', 'true');
+        } catch(e) {}
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      centerPartialGridRows();
+    } else {
+      window.addEventListener('load', centerPartialGridRows);
+    }
+
+    // Re-center when i18n script changes the page direction
+    try {
+      var dirObs = new MutationObserver(function() { centerPartialGridRows(); });
+      dirObs.observe(document.documentElement, { attributes: true, attributeFilter: ['dir'] });
+    } catch(e) {}
+  } catch(e) {}
+})();
+
+
+/* ZAPPY_CONTENT_ALIGNMENT_RUNTIME */
+(function(){
+  try {
+    if (window.__zappyContentAlignInit) return;
+    window.__zappyContentAlignInit = true;
+
+    var vShiftMap = { top: -0.5, upper: -0.25, center: 0, lower: 0.25, bottom: 0.5 };
+    var hShiftMap = { left: -0.5, 'mid-left': -0.25, center: 0, 'mid-right': 0.25, right: 0.5 };
+
+    function restoreContentAlignments() {
+      var sections = document.querySelectorAll('[data-zappy-content-align]');
+      for (var i = 0; i < sections.length; i++) {
+        try { applyAlignment(sections[i]); } catch(e) {}
+      }
+    }
+
+    function applyAlignment(section) {
+      var target = section.querySelector('[data-zappy-align-target]');
+      if (!target) return;
+
+      var align = section.getAttribute('data-zappy-content-align') || 'center-center';
+      var idx = align.indexOf('-');
+      if (idx === -1) return;
+      var vAlign = align.substring(0, idx) || 'center';
+      var hAlign = align.substring(idx + 1) || 'center';
+
+      if (!section.id) {
+        section.id = 'zappy-section-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+      }
+      var sel = '#' + section.id;
+
+      var old = section.querySelector('style[data-zappy-align-style]');
+      if (old) old.remove();
+
+      var ts = window.getComputedStyle(target);
+      var isFlex = (ts.display === 'flex' || ts.display === 'inline-flex');
+      var isColumn = (ts.flexDirection === 'column' || ts.flexDirection === 'column-reverse');
+
+      var sectionRect = section.getBoundingClientRect();
+      var sW = sectionRect.width || section.offsetWidth || 0;
+      var sH = sectionRect.height || section.offsetHeight || 0;
+
+      var orig = target.style.cssText;
+      target.style.setProperty('width', 'fit-content', 'important');
+      target.style.setProperty('height', 'auto', 'important');
+      target.style.setProperty('min-height', '0', 'important');
+      target.style.setProperty('max-height', 'none', 'important');
+      target.style.setProperty('align-self', 'flex-start', 'important');
+      target.style.setProperty('flex', 'none', 'important');
+      var tRect = target.getBoundingClientRect();
+      var tW = tRect.width || 0;
+      var tH = tRect.height || 0;
+      target.style.cssText = orig;
+
+      var freeH = Math.max(0, sW - tW);
+      var freeV = Math.max(0, sH - tH);
+      var hPx = Math.round((hShiftMap[hAlign] || 0) * freeH);
+      var vPx = Math.round((vShiftMap[vAlign] || 0) * freeV);
+
+      var t = [];
+      t.push('margin:auto!important');
+      if (hPx !== 0 || vPx !== 0) {
+        t.push('transform:translate(' + hPx + 'px,' + vPx + 'px)!important');
+      }
+      if (isFlex) {
+        t.push('align-items:center!important');
+        t.push('justify-content:center!important');
+      } else {
+        t.push('display:flex!important');
+        t.push('flex-direction:column!important');
+        t.push('align-items:center!important');
+      }
+
+      var c = ['justify-content:center!important'];
+      if (!isFlex && hAlign !== 'center') {
+        c.push('min-width:33.33%!important');
+        c.push('text-align:start!important');
+      }
+
+      var css = '';
+      if (hPx !== 0 || vPx !== 0) css += sel + '{overflow:hidden!important}';
+      css += sel + '>[data-zappy-align-target]{' + t.join(';') + '}';
+      css += sel + '>[data-zappy-align-target]>*{' + c.join(';') + '}';
+      css += '@media(max-width:768px){' +
+        sel + '>[data-zappy-align-target]{align-items:center!important;margin-left:auto!important;margin-right:auto!important;' +
+        (vPx !== 0 ? 'transform:translateY(' + vPx + 'px)!important' : 'transform:none!important') +
+        '}' + sel + '>[data-zappy-align-target]>*{margin-left:auto!important;margin-right:auto!important}}';
+
+      var s = document.createElement('style');
+      s.setAttribute('data-zappy-align-style', 'true');
+      s.textContent = css;
+      section.insertBefore(s, section.firstChild);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', restoreContentAlignments);
+    } else {
+      restoreContentAlignments();
+    }
+
+    var _timer = null;
+    window.addEventListener('resize', function() {
+      clearTimeout(_timer);
+      _timer = setTimeout(restoreContentAlignments, 200);
+    });
+    window.addEventListener('orientationchange', function() {
+      clearTimeout(_timer);
+      _timer = setTimeout(restoreContentAlignments, 200);
+    });
+  } catch(e) {}
+})();
+
+
+/* ZAPPY_SECTION_ID_FROM_CLASS */
+(function(){
+  function assignIds(){
+    document.querySelectorAll('section').forEach(function(s){
+      if(s.id)return;
+      var cls=(s.className||'').split(/\s+/)[0];
+      if(cls && !document.getElementById(cls)){s.id=cls;}
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',assignIds,{once:true});}
+  else{assignIds();}
+})();
+/* END ZAPPY_SECTION_ID_FROM_CLASS */
+
+
+/* ZAPPY_EMPTY_SUBMENU_HIDDEN */
+(function(){
+  function markEmpty(){
+    document.querySelectorAll('.sub-menu, .dropdown-menu').forEach(function(ul){
+      var hasVisible=false;
+      for(var i=0;i<ul.children.length;i++){
+        if(window.getComputedStyle(ul.children[i]).display!=='none'){hasVisible=true;break;}
+      }
+      ul.classList.toggle('zappy-empty-submenu',!hasVisible);
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',markEmpty,{once:true});}
+  else{markEmpty();}
+})();
+/* END ZAPPY_EMPTY_SUBMENU_HIDDEN */
+
+
+/* ZAPPY_INTERNAL_LINKS_NO_NEW_TAB */
+(function(){
+  try {
+    function fixLinks(){
+      var docRe=/\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt|csv|rtf|odt|ods|odp)(\?|$)/i;
+      document.querySelectorAll('a[target="_blank"]').forEach(function(a){
+        var h=a.getAttribute('href');
+        if(!h)return;
+        if(h.indexOf('://')!==-1||h.indexOf('mailto:')===0||h.indexOf('tel:')===0)return;
+        if(docRe.test(h))return;
+        a.removeAttribute('target');
+        a.removeAttribute('rel');
+      });
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',fixLinks)}
+    else{fixLinks()}
+  }catch(e){}
+})();
+
+
+/* ZAPPY_IOS_VIEWPORT_GAP_FIX */
+(function(){
+  try {
+    if (window.__zappyIosViewportGapInit) return;
+    window.__zappyIosViewportGapInit = true;
+
+    function update() {
+      try {
+        var visual = window.innerWidth;
+        var layout = document.documentElement.clientWidth;
+        var gap = Math.max(0, (visual || 0) - (layout || 0));
+        document.documentElement.style.setProperty('--ios-viewport-gap', gap + 'px');
+
+        // Also publish the navbar bottom so the mobile dropdown menu CSS can
+        // anchor `top` below announcement bars + fixed navbar. This is needed because
+        // older v2 patches set `top: 100% !important` on .nav-menu, which
+        // with position:fixed resolves against the viewport (=height of
+        // screen) instead of the navbar. --zappy-navbar-bottom gives the
+        // v3 CSS something concrete to override that with.
+        var nav = document.querySelector('nav.navbar, .navbar, header nav, header.navbar');
+        if (nav) {
+          var rect = nav.getBoundingClientRect();
+          var bottom = Math.round(rect.bottom);
+          if (bottom > 0) {
+            document.documentElement.style.setProperty('--zappy-navbar-bottom', bottom + 'px');
+          }
+        }
+      } catch (e) {}
+    }
+
+    update();
+    window.addEventListener('resize', update, { passive: true });
+    window.addEventListener('orientationchange', update, { passive: true });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', update);
+    }
+    document.addEventListener('DOMContentLoaded', update);
+    window.addEventListener('load', update);
+    // Re-measure after the navbar layout settles (fonts, images, logo load).
+    setTimeout(update, 250);
+    setTimeout(update, 1000);
+  } catch (e) {}
+})();
+
+
+/* ZAPPY_STOREFRONT_RUNTIME_V1 — appended from preview-scripts/00-config.js for preview/live parity */
+;(function() {
+  'use strict';
+  // ===== DESKTOP NAVBAR FIX =====
+  // Clear mobile-only positioning inline styles on desktop viewport
+  // This fixes sites generated with old code that applied these styles unconditionally
+  function clearMobileNavbarStyles() {
+    if (window.innerWidth > 768) {
+      var mobileToggle = document.querySelector('.mobile-toggle');
+      var phoneBtn = document.querySelector('.phone-header-btn');
+      
+      if (mobileToggle) {
+        mobileToggle.style.removeProperty('position');
+        mobileToggle.style.removeProperty('top');
+        mobileToggle.style.removeProperty('transform');
+        mobileToggle.style.removeProperty('z-index');
+        mobileToggle.style.removeProperty('left');
+        mobileToggle.style.removeProperty('right');
+      }
+      
+      if (phoneBtn) {
+        phoneBtn.style.removeProperty('position');
+        phoneBtn.style.removeProperty('top');
+        phoneBtn.style.removeProperty('transform');
+        phoneBtn.style.removeProperty('z-index');
+        phoneBtn.style.removeProperty('left');
+        phoneBtn.style.removeProperty('right');
+      }
+      
+      console.log('📦 [00-config] Cleared mobile navbar inline styles on desktop');
+    }
+  }
+  
+  // Run on load and resize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', clearMobileNavbarStyles);
+  } else {
+    clearMobileNavbarStyles();
+  }
+  window.addEventListener('load', clearMobileNavbarStyles);
+  window.addEventListener('resize', clearMobileNavbarStyles);
+
+  // ===== LAYOUT SECTION NORMALIZATION =====
+  // Ensure layout sections create a block formatting context so that child
+  // element margins (e.g. <h2> default margin-top) don't collapse outside
+  // the section. Without this, sections render differently in edit mode
+  // (where .zappy-removable adds position:relative) vs view mode.
+  (function() {
+    var layoutNormStyle = document.createElement('style');
+    layoutNormStyle.id = 'zappy-layout-norm';
+    layoutNormStyle.textContent = 'section.layout-section { overflow: hidden; }';
+    document.head.appendChild(layoutNormStyle);
+  })();
+
+  // ===== GRID CELL MULTI-CHILD FIX =====
+  // Grid cells (inserted elements inside horizontal grids) that contain multiple
+  // child inserted elements must use flex-direction: column so children stack
+  // vertically. This can be lost if inline styles are overwritten during editing.
+  (function() {
+    function fixGridCellFlexDirection() {
+      try {
+        var cells = document.querySelectorAll('.zappy-inserted-element');
+        for (var i = 0; i < cells.length; i++) {
+          var cell = cells[i];
+          var style = cell.getAttribute('style') || '';
+          if (style.indexOf('display: flex') === -1 && style.indexOf('display:flex') === -1) continue;
+          if (style.indexOf('flex-direction') !== -1) continue;
+          var childInserted = cell.querySelector('.zappy-inserted-element');
+          if (!childInserted) continue;
+          cell.style.flexDirection = 'column';
+          cell.style.alignItems = 'center';
+        }
+      } catch (e) {}
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fixGridCellFlexDirection);
+    } else {
+      fixGridCellFlexDirection();
+    }
+  })();
+
+  // ===== E-COMMERCE VARIANT SELECTION FIX =====
+  // Inject CSS for variant option states:
+  //   .disabled        = non-existent combination OR out-of-stock → gray + text strikethrough, always clickable
+  //   .out-of-stock    = same visual as disabled, used for stock-specific logic
+  // This ensures existing sites get the correct styling without regeneration.
+  (function() {
+    // 1) Inject CSS immediately (uses separate ID so fixVariantSelection doesn't remove it)
+    if (!document.getElementById('zappy-variant-visual-css')) {
+      var s = document.createElement('style');
+      s.id = 'zappy-variant-visual-css';
+      s.textContent =
+        /* Text variant options: gray + text strikethrough */
+        '.variant-option.disabled { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }' +
+        '.variant-option.disabled::after, .variant-option.disabled::before { content: none !important; }' +
+        /* Color swatches: only opacity, no strikethrough */
+        '.variant-option.color-swatch.disabled { text-decoration: none !important; }' +
+        /* Out-of-stock: same treatment */
+        '.variant-option.out-of-stock { opacity: 0.4 !important; cursor: pointer !important; text-decoration: line-through !important; }' +
+        '.variant-option.out-of-stock::after, .variant-option.out-of-stock::before { content: none !important; }' +
+        '.variant-option.color-swatch.out-of-stock { text-decoration: none !important; }';
+      document.head.appendChild(s);
+    }
+
+    // 2) Override initVariantSelection early to prevent the page's default selection behavior.
+    // The page's initVariantSelection calls .click() on first options, auto-selecting defaults.
+    // We replace it with a version that only does setup (CSS, sorting, handlers) but skips auto-select.
+    var _initOverridden = false;
+    function _overrideInitVariantSelection() {
+      if (_initOverridden) return;
+      if (typeof window.initVariantSelection === 'function') {
+        _initOverridden = true;
+      }
+      window.initVariantSelection = function(product, t) {
+        // Store product data for our fix
+        if (product && product.variants && product.variants.length > 0) {
+          _variantProduct = product;
+          var trans = t || {};
+          // Ensure pleaseSelect is available (for sites generated before this key was added)
+          if (!trans.pleaseSelect) {
+            var isRTL = document.documentElement.getAttribute('dir') === 'rtl' || document.body.getAttribute('dir') === 'rtl';
+            trans.pleaseSelect = isRTL ? 'נא לבחור' : 'Please select';
+          }
+          _variantTranslations = trans;
+          // Re-trigger fixVariantSelection here. Our scheduled setTimeout(..., 100) and
+          // setTimeout(..., 2000) may have already fired before the product API resolved
+          // (slow DB / large payloads), in which case both calls bailed at the
+          // `if (!product || !product.variants...) return;` guard and never repaired
+          // truncated data-value attributes nor auto-selected single-option groups.
+          // Running it again now (deferred so DOM mutations from the page's own init
+          // settle first) ensures the fix executes exactly once for late-arriving data.
+          setTimeout(function() { try { fixVariantSelection(); } catch (e) {} }, 0);
+        }
+        // Do NOT call the original (which would auto-select defaults and inject conflicting CSS).
+        // Our fixVariantSelection handles all setup.
+      };
+    }
+    _overrideInitVariantSelection();
+    
+    // 3) Document-level click delegation for variant options.
+    // Uses capture phase on document so it fires before any element-level handlers
+    // and works regardless of when variant buttons are created/recreated.
+    var selectedAttributes = {};
+    var _variantProduct = null;
+    var _variantTranslations = {};
+    
+    function _getVariants() {
+      if (!_variantProduct) return [];
+      return (_variantProduct.variants || []).filter(function(v) { return v.is_active !== false; });
+    }
+    
+    function _getAttributeKeys() {
+      var keys = [], seen = {};
+      document.querySelectorAll('.variant-option').forEach(function(btn) {
+        var k = btn.getAttribute('data-attr');
+        if (k && !seen[k]) { seen[k] = true; keys.push(k); }
+      });
+      return keys;
+    }
+    
+    function _comboExists(selections) {
+      return _getVariants().some(function(v) {
+        if (!v.attributes) return false;
+        for (var k in selections) {
+          if (!selections.hasOwnProperty(k)) continue;
+          if (v.attributes[k] !== selections[k]) return false;
+        }
+        return true;
+      });
+    }
+    
+    function _findMatching(selections) {
+      return _getVariants().filter(function(v) {
+        if (!v.attributes) return false;
+        for (var k in selections) {
+          if (!selections.hasOwnProperty(k)) continue;
+          if (v.attributes[k] !== selections[k]) return false;
+        }
+        return true;
+      });
+    }
+    
+    function _isOOS(v) {
+      return v.stock_status === 'out_of_stock' ||
+        (v.stock_quantity !== null && v.stock_quantity !== undefined && v.stock_quantity <= 0);
+    }
+    
+    function _updateVisuals() {
+      var variants = _getVariants();
+      if (variants.length === 0) return;
+      document.querySelectorAll('.variant-option').forEach(function(btn) {
+        var ak = btn.getAttribute('data-attr');
+        var av = btn.getAttribute('data-value');
+        var test = {};
+        for (var k in selectedAttributes) {
+          if (selectedAttributes.hasOwnProperty(k) && k !== ak) test[k] = selectedAttributes[k];
+        }
+        test[ak] = av;
+        var matching = _findMatching(test);
+        btn.classList.remove('disabled', 'out-of-stock');
+        btn.disabled = false;
+        if (matching.length === 0) {
+          btn.classList.add('disabled');
+        } else if (matching.every(function(v) { return _isOOS(v); })) {
+          btn.classList.add('disabled');
+          btn.classList.add('out-of-stock');
+        }
+      });
+    }
+    
+    function _updateProductDisplay() {
+      var t = _variantTranslations;
+      var product = _variantProduct;
+      if (!product) return;
+      var keys = _getAttributeKeys();
+      var allSelected = keys.every(function(k) { return selectedAttributes.hasOwnProperty(k); });
+      var stockDisplay = document.getElementById('product-stock-display');
+      var priceDisplay = document.getElementById('product-price-display');
+      var addBtn = document.getElementById('add-to-cart-btn');
+      keys.forEach(function(k) {
+        var sp = document.querySelector('.variant-group[data-group="' + k + '"] .variant-selected-value');
+        if (sp) {
+          var selBtn = document.querySelector('.variant-option[data-attr="' + k + '"].selected');
+          sp.textContent = (selBtn && selBtn.getAttribute('data-display-value')) || selectedAttributes[k] || '';
+        }
+      });
+      var mainImage = document.getElementById('product-main-image');
+      if (mainImage && !window._originalMainImageSrc) {
+        window._originalMainImageSrc = mainImage.src;
+      }
+      if (allSelected) {
+        var matching = _findMatching(selectedAttributes);
+        if (matching.length > 0) {
+          var v = matching[0];
+          // Set window.selectedVariant so the page's addProductToCart can use it
+          window.selectedVariant = v;
+          if (_isOOS(v)) {
+            if (stockDisplay) {
+              stockDisplay.className = 'product-stock out-of-stock';
+              stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' + (t.outOfStock || 'Out of Stock');
+            }
+            if (addBtn) { addBtn.disabled = true; addBtn.style.opacity = '0.5'; addBtn.style.cursor = 'not-allowed'; }
+          } else {
+            if (stockDisplay) {
+              stockDisplay.className = 'product-stock in-stock';
+              stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>' + (t.inStock || 'In Stock');
+            }
+            if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = ''; addBtn.style.cursor = ''; }
+          }
+          // Always update price when a variant is matched
+          if (priceDisplay) {
+            var currency = product.currency || t.currency || '₪';
+            var baseP = window.productBasePrice || parseFloat(product.price) || 0;
+            var origP = window.productOriginalPrice || parseFloat(product.compare_at_price || product.original_price || 0);
+            var hasSale = window.productHasSalePrice;
+            var finalPrice = (v.price != null) ? parseFloat(v.price) : baseP;
+            var html = currency + finalPrice.toFixed(2);
+            if (v.price != null) {
+              if (origP && origP > finalPrice) {
+                html += ' <span class="original-price">' + currency + origP.toFixed(2) + '</span>';
+              }
+            } else if (hasSale && origP > finalPrice) {
+              html += ' <span class="original-price">' + currency + origP.toFixed(2) + '</span>';
+            }
+            priceDisplay.innerHTML = html;
+          }
+          // Update price-per-unit if the function exists
+          if (typeof updatePricePerUnitDisplay === 'function') {
+            var effPrice = (v.price != null) ? parseFloat(v.price) : (window.productBasePrice || parseFloat(product.price) || 0);
+            updatePricePerUnitDisplay(effPrice, product, t);
+          }
+          // Update SKU: prefer variant SKU, fall back to base product SKU.
+          // Resolve the label through getEcomText so it follows the active
+          // storefront language — `t.sku || 'SKU'` alone returns Hebrew
+          // ("מק״ט") on every English page because the static `t` dictionary
+          // baked at server-render time is the merchant's source language
+          // (Hebrew, in the artori-design case) and a Hebrew string is
+          // truthy, so the English fallback is never reached.
+          var skuDisplay = document.getElementById('product-sku-display');
+          if (skuDisplay) {
+            var skuLabel = (typeof getEcomText === 'function') ? getEcomText('sku', t.sku || 'SKU') : (t.sku || 'SKU');
+            if (v.sku) {
+              skuDisplay.textContent = skuLabel + ': ' + v.sku;
+            } else if (product.sku) {
+              skuDisplay.textContent = skuLabel + ': ' + product.sku;
+            }
+          }
+          // Update main image if variant has a specific image
+          if (mainImage && v.image) {
+            var variantImgSrc = v.image;
+            if (window.resolveProductImageUrl) {
+              variantImgSrc = window.resolveProductImageUrl(v.image);
+            }
+            mainImage.src = variantImgSrc;
+          } else if (mainImage && window._originalMainImageSrc) {
+            mainImage.src = window._originalMainImageSrc;
+          }
+        }
+      } else {
+        window.selectedVariant = null;
+        // Reset SKU to base product SKU
+        var skuDisplay2 = document.getElementById('product-sku-display');
+        if (skuDisplay2 && product.sku) {
+          var skuLabel2 = (typeof getEcomText === 'function') ? getEcomText('sku', t.sku || 'SKU') : (t.sku || 'SKU');
+          skuDisplay2.textContent = skuLabel2 + ': ' + product.sku;
+        }
+        if (stockDisplay) {
+          stockDisplay.className = 'product-stock in-stock';
+          stockDisplay.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>' + (t.inStock || 'In Stock');
+        }
+        if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = ''; addBtn.style.cursor = ''; }
+        // Reset price to initial state (Starting at / base price)
+        if (priceDisplay) {
+          var currency = product.currency || t.currency || '₪';
+          var baseP = window.productBasePrice || parseFloat(product.price) || 0;
+          var origP = window.productOriginalPrice || parseFloat(product.compare_at_price || product.original_price || 0);
+          var hasSale = window.productHasSalePrice;
+          var hasRange = window.productHasVariantPriceRange;
+          var minP = window.productVariantMinPrice;
+          if (hasRange && minP != null && isFinite(minP)) {
+            var startLabel = (typeof getEcomText === 'function') ? getEcomText('startingAt', t.startingAt || 'Starting at') : (t.startingAt || 'Starting at');
+            priceDisplay.textContent = startLabel + ' ' + currency + minP.toFixed(2);
+          } else if (hasSale && origP > baseP) {
+            priceDisplay.innerHTML = currency + baseP.toFixed(2) + ' <span class="original-price">' + currency + origP.toFixed(2) + '</span>';
+          } else {
+            priceDisplay.textContent = currency + baseP.toFixed(2);
+          }
+        }
+        // Reset price-per-unit
+        if (typeof updatePricePerUnitDisplay === 'function') {
+          var hasRange = window.productHasVariantPriceRange;
+          var minP = window.productVariantMinPrice;
+          var baseP = window.productBasePrice || parseFloat(product.price) || 0;
+          var resetPrice = (hasRange && minP != null && isFinite(minP)) ? minP : baseP;
+          updatePricePerUnitDisplay(resetPrice, product, t);
+        }
+        // Restore original image when no variant is fully selected
+        if (mainImage && window._originalMainImageSrc) {
+          mainImage.src = window._originalMainImageSrc;
+        }
+      }
+    }
+    
+    // Document-level capture handler - fires BEFORE any element-level handlers
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest ? e.target.closest('.variant-option') : null;
+      if (!btn) return;
+      if (!_variantProduct || _getVariants().length === 0) return;
+      
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      
+      var ak = btn.getAttribute('data-attr');
+      var av = btn.getAttribute('data-value');
+      if (!ak || !av) return;
+      
+      // If already selected, do nothing (no manual deselect)
+      if (selectedAttributes[ak] === av) {
+        return;
+      }
+      // Select new option in this group
+      document.querySelectorAll('.variant-option[data-attr="' + ak + '"]').forEach(function(b) { b.classList.remove('selected'); });
+      selectedAttributes[ak] = av;
+      btn.classList.add('selected');
+      // Non-existent combo check: if the new selection creates an impossible combo, clear all others
+      if (Object.keys(selectedAttributes).length > 1) {
+        if (!_comboExists(selectedAttributes)) {
+          document.querySelectorAll('.variant-option').forEach(function(b) { b.classList.remove('selected'); });
+          selectedAttributes = {};
+          selectedAttributes[ak] = av;
+          btn.classList.add('selected');
+        }
+      }
+      
+      _updateVisuals();
+      _updateProductDisplay();
+    }, true); // capture phase
+    
+    // Document-level add-to-cart interceptor (capture phase)
+    // This fires before any element-level onclick or inline onclick handlers,
+    // preventing the page's original alert()-based validation.
+    document.addEventListener('click', function(e) {
+      var addBtn = e.target.closest ? e.target.closest('.add-to-cart-btn, .add-to-cart, #add-to-cart-btn, [onclick*="addProductToCart"]') : null;
+      if (!addBtn) return;
+      if (!_variantProduct || _getVariants().length === 0) return;
+      
+      var t = _variantTranslations || {};
+      var keys = _getAttributeKeys();
+      
+      // Sequential validation: check each variant group in order
+      for (var i = 0; i < keys.length; i++) {
+        if (!selectedAttributes.hasOwnProperty(keys[i])) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          var grp = document.querySelector('.variant-group[data-group="' + keys[i] + '"]');
+          var lbl = grp ? grp.querySelector('.variant-group-label') : null;
+          var name = lbl ? lbl.textContent.replace(/[:\s]+$/, '').trim() : keys[i];
+          var sd = document.getElementById('product-stock-display');
+          if (sd) {
+            sd.className = 'product-stock out-of-stock';
+            sd.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
+              (t.pleaseSelect || 'Please select') + ' ' + name;
+          }
+          if (grp) {
+            grp.style.transition = 'background 0.3s';
+            grp.style.background = 'rgba(255,0,0,0.05)';
+            grp.style.borderRadius = '8px';
+            setTimeout(function() { grp.style.background = ''; }, 2000);
+          }
+          return;
+        }
+      }
+      
+      // All selected: check if combo is out of stock
+      var matching = _findMatching(selectedAttributes);
+      if (matching.length > 0 && matching.every(function(v) { return _isOOS(v); })) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return;
+      }
+      // Valid selection - let the click through to the original handler
+    }, true); // capture phase
+    
+    // Post-load init: sort options, clear selections, override addProductToCart
+    function fixVariantSelection() {
+      // Re-assert initVariantSelection override in case it was redefined
+      _overrideInitVariantSelection();
+      
+      var product = _variantProduct || window.currentProduct;
+      var t = _variantTranslations || window.productTranslations || {};
+      if (!product || !product.variants || product.variants.length === 0) return;
+      if (document.querySelectorAll('.variant-option').length === 0) return;
+      if (window._zappyVariantFixed) return;
+      window._zappyVariantFixed = true;
+      
+      _variantProduct = product;
+      // Ensure pleaseSelect translation exists (for sites generated before this key was added)
+      if (!t.pleaseSelect) {
+        var isRTL = document.documentElement.getAttribute('dir') === 'rtl' || document.body.getAttribute('dir') === 'rtl';
+        t.pleaseSelect = isRTL ? 'נא לבחור' : 'Please select';
+      }
+      _variantTranslations = t;
+      
+      // Remove old dynamic CSS injected by the original initVariantSelection
+      var oldStyle = document.getElementById('zappy-variant-state-css');
+      if (oldStyle) oldStyle.remove();
+      document.querySelectorAll('.variant-option').forEach(function(btn) {
+        btn.style.display = '';
+        btn.disabled = false;
+      });
+
+      // Repair variant button attributes that were truncated by the browser
+      // when the (pre-fix) renderProductDetail in older website.content.js
+      // serialized values containing " (e.g. Hebrew sizes like '19  מ"מ',
+      // US sizes 5'10") into data-value/data-display-value without HTML
+      // escaping. We rebuild data-value, data-display-value, and the visible
+      // text from _variantProduct.variants[*].attributes — the unbroken
+      // source of truth from the API. Pairs buttons to values by index after
+      // applying the same sort that fixVariantSelection uses below, so the
+      // mapping survives even when buttons render in a different order than
+      // the variants array.
+      function _repairVariantButtons() {
+        if (!_variantProduct || !_variantProduct.variants) return;
+        var vs = _getVariants();
+        if (vs.length === 0) return;
+        var _so = {'xxxs':0,'xxs':1,'xs':2,'s':3,'m':4,'l':5,'xl':6,'xxl':7,'2xl':7,'xxxl':8,'3xl':8,'4xl':9,'5xl':10};
+        function _cmp(a, b) {
+          var sa = _so[String(a).toLowerCase()], sb = _so[String(b).toLowerCase()];
+          var na = sa === undefined ? parseFloat(a) : NaN;
+          var nb = sb === undefined ? parseFloat(b) : NaN;
+          if (!isNaN(na) && !isNaN(nb)) return na - nb;
+          if (sa !== undefined && sb !== undefined) return sa - sb;
+          var ca = !isNaN(na) ? 0 : sa !== undefined ? 1 : 2;
+          var cb = !isNaN(nb) ? 0 : sb !== undefined ? 1 : 2;
+          if (ca !== cb) return ca - cb;
+          return String(a).localeCompare(String(b));
+        }
+        document.querySelectorAll('.variant-group').forEach(function(grp) {
+          var ak = grp.getAttribute('data-group');
+          if (!ak || ak === 'variant') return;
+          var btns = Array.prototype.slice.call(grp.querySelectorAll('.variant-option'));
+          if (btns.length === 0) return;
+          var seen = {}, vals = [];
+          vs.forEach(function(v) {
+            if (v.attributes && Object.prototype.hasOwnProperty.call(v.attributes, ak)) {
+              var val = v.attributes[ak];
+              if (val != null && !seen[val]) { seen[val] = true; vals.push(val); }
+            }
+          });
+          if (vals.length === 0 || vals.length !== btns.length) return;
+          vals.sort(_cmp);
+          btns.forEach(function(btn, i) {
+            var correct = String(vals[i]);
+            var current = btn.getAttribute('data-value') || '';
+            if (current === correct) return;
+            btn.setAttribute('data-value', correct);
+            btn.setAttribute('data-display-value', correct);
+            if (!btn.classList.contains('color-swatch')) { btn.textContent = correct; }
+            if (btn.title) { btn.title = correct; }
+          });
+        });
+      }
+      _repairVariantButtons();
+
+      // Sort variant options (numeric, then known sizes, then alphabetical)
+      var _sizeOrder = {'xxxs':0,'xxs':1,'xs':2,'s':3,'m':4,'l':5,'xl':6,'xxl':7,'2xl':7,'xxxl':8,'3xl':8,'4xl':9,'5xl':10};
+      document.querySelectorAll('.variant-options').forEach(function(container) {
+        var btns = Array.from(container.querySelectorAll('.variant-option'));
+        if (btns.length < 2) return;
+        btns.sort(function(a, b) {
+          var va = a.getAttribute('data-value') || '', vb = b.getAttribute('data-value') || '';
+          var sa = _sizeOrder[va.toLowerCase()], sb = _sizeOrder[vb.toLowerCase()];
+          var na = sa === undefined ? parseFloat(va) : NaN;
+          var nb = sb === undefined ? parseFloat(vb) : NaN;
+          if (!isNaN(na) && !isNaN(nb)) return na - nb;
+          if (sa !== undefined && sb !== undefined) return sa - sb;
+          var ca = !isNaN(na) ? 0 : sa !== undefined ? 1 : 2;
+          var cb = !isNaN(nb) ? 0 : sb !== undefined ? 1 : 2;
+          if (ca !== cb) return ca - cb;
+          return va.localeCompare(vb);
+        });
+        btns.forEach(function(b) { container.appendChild(b); });
+      });
+      
+      // Also override addProductToCart as a safety net
+      var origAddToCart = window.addProductToCart;
+      window.addProductToCart = function() {
+        var keys = _getAttributeKeys();
+        for (var i = 0; i < keys.length; i++) {
+          if (!selectedAttributes.hasOwnProperty(keys[i])) {
+            var grp = document.querySelector('.variant-group[data-group="' + keys[i] + '"]');
+            var lbl = grp ? grp.querySelector('.variant-group-label') : null;
+            var name = lbl ? lbl.textContent.replace(/[:\s]+$/, '').trim() : keys[i];
+            var sd = document.getElementById('product-stock-display');
+            if (sd) {
+              sd.className = 'product-stock out-of-stock';
+              sd.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
+                (t.pleaseSelect || 'Please select') + ' ' + name;
+            }
+            if (grp) {
+              grp.style.transition = 'background 0.3s';
+              grp.style.background = 'rgba(255,0,0,0.05)';
+              grp.style.borderRadius = '8px';
+              setTimeout(function() { grp.style.background = ''; }, 2000);
+            }
+            return;
+          }
+        }
+        var matching = _findMatching(selectedAttributes);
+        if (matching.length > 0 && matching.every(function(v) { return _isOOS(v); })) return;
+        if (origAddToCart) origAddToCart.apply(this, arguments);
+      };
+      
+      // Clear all, update visuals
+      selectedAttributes = {};
+      document.querySelectorAll('.variant-option').forEach(function(b) {
+        b.classList.remove('selected', 'disabled', 'out-of-stock');
+        b.disabled = false;
+      });
+
+      // Auto-select any variant group that only has one possible value, so a
+      // shopper choosing the remaining options gets a fully-matched variant
+      // (image/SKU/price update) instead of being silently blocked because a
+      // single-option dimension was left implicitly unselected.
+      function _autoSelectSingles() {
+        document.querySelectorAll('.variant-group').forEach(function(grp) {
+          var ak = grp.getAttribute('data-group');
+          if (!ak || ak === 'variant') return;
+          if (grp.querySelector('.variant-option.selected')) return;
+          var btns = Array.prototype.slice.call(grp.querySelectorAll('.variant-option')).filter(function(b) {
+            return b.getAttribute('data-attr')
+              && b.getAttribute('data-value')
+              && !b.classList.contains('disabled')
+              && !b.classList.contains('out-of-stock');
+          });
+          if (btns.length !== 1) return;
+          var btn = btns[0];
+          var av = btn.getAttribute('data-value');
+          btn.classList.add('selected');
+          selectedAttributes[ak] = av;
+          var sp = grp.querySelector('.variant-selected-value');
+          if (sp) sp.textContent = btn.getAttribute('data-display-value') || av;
+        });
+      }
+
+      _autoSelectSingles();
+      _updateVisuals();
+      // Re-run after availability has been recomputed: a multi-option group may
+      // have collapsed to a single non-disabled choice once cross-group stock
+      // constraints were applied.
+      _autoSelectSingles();
+      _updateProductDisplay();
+    }
+    
+    function tryFix() { setTimeout(fixVariantSelection, 100); }
+    if (document.readyState === 'complete') {
+      tryFix();
+    } else {
+      window.addEventListener('load', tryFix);
+    }
+    setTimeout(fixVariantSelection, 2000);
+  })();
+
+  // ===== CHECKOUT TERMS CHECKBOX FIX =====
+  // Ensure the terms checkbox label is properly styled on all sites (including those generated
+  // before these styles were added). Injects missing CSS for proper flex layout and spacing.
+  (function() {
+    if (document.getElementById('zappy-terms-checkbox-css')) return;
+    var s = document.createElement('style');
+    s.id = 'zappy-terms-checkbox-css';
+    s.textContent =
+      '.terms-checkbox-wrapper { margin: 16px 0; padding: 12px; background: var(--surface-color, var(--surface, #f9fafb)); border-radius: 8px; }' +
+      '.terms-checkbox-label { display: flex !important; align-items: center !important; gap: 10px !important; cursor: pointer; font-size: 14px; color: var(--text-color, var(--text, #374151)); }' +
+      '.terms-checkbox { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary-color, var(--primary, #ff0083)); flex-shrink: 0; }' +
+      '.terms-link { color: var(--primary-color, var(--primary, #ff0083)); text-decoration: underline; font-weight: 500; }';
+    document.head.appendChild(s);
+  })();
+
+  // ===== CART COLOR SWATCH PATCH =====
+  // Replace color text in cart items with a color circle swatch.
+  // Observes the cart drawer for changes and converts color attribute text to circles.
+  (function() {
+    function patchCartColorSwatches(container) {
+      if (!container) return;
+      var attrs = container.querySelectorAll('.cart-item-attr');
+      attrs.forEach(function(span) {
+        if (span.querySelector('.cart-item-color-swatch')) return; // already patched
+        var labelEl = span.querySelector('.cart-item-attr-label');
+        if (!labelEl) return;
+        var labelText = (labelEl.textContent || '').replace(/[:\s]+$/, '').toLowerCase();
+        // Match color-related labels in multiple languages
+        var colorLabels = ['color', 'colour', 'צבע', 'لون', 'farbe', 'couleur', 'color', 'colore'];
+        if (colorLabels.indexOf(labelText) === -1) return;
+        // The color value is the text after the label
+        var fullText = span.textContent || '';
+        var labelFull = labelEl.textContent || '';
+        var colorValue = fullText.replace(labelFull, '').trim();
+        if (!colorValue) return;
+        var bgColor = colorValue;
+        if (!/^#[0-9A-Fa-f]{3,6}$/.test(colorValue)) {
+          var lc = colorValue.toLowerCase();
+          var _clr = {'dark grey':'#555','dark gray':'#555','light grey':'#d3d3d3','light gray':'#d3d3d3','light blue':'lightblue','dark blue':'darkblue','light green':'lightgreen','dark green':'darkgreen','dark red':'darkred','light pink':'lightpink','dark orange':'darkorange','sky blue':'skyblue','royal blue':'royalblue','navy blue':'navy','forest green':'forestgreen','olive green':'olivedrab','hot pink':'hotpink','deep pink':'deeppink','dark violet':'darkviolet','slate grey':'slategrey','slate gray':'slategray','dim grey':'dimgrey','dim gray':'dimgray','off white':'#f5f5f0','burgundy':'#800020','charcoal':'#36454f','champagne':'#f7e7ce','sand':'#c2b280','taupe':'#483c32','wine':'#722f37','rust':'#b7410e','sage':'#bcb88a','mint':'#98ff98','peach':'#ffcba4','cream':'#fffdd0','mauve':'#e0b0ff'};
+          bgColor = _clr[lc] || lc;
+        }
+        var swatch = document.createElement('span');
+        swatch.className = 'cart-item-color-swatch';
+        swatch.title = colorValue;
+        swatch.style.cssText = 'display:inline-block;width:14px;height:14px;border-radius:50%;background-color:' + bgColor + ';border:1px solid rgba(0,0,0,0.15);vertical-align:middle;margin-inline-start:4px;';
+        // Remove the text value, keep only label + swatch
+        span.textContent = '';
+        span.appendChild(labelEl.cloneNode(true));
+        span.appendChild(document.createTextNode(' '));
+        span.appendChild(swatch);
+      });
+    }
+
+    // Observe the cart drawer for content changes
+    function observeCartDrawer() {
+      var drawer = document.getElementById('cart-drawer') || document.getElementById('cart-drawer-items');
+      if (!drawer) return;
+      patchCartColorSwatches(drawer);
+      var observer = new MutationObserver(function() { patchCartColorSwatches(drawer); });
+      observer.observe(drawer, { childList: true, subtree: true });
+    }
+
+    // Try on load and also watch for the drawer being added to DOM
+    if (document.readyState === 'complete') {
+      setTimeout(observeCartDrawer, 200);
+    } else {
+      window.addEventListener('load', function() { setTimeout(observeCartDrawer, 200); });
+    }
+    // Safety net: also observe body for the drawer being dynamically added
+    var bodyObserver = new MutationObserver(function() {
+      var d = document.getElementById('cart-drawer');
+      if (d) { observeCartDrawer(); bodyObserver.disconnect(); }
+    });
+    if (document.body) {
+      bodyObserver.observe(document.body, { childList: true, subtree: true });
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+        bodyObserver.observe(document.body, { childList: true, subtree: true });
+      });
+    }
+  })();
+
+  // ===== CART FORMATTED PRICE TOTAL PATCH =====
+  // Older generated storefront scripts used parseFloat directly, which returns NaN for
+  // persisted cart prices such as "₪55.00". Keep existing preview carts accurate until
+  // the site is refreshed with the generated-code fix.
+  (function() {
+    function parseCartPrice(value) {
+      if (value === null || value === undefined || value === '') return NaN;
+      if (typeof value === 'number') return isFinite(value) ? value : NaN;
+      var normalized = String(value).replace(/[^\d.,-]/g, '').replace(/,/g, '');
+      var parsed = parseFloat(normalized);
+      return isFinite(parsed) ? parsed : NaN;
+    }
+
+    function getItemPrice(item) {
+      if (!item) return 0;
+      if (item.selectedVariant && item.selectedVariant.price !== null && item.selectedVariant.price !== undefined && item.selectedVariant.price !== '') {
+        var variantPrice = parseCartPrice(item.selectedVariant.price);
+        if (isFinite(variantPrice)) return variantPrice;
+      }
+      var displayPrice = parseCartPrice(item.displayPrice);
+      if (isFinite(displayPrice)) return displayPrice;
+      var regularPrice = parseCartPrice(item.price);
+      var salePrice = parseCartPrice(item.sale_price);
+      if (isFinite(salePrice) && isFinite(regularPrice) && salePrice < regularPrice) return salePrice;
+      return isFinite(regularPrice) ? regularPrice : 0;
+    }
+
+    function getLineTotal(item) {
+      var price = getItemPrice(item);
+      var quantity = parseFloat(item && item.quantity) || 1;
+      var step = parseFloat((item && (item.quantityStep || item.quantity_step))) || 1;
+      var unit = (item && (item.quantityUnit || item.quantity_unit)) || 'piece';
+      return unit === 'piece' ? price * quantity : price * (quantity / step);
+    }
+
+    function getCartItems() {
+      var websiteId = window.ZAPPY_WEBSITE_ID || (window.CONFIG && window.CONFIG.websiteId);
+      if (!websiteId) return [];
+      try {
+        return JSON.parse(localStorage.getItem('zappy_cart_' + websiteId) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function getCartTotalTarget(drawer, currency) {
+      if (!drawer) return null;
+      var totalEl = document.getElementById('cart-drawer-total');
+      if (totalEl) return totalEl;
+      var legacyTotal = drawer.querySelector('.cart-drawer-total');
+      if (!legacyTotal) return null;
+      var existingText = legacyTotal.textContent || '';
+      var labelMatch = existingText.match(/^([^:]+):/);
+      var label = labelMatch ? labelMatch[1].trim() : (window.zappyI18n && window.zappyI18n.t ? window.zappyI18n.t('ecom_total') : 'Total');
+      if (!label || label === 'ecom_total') label = existingText.indexOf('סה') !== -1 ? 'סה"כ' : 'Total';
+      legacyTotal.innerHTML = '<span>' + label + ':</span><span id="cart-drawer-total">' + (currency || '₪') + '0</span>';
+      return document.getElementById('cart-drawer-total');
+    }
+
+    function patchCartTotals() {
+      var drawer = document.getElementById('cart-drawer');
+      if (!drawer) return;
+      var items = getCartItems();
+      if (!items.length) return;
+      var currency = (window.ZAPPY_CURRENCY_SYMBOL || '').trim();
+      var totalEl = getCartTotalTarget(drawer, currency);
+      if (!currency && totalEl) {
+        var match = (totalEl.textContent || '').match(/^[^\d\s-]+/);
+        currency = match ? match[0] : '₪';
+      }
+      var total = 0;
+      var priceEls = drawer.querySelectorAll('.cart-item-price, .cart-drawer-item-price');
+      items.forEach(function(item, index) {
+        var lineTotal = getLineTotal(item);
+        total += lineTotal;
+        if (priceEls[index]) {
+          var nextText = currency + lineTotal.toFixed(2);
+          if (priceEls[index].textContent !== nextText) {
+            priceEls[index].textContent = nextText;
+          }
+        }
+      });
+      if (totalEl) {
+        var nextTotal = currency + total.toFixed(2);
+        if (totalEl.textContent !== nextTotal) totalEl.textContent = nextTotal;
+      }
+    }
+
+    function observeCartTotals() {
+      patchCartTotals();
+      var drawer = document.getElementById('cart-drawer') || document.body;
+      if (!drawer) return;
+      var scheduled = false;
+      var observer = new MutationObserver(function() {
+        if (scheduled) return;
+        scheduled = true;
+        setTimeout(function() {
+          scheduled = false;
+          patchCartTotals();
+        }, 0);
+      });
+      observer.observe(drawer, { childList: true, subtree: true, characterData: true });
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(observeCartTotals, 250);
+    } else {
+      window.addEventListener('load', function() { setTimeout(observeCartTotals, 250); });
+    }
+  })();
+
+  // ===== PRODUCT DETAIL RUNTIME I18N PATCH =====
+  // Existing preview product pages can keep source-language labels for stock and
+  // variant groups after switching languages. Keep those labels tied to runtime lang.
+  (function() {
+    var TEXT = {
+      en: {
+        inStock: 'In Stock',
+        outOfStock: 'Out of Stock',
+        color: 'Color',
+        size: 'Size',
+        material: 'Material',
+        style: 'Style',
+        weight: 'Weight',
+        capacity: 'Capacity',
+        length: 'Length'
+      },
+      he: {
+        inStock: 'במלאי',
+        outOfStock: 'אזל מהמלאי',
+        color: 'צבע',
+        size: 'מידה',
+        material: 'חומר',
+        style: 'סגנון',
+        weight: 'משקל',
+        capacity: 'קיבולת',
+        length: 'אורך'
+      }
+    };
+
+    function getLang() {
+      if (window.zappyI18n && typeof window.zappyI18n.getCurrentLanguage === 'function') {
+        var runtimeLang = String(window.zappyI18n.getCurrentLanguage() || '').split('-')[0].toLowerCase();
+        if (runtimeLang) return runtimeLang;
+      }
+      try {
+        var storedLang = String(localStorage.getItem('zappy_lang') || localStorage.getItem('zappy-language') || localStorage.getItem('selectedLanguage') || '').split('-')[0].toLowerCase();
+        if (storedLang) return storedLang;
+      } catch (e) {}
+      return String(document.documentElement.lang || 'en').split('-')[0].toLowerCase();
+    }
+
+    function getText(key) {
+      var lang = getLang();
+      if (TEXT[lang] && TEXT[lang][key]) return TEXT[lang][key];
+      if (window.zappyI18n && typeof window.zappyI18n.t === 'function') {
+        var translated = window.zappyI18n.t('ecom_' + key);
+        if (translated && translated !== 'ecom_' + key) return translated;
+      }
+      return (TEXT.en && TEXT.en[key]) || key;
+    }
+
+    function getVariantValueTranslation(attr, sourceValue) {
+      var product = window.currentProduct;
+      var variants = product && Array.isArray(product.variants) ? product.variants : [];
+      var lang = getLang();
+      for (var i = 0; i < variants.length; i++) {
+        var variant = variants[i];
+        var attrs = variant && (variant.attributes_source || variant.attributes || {});
+        if (String(attrs[attr]) !== String(sourceValue)) continue;
+        var translatedAttrs = variant.attributes_translations && variant.attributes_translations[lang];
+        if (translatedAttrs && translatedAttrs[attr]) return translatedAttrs[attr];
+        var displayAttrs = variant.attributes_display || {};
+        if (displayAttrs[attr]) return displayAttrs[attr];
+      }
+      return sourceValue;
+    }
+
+    function patchProductDetailI18n() {
+      if (typeof window.getVariantAttributeLabels === 'function' && !window.getVariantAttributeLabels.__zappyRuntimeI18nWrapped) {
+        var originalGetVariantAttributeLabels = window.getVariantAttributeLabels;
+        window.getVariantAttributeLabels = function(source, t) {
+          var labels = originalGetVariantAttributeLabels(source, t) || {};
+          ['color', 'size', 'material', 'style', 'weight', 'capacity', 'length'].forEach(function(key) {
+            labels[key] = getText(key);
+          });
+          return labels;
+        };
+        window.getVariantAttributeLabels.__zappyRuntimeI18nWrapped = true;
+      }
+
+      document.querySelectorAll('.variant-group').forEach(function(group) {
+        var attr = group.getAttribute('data-group');
+        if (!attr) return;
+        var key = String(attr).toLowerCase();
+        var labelText = getText(key);
+        var label = group.querySelector('.variant-group-label');
+        if (label) {
+          var selected = label.querySelector('.variant-selected-value');
+          var selectedText = selected ? selected.textContent : '';
+          if ((label.textContent || '').trim() !== (labelText + ': ' + selectedText).trim()) {
+            label.textContent = labelText + ': ';
+            if (selected) label.appendChild(selected);
+          }
+        }
+        group.querySelectorAll('.variant-option').forEach(function(option) {
+          var value = option.getAttribute('data-value');
+          var translatedValue = getVariantValueTranslation(attr, value);
+          if (option.getAttribute('data-display-value') !== translatedValue) option.setAttribute('data-display-value', translatedValue);
+          if (option.getAttribute('title') !== translatedValue) option.setAttribute('title', translatedValue);
+          if (!option.classList.contains('color-swatch') && option.textContent !== translatedValue) option.textContent = translatedValue;
+        });
+      });
+
+      var stock = document.getElementById('product-stock-display');
+      if (stock) {
+        var inStock = stock.classList.contains('in-stock') && !stock.classList.contains('out-of-stock');
+        var svg = stock.querySelector('svg');
+        var nextText = inStock ? getText('inStock') : getText('outOfStock');
+        if ((stock.textContent || '').trim() !== nextText) {
+          stock.textContent = '';
+          if (svg) stock.appendChild(svg);
+          stock.appendChild(document.createTextNode(nextText));
+        }
+      }
+    }
+
+    function schedulePatch() {
+      setTimeout(patchProductDetailI18n, 100);
+      setTimeout(patchProductDetailI18n, 500);
+    }
+
+    if (document.readyState === 'complete') {
+      schedulePatch();
+    } else {
+      window.addEventListener('load', schedulePatch);
+    }
+    if (window.zappyI18n && typeof window.zappyI18n.onLanguageChange === 'function') {
+      window.zappyI18n.onLanguageChange(schedulePatch);
+    }
+    var observer = new MutationObserver(function() { schedulePatch(); });
+    if (document.body) observer.observe(document.body, { childList: true, subtree: true });
+  })();
+
+  // ===== CHECKOUT RUNTIME I18N PATCH =====
+  // Existing generated checkout pages may have Hebrew UI fragments baked into dynamic
+  // totals and shipping rows. Patch them from the active runtime language in preview.
+  (function() {
+    var TEXT = {
+      en: {
+        agreeToTerms: 'I agree to the',
+        termsAndConditions: 'Terms of Use',
+        subtotal: 'Subtotal',
+        vatIncluded: 'Including VAT',
+        shipping: 'Shipping',
+        discount: 'Discount',
+        totalToPay: 'Total to Pay',
+        days: 'days',
+        free: 'Free'
+      },
+      he: {
+        agreeToTerms: 'אני מסכים/ה ל',
+        termsAndConditions: 'תנאי השימוש',
+        subtotal: 'סכום ביניים',
+        vatIncluded: 'כולל מע"מ',
+        shipping: 'משלוח',
+        discount: 'הנחה',
+        totalToPay: 'סה"כ לתשלום',
+        days: 'ימים',
+        free: 'חינם'
+      }
+    };
+
+    function getLang() {
+      if (window.zappyI18n && typeof window.zappyI18n.getCurrentLanguage === 'function') {
+        var runtimeLang = String(window.zappyI18n.getCurrentLanguage() || '').split('-')[0].toLowerCase();
+        if (runtimeLang) return runtimeLang;
+      }
+      try {
+        var storedLang = String(localStorage.getItem('zappy_lang') || '').split('-')[0].toLowerCase();
+        if (storedLang) return storedLang;
+      } catch (e) {}
+      var htmlLang = String(document.documentElement.lang || '').split('-')[0].toLowerCase();
+      if (htmlLang) return htmlLang;
+      var checkoutTitle = document.querySelector('.checkout-section h1, h1');
+      if (checkoutTitle && /checkout/i.test(checkoutTitle.textContent || '')) {
+        return 'en';
+      }
+      return 'en';
+    }
+
+    function getText(key) {
+      var lang = getLang();
+      return (TEXT[lang] && TEXT[lang][key]) || (TEXT.en && TEXT.en[key]) || '';
+    }
+
+    function setLabelForValue(valueSelector, key) {
+      var valueEl = document.querySelector(valueSelector);
+      if (!valueEl || !valueEl.parentElement) return;
+      var labelEl = valueEl.parentElement.querySelector('span:first-child');
+      if (labelEl && labelEl !== valueEl) {
+        var nextLabel = getText(key) + ':';
+        if (labelEl.textContent !== nextLabel) labelEl.textContent = nextLabel;
+      }
+    }
+
+    function ensureCheckoutTotalsStructure() {
+      var rows = document.querySelectorAll('.order-totals-row');
+      if (!rows.length) return;
+      var specs = [
+        { key: 'subtotal', id: 'subtotal', fallback: '₪0' },
+        { key: 'vatIncluded', id: 'vat-amount', fallback: '₪0' },
+        { key: 'shipping', id: 'shipping-cost', fallback: '₪0' },
+        { key: 'discount', id: 'discount', fallback: '₪0' },
+        { key: 'totalToPay', id: 'order-total', fallback: '₪0' }
+      ];
+      specs.forEach(function(spec, index) {
+        var row = rows[index];
+        if (!row || row.querySelector('#' + spec.id)) return;
+        var text = row.textContent || '';
+        var valueMatch = text.match(/-?\s*[₪$€£]\s*\d[\d,.]*/);
+        var value = valueMatch ? valueMatch[0].replace(/\s+/g, '') : spec.fallback;
+        row.innerHTML = '<span data-ecom-label="' + spec.key + '">' + getText(spec.key) + ':</span><span id="' + spec.id + '">' + value + '</span>';
+      });
+    }
+
+    function parseMoney(value) {
+      var normalized = String(value || '').replace(/[^\d.,-]/g, '').replace(/,/g, '');
+      var parsed = parseFloat(normalized);
+      return isFinite(parsed) ? parsed : 0;
+    }
+
+    function normalizeCheckoutValues() {
+      var discountEl = document.getElementById('discount');
+      var discountRow = document.getElementById('discount-row') || (discountEl && discountEl.closest('.discount-row, .order-totals-row'));
+      if (discountEl && Math.abs(parseMoney(discountEl.textContent)) < 0.005) {
+        var zeroDiscountText = (window.ZAPPY_CURRENCY_SYMBOL || '₪') + '0';
+        if (discountEl.textContent !== zeroDiscountText) discountEl.textContent = zeroDiscountText;
+        if (discountRow && discountRow.style.display !== 'none') discountRow.style.display = 'none';
+      }
+      var shippingCost = document.getElementById('shipping-cost');
+      if (shippingCost && /^(חינם|FREE)$/i.test((shippingCost.textContent || '').trim())) {
+        var freeText = getText('free');
+        if (shippingCost.textContent !== freeText) shippingCost.textContent = freeText;
+      }
+    }
+
+    function transliterateKnownAddress(value) {
+      if (!value) return '';
+      return String(value)
+        .replace(/הוד השרון/g, 'Hod Hasharon')
+        .replace(/הרדוף/g, 'Harduf');
+    }
+
+    function formatPickupAddress(method) {
+      var address = method && method.pickup_address;
+      if (!address || !address.street) return '';
+      var lang = getLang();
+      if (address.translations && address.translations[lang]) {
+        address = Object.assign({}, address, address.translations[lang]);
+      }
+      var street = address.street;
+      var city = address.city;
+      if (lang === 'en') {
+        street = transliterateKnownAddress(street);
+        city = transliterateKnownAddress(city);
+      }
+      return [street, city].filter(Boolean).join(', ');
+    }
+
+    function patchCheckoutStaticText() {
+      ensureCheckoutTotalsStructure();
+      var agree = document.querySelector('[data-i18n="ecom_agreeToTerms"]') || document.querySelector('.terms-checkbox-label > span > span:first-child');
+      if (agree && agree.textContent !== getText('agreeToTerms')) agree.textContent = getText('agreeToTerms');
+      var terms = document.querySelector('[data-i18n="ecom_termsAndConditions"]') || document.querySelector('.terms-checkbox-label .terms-link');
+      if (terms && terms.textContent !== getText('termsAndConditions')) terms.textContent = getText('termsAndConditions');
+      setLabelForValue('#subtotal', 'subtotal');
+      setLabelForValue('#vat-amount', 'vatIncluded');
+      setLabelForValue('#shipping-cost', 'shipping');
+      setLabelForValue('#discount', 'discount');
+      setLabelForValue('#order-total', 'totalToPay');
+      var shippingCost = document.getElementById('shipping-cost');
+      if (shippingCost && /^(חינם|FREE)$/i.test((shippingCost.textContent || '').trim())) {
+        shippingCost.textContent = getText('free');
+      }
+      normalizeCheckoutValues();
+    }
+
+    var shippingPatchInFlight = false;
+    async function patchShippingMethods() {
+      var container = document.getElementById('shipping-methods');
+      var websiteId = window.ZAPPY_WEBSITE_ID || (window.CONFIG && window.CONFIG.websiteId);
+      if (!container || !websiteId || shippingPatchInFlight) return;
+      shippingPatchInFlight = true;
+      try {
+        var lang = getLang();
+        var apiBase = window.ZAPPY_API_BASE || '';
+        var res = await fetch(apiBase + '/api/ecommerce/storefront/shipping?websiteId=' + encodeURIComponent(websiteId) + '&lang=' + encodeURIComponent(lang));
+        var data = await res.json();
+        var methods = data && data.data ? data.data : [];
+        methods.forEach(function(method) {
+          var block = container.querySelector('.shipping-method-block[data-method-id="' + method.id + '"]');
+          if (!block) return;
+          var nameEl = block.querySelector('.shipping-name');
+          if (nameEl && method.name) nameEl.textContent = method.name;
+          var descEl = block.querySelector('.shipping-desc');
+          var daysText = method.estimated_days ? String(method.estimated_days) + ' ' + getText('days') : '';
+          var description = method.description || '';
+          var descText = description && daysText ? description + ' (' + daysText + ')' : (description || daysText);
+          if (descEl) {
+            descEl.textContent = descText;
+          } else if (descText) {
+            var info = block.querySelector('.shipping-info');
+            if (info) {
+              var created = document.createElement('div');
+              created.className = 'shipping-desc';
+              created.textContent = descText;
+              info.appendChild(created);
+            }
+          }
+          var priceEl = block.querySelector('.shipping-price.free');
+          if (priceEl) priceEl.textContent = getText('free');
+          var addressEl = block.querySelector('.shipping-address');
+          var addressText = formatPickupAddress(method);
+          if (addressEl && addressText) addressEl.textContent = addressText;
+        });
+      } catch (e) {
+        // Non-blocking compatibility patch.
+      } finally {
+        shippingPatchInFlight = false;
+      }
+    }
+
+    function patchCheckoutI18n() {
+      patchCheckoutStaticText();
+      patchShippingMethods();
+      normalizeCheckoutValues();
+    }
+
+    var style = document.createElement('style');
+    style.id = 'zappy-checkout-runtime-i18n-css';
+    style.textContent = '.checkout-order-details .order-totals-row{display:flex!important;justify-content:space-between!important;align-items:baseline!important;gap:12px!important}.checkout-order-details .order-totals-row span:first-child{flex:1 1 auto;min-width:0}.checkout-order-details .order-totals-row span:last-child{flex:0 0 auto;text-align:end}';
+    if (!document.getElementById(style.id)) document.head.appendChild(style);
+
+    if (document.readyState === 'complete') {
+      setTimeout(patchCheckoutI18n, 300);
+    } else {
+      window.addEventListener('load', function() { setTimeout(patchCheckoutI18n, 300); });
+    }
+    setTimeout(patchCheckoutI18n, 1500);
+    setTimeout(patchCheckoutI18n, 3500);
+    var scheduled = false;
+    var observer = new MutationObserver(function() {
+      if (scheduled) return;
+      scheduled = true;
+      setTimeout(function() {
+        scheduled = false;
+        patchCheckoutStaticText();
+      }, 50);
+    });
+    if (document.body) {
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
+    if (window.zappyI18n && typeof window.zappyI18n.onLanguageChange === 'function') {
+      window.zappyI18n.onLanguageChange(function() { setTimeout(patchCheckoutI18n, 300); });
+    }
+  })();
+
+})();
+
+
+/* ZAPPY_ECOM_LANGUAGE_ROUTING_RUNTIME_V6 */
+(function() {
+  if (window.__zappyEcomLanguageRoutingRuntime) return;
+  window.__zappyEcomLanguageRoutingRuntime = true;
+
+  // Routing strategy: use path-based language URLs for ALL storefront pages
+  // (including dynamic /product/:slug and /category/:slug). The publish
+  // pipeline pre-renders /<lang>/product/:slug/index.html with the correct
+  // navbar / catalog / lang-switcher baked in, and render.yaml rewrites
+  // /<lang>/product/* → that file. The script.js loaded inside is
+  // language-aware (reads the active language from the URL prefix) so dynamic
+  // labels (Add to Cart, In Stock, etc.) render in the right language too.
+  // This eliminates the source-language flash entirely — no runtime
+  // translation needed.
+
+  function getPathLang() {
+    return (window.location.pathname.match(/^\/([a-z]{2})(?:\/|$)/i) || [])[1];
+  }
+
+  function getQueryLang() {
+    try {
+      return new URLSearchParams(window.location.search).get('lang');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function getBakedDefaultLang() {
+    try {
+      if (typeof window.__zappyDefaultLang === 'string' && window.__zappyDefaultLang) return window.__zappyDefaultLang.toLowerCase();
+      if (typeof zappyAdditionalDefaultLanguage === 'string' && zappyAdditionalDefaultLanguage) return zappyAdditionalDefaultLanguage.toLowerCase();
+      if (typeof zappyEcomDefaultLanguage === 'string' && zappyEcomDefaultLanguage) return zappyEcomDefaultLanguage.toLowerCase();
+    } catch (e) {}
+    var htmlLang = document.documentElement.getAttribute('lang');
+    return htmlLang ? htmlLang.split('-')[0].toLowerCase() : 'he';
+  }
+
+  // Seed the runtime language so any code that reads localStorage / html lang
+  // ends up agreeing with the URL the user actually loaded. URLs are the
+  // source of truth here:
+  //   /<lang>/...   → that prefix language
+  //   ?lang=<x>     → that query language (legacy / preview)
+  //   /            (no prefix) → site's baked-in default language
+  // Without the no-prefix branch, visiting the default-language root with a
+  // stale localStorage from an earlier session (e.g. user toggled to English
+  // last week) keeps the dynamic catalog/featured/category fetches in the
+  // stale language, which is the "catalog menu stays in English on the
+  // Hebrew page" bug.
+  (function seedLanguageFromUrl() {
+    var urlLang = getQueryLang() || getPathLang() || getBakedDefaultLang();
+    if (!urlLang) return;
+    urlLang = String(urlLang).split('-')[0].toLowerCase();
+    try {
+      localStorage.setItem('zappy_lang', urlLang);
+      localStorage.setItem('zappy-language', urlLang);
+      localStorage.setItem('selectedLanguage', urlLang);
+      localStorage.setItem('language', urlLang);
+    } catch (e) {}
+    document.documentElement.setAttribute('lang', urlLang);
+    document.documentElement.setAttribute('dir', urlLang === 'he' || urlLang === 'ar' || urlLang === 'iw' ? 'rtl' : 'ltr');
+  })();
+
+  // Backward-compat soft redirect: any in-flight bookmarks / external links of
+  // the form /product/<slug>?lang=en (issued by older builds) get rewritten
+  // immediately to the path-based equivalent /en/product/<slug>. Done before
+  // the rest of the runtime so the user lands on the correct pre-rendered HTML
+  // instead of seeing the source-language navbar flash. Skipped when we are
+  // already on a language-prefixed path (no redirect loop).
+  (function softRedirectQueryLangToPath() {
+    var queryLang = getQueryLang();
+    if (!queryLang) return;
+    var pathLang = getPathLang();
+    if (pathLang) return;
+    var path = window.location.pathname || '';
+    if (!/^\/(product|category)(?:\/|$)/i.test(path)) return;
+    try {
+      var url = new URL(window.location.href);
+      url.searchParams.delete('lang');
+      var nextPath = '/' + queryLang.toLowerCase() + path;
+      var nextHref = url.origin + nextPath + (url.searchParams.toString() ? '?' + url.searchParams.toString() : '') + url.hash;
+      window.location.replace(nextHref);
+    } catch (e) {}
+  })();
+
+  function getLang() {
+    try {
+      if (window.zappyI18n && typeof window.zappyI18n.getCurrentLanguage === 'function') {
+        var i18nLang = window.zappyI18n.getCurrentLanguage();
+        if (i18nLang) return String(i18nLang).split('-')[0].toLowerCase();
+      }
+      if (window.zappyI18n && window.zappyI18n.language) {
+        return String(window.zappyI18n.language).split('-')[0].toLowerCase();
+      }
+    } catch (e) {}
+    try {
+      var stored = localStorage.getItem('zappy_lang') || localStorage.getItem('zappy-language') || localStorage.getItem('selectedLanguage') || localStorage.getItem('language');
+      if (stored) return String(stored).split('-')[0].toLowerCase();
+    } catch (e) {}
+    var queryLang = getQueryLang();
+    if (queryLang) return queryLang.toLowerCase();
+    var pathLang = getPathLang();
+    if (pathLang) return pathLang.toLowerCase();
+    var htmlLang = document.documentElement.getAttribute('lang');
+    return htmlLang ? htmlLang.split('-')[0].toLowerCase() : '';
+  }
+
+  function getDefaultLang() {
+    // The default language is whatever owns the path-prefix-free routes. We
+    // pin to 'he' here for the legacy Hebrew-source sites; future-proof by
+    // overriding via window.__zappyDefaultLang from the generated bundle.
+    return window.__zappyDefaultLang || 'he';
+  }
+
+  function buildPath(path) {
+    if (!path || /^https?:\/\//i.test(path) || path.charAt(0) === '#') return path;
+    var normalized = path.charAt(0) === '/' ? path : '/' + path;
+    var lang = getLang();
+    var defaultLang = getDefaultLang();
+    if (!lang || lang === defaultLang) return normalized.replace(/^\/[a-z]{2}(?=\/)/i, '');
+    // Always use path-based language prefix — including dynamic
+    // /product/:slug + /category/:slug, which the publish pipeline serves via
+    // pre-rendered /<lang>/<base>/:slug/index.html. No more ?lang= query.
+    var withoutLang = normalized.replace(/^\/[a-z]{2}(?=\/)/i, '');
+    var prefix = '/' + lang;
+    return withoutLang === prefix || withoutLang.indexOf(prefix + '/') === 0 ? withoutLang : prefix + withoutLang;
+  }
+
+  function isStorefrontPath(href) {
+    return /^\/(?:[a-z]{2}\/)?(?:product|category|products)(?:\/|\?|#|$)/i.test(href || '');
+  }
+
+  function patchLinks(root) {
+    var scope = root && root.querySelectorAll ? root : document;
+    scope.querySelectorAll('a[href]').forEach(function(anchor) {
+      var href = anchor.getAttribute('href');
+      if (!isStorefrontPath(href)) return;
+      var next = buildPath(href);
+      if (href !== next) anchor.setAttribute('href', next);
+    });
+  }
+
+  function ensureProductsChevron() {
+    var trigger = document.querySelector('.zappy-products-dropdown > a');
+    if (!trigger) return;
+    trigger.setAttribute('href', buildPath('/products'));
+    if (trigger.querySelector('svg.dropdown-arrow')) return;
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'dropdown-arrow');
+    svg.setAttribute('width', '12');
+    svg.setAttribute('height', '12');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('stroke-width', '2');
+    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M6 9l6 6 6-6');
+    svg.appendChild(path);
+    trigger.appendChild(document.createTextNode(' '));
+    trigger.appendChild(svg);
+  }
+
+  // On mobile the inline chevron (rendered inside the <a>) is unusable: tapping
+  // it just navigates to /products instead of expanding the submenu, and it sits
+  // hugged to the link text instead of on the far side of the row. The
+  // generation pipelines for e-commerce per-language pages do not inject the
+  // shared initMobileSubmenuToggles helper, so we own that here. Below 768px
+  // we materialise a dedicated <button class="mobile-submenu-toggle"> as a
+  // sibling of the link; existing styles.css already styles its chevron and
+  // expands .sub-menu.mobile-expanded, and our V5 ensureRuntimeCssInjected
+  // pins the button to the far edge of the row (right in LTR, left in RTL).
+  // Above 768px we tear it back down so the desktop hover dropdown is intact.
+  function ensureMobileSubmenuToggles() {
+    var isMobile = window.matchMedia ? window.matchMedia('(max-width: 768px)').matches : window.innerWidth <= 768;
+
+    if (!isMobile) {
+      document.querySelectorAll('.mobile-submenu-toggle[data-zappy-runtime="ecom-routing"]').forEach(function(btn) {
+        btn.remove();
+      });
+      document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+        menu.classList.remove('mobile-expanded');
+      });
+      document.querySelectorAll('.zappy-products-dropdown > a > svg.dropdown-arrow[data-zappy-mobile-hidden="1"]').forEach(function(arrow) {
+        arrow.style.display = '';
+        arrow.removeAttribute('data-zappy-mobile-hidden');
+      });
+      return;
+    }
+
+    var dropdowns = document.querySelectorAll('.zappy-products-dropdown, .menu-item-has-children, .nav-menu li:has(> .sub-menu), nav li:has(> .sub-menu)');
+    dropdowns.forEach(function(li) {
+      if (!li || !li.querySelector) return;
+      var submenu = li.querySelector(':scope > .sub-menu');
+      var trigger = li.querySelector(':scope > a');
+      if (!submenu || !trigger) return;
+      if (li.querySelector(':scope > .mobile-submenu-toggle')) return;
+
+      // Hide the inline SVG chevron on mobile so we don't render two chevrons.
+      var inlineArrow = trigger.querySelector('svg.dropdown-arrow');
+      if (inlineArrow && !inlineArrow.hasAttribute('data-zappy-mobile-hidden')) {
+        inlineArrow.style.display = 'none';
+        inlineArrow.setAttribute('data-zappy-mobile-hidden', '1');
+      }
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'mobile-submenu-toggle';
+      btn.setAttribute('aria-label', 'Toggle submenu');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('data-zappy-runtime', 'ecom-routing');
+
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+
+        // Close any other open submenus so only one is open at a time.
+        document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(other) {
+          if (other === submenu) return;
+          other.classList.remove('mobile-expanded');
+          var otherBtn = other.parentElement && other.parentElement.querySelector(':scope > .mobile-submenu-toggle');
+          if (otherBtn) {
+            otherBtn.classList.remove('expanded');
+            otherBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        var willOpen = !submenu.classList.contains('mobile-expanded');
+        submenu.classList.toggle('mobile-expanded', willOpen);
+        btn.classList.toggle('expanded', willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      }, true);
+
+      trigger.insertAdjacentElement('afterend', btn);
+    });
+  }
+
+  var __zappyMobileSubmenuResizeTimer = null;
+  window.addEventListener('resize', function() {
+    if (__zappyMobileSubmenuResizeTimer) clearTimeout(__zappyMobileSubmenuResizeTimer);
+    __zappyMobileSubmenuResizeTimer = setTimeout(ensureMobileSubmenuToggles, 200);
+  }, { passive: true });
+
+  function patchCatalogDirection() {
+    var catalog = document.getElementById('zappy-catalog-menu');
+    if (!catalog) return;
+    var dir = document.documentElement.getAttribute('dir') || (getLang() === 'he' ? 'rtl' : 'ltr');
+    catalog.classList.toggle('rtl', dir === 'rtl');
+    catalog.classList.toggle('ltr', dir !== 'rtl');
+    catalog.setAttribute('dir', dir);
+    catalog.querySelectorAll('.catalog-menu-item, .sub-menu').forEach(function(el) {
+      el.setAttribute('dir', dir);
+    });
+  }
+
+  // Inject the small CSS rules we need at runtime. Doing this from JS instead of
+  // a separate CSS ensure step makes us robust to clean-css comment stripping +
+  // declaration merging that was eating the standalone CSS injection.
+  function ensureRuntimeCssInjected() {
+    if (document.getElementById('zappy-ecom-routing-runtime-css')) return;
+    var style = document.createElement('style');
+    style.id = 'zappy-ecom-routing-runtime-css';
+    style.setAttribute('data-zappy-runtime', 'ecom-routing');
+    style.textContent =
+      '@media (min-width: 769px){' +
+        'html[dir="ltr"] .nav-container > .nav-brand,body[dir="ltr"] .nav-container > .nav-brand{order:-1!important}' +
+        'html[dir="ltr"] .nav-container > .nav-menu,body[dir="ltr"] .nav-container > .nav-menu{order:1!important;margin-inline-start:auto!important;margin-inline-end:24px!important;flex:0 1 auto!important}' +
+        'html[dir="ltr"] .nav-container > .lang-switcher,body[dir="ltr"] .nav-container > .lang-switcher,html[dir="ltr"] .nav-container > .nav-ecommerce-icons,body[dir="ltr"] .nav-container > .nav-ecommerce-icons{order:2!important}' +
+        'html[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left,body[dir="ltr"] .nav-container > .nav-ecommerce-icons.nav-icons-left{margin-inline-start:0!important}' +
+        'html[dir="ltr"] .zappy-products-dropdown > a .dropdown-arrow,body[dir="ltr"] .zappy-products-dropdown > a .dropdown-arrow{display:inline-block!important;flex:0 0 auto!important;margin-inline-start:6px!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu,html[dir="ltr"] .zappy-catalog-menu .catalog-menu-container,html[dir="ltr"] .zappy-catalog-menu .catalog-menu-categories{direction:ltr!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-container{align-items:flex-start!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-categories{display:flex!important;align-items:flex-start!important;align-content:flex-start!important;row-gap:4px!important;column-gap:2px!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-item{padding-inline:10px!important}' +
+        'html[dir="ltr"] .zappy-catalog-menu .catalog-menu-all{margin-top:0!important;align-self:flex-start!important}' +
+      '}' +
+      '@media (max-width:768px){' +
+        '.navbar .zappy-products-dropdown,nav.navbar .zappy-products-dropdown,.zappy-products-dropdown{position:relative!important}' +
+        // padding-inline-end is a logical property: it resolves to right padding
+        // in LTR and left padding in RTL — exactly the side where the absolute
+        // toggle button lives. A separate RTL override would invert that and
+        // push the link text inward, which is the indentation bug we hit.
+        '.navbar .zappy-products-dropdown > a,nav.navbar .zappy-products-dropdown > a,.zappy-products-dropdown > a{width:100%!important;min-width:0!important;padding-inline-end:56px!important;padding-inline-start:0!important;box-sizing:border-box!important}' +
+        '.navbar .zappy-products-dropdown > .mobile-submenu-toggle,nav.navbar .zappy-products-dropdown > .mobile-submenu-toggle,.zappy-products-dropdown > .mobile-submenu-toggle{display:flex!important;position:absolute!important;top:0!important;inset-inline-end:4px!important;inset-inline-start:auto!important;width:48px!important;height:44px!important;min-height:44px!important;align-items:center!important;justify-content:center!important;z-index:5!important;pointer-events:auto!important;margin:0!important;padding:0!important;background:transparent!important;border:none!important}' +
+      '}';
+    (document.head || document.documentElement).appendChild(style);
+  }
+
+  function patch() {
+    ensureRuntimeCssInjected();
+    patchLinks(document);
+    ensureProductsChevron();
+    ensureMobileSubmenuToggles();
+    patchCatalogDirection();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', patch);
+  } else {
+    patch();
+  }
+  window.addEventListener('popstate', function() { setTimeout(patch, 0); });
+  window.addEventListener('zappy:languageChanged', function() { setTimeout(patch, 0); });
+  window.addEventListener('languageChanged', function() { setTimeout(patch, 0); });
+  new MutationObserver(function(mutations) {
+    var shouldPatch = mutations.some(function(mutation) {
+      return Array.prototype.some.call(mutation.addedNodes || [], function(node) {
+        return node.nodeType === 1 && (
+          (node.matches && node.matches('a[href], .zappy-products-dropdown, #zappy-catalog-menu')) ||
+          (node.querySelector && node.querySelector('a[href], .zappy-products-dropdown, #zappy-catalog-menu'))
+        );
+      });
+    });
+    if (shouldPatch) setTimeout(patch, 0);
+  }).observe(document.documentElement, { childList: true, subtree: true });
+  setTimeout(patch, 250);
+  setTimeout(patch, 1500);
+})();
