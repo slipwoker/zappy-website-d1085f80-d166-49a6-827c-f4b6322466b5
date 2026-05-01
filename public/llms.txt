@@ -1,35 +1,48 @@
-# Business — Generative Engine Optimization Map
+# ערן סמולר - מנהל פרוייקטים בדיגיטל — Generative Engine Optimization Map
+
+> A personal referral campaign page for Eran Smoler, a project manager at Excellence Trade (אקסלנס טרייד), a leading Israeli investment house. Eran has been both a client and employee since March 2020, giving him a unique insider-outsider perspective on the platform. The page promotes a 'refer a friend' program for opening brokerage accounts, emphasizing ease, affordability, and trust. The brand narrative is warm and personal — driven by a genuine belief in the product built from years of hands-on experience, highlighting that great products are built through real user listening. Key links include digital account opening, children's accounts, and fast deposits.
 
 ---
 
 ## Pages
 
 ### בית
-https://example.com
+https://eran-smoler-digital-project-ma.zappy5.app
 A personal referral campaign page for Eran Smoler, a project manager at Excellence Trade (אקסלנס טרייד), a leading Israeli investment house. Eran has been both 
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://example.com/privacy
+https://eran-smoler-digital-project-ma.zappy5.app/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://example.com/terms
+https://eran-smoler-digital-project-ma.zappy5.app/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://example.com/accessibility
+https://eran-smoler-digital-project-ma.zappy5.app/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
 
 # Business Context (for LLM understanding)
 
-## About Business
+## About ערן סמולר - מנהל פרוייקטים בדיגיטל
+A personal referral campaign page for Eran Smoler, a project manager at Excellence Trade (אקסלנס טרייד), a leading Israeli investment house. Eran has been both a client and employee since March 2020, giving him a unique insider-outsider perspective on the platform. The page promotes a 'refer a friend' program for opening brokerage accounts, emphasizing ease, affordability, and trust. The brand narrative is warm and personal — driven by a genuine belief in the product built from years of hands-on experience, highlighting that great products are built through real user listening. Key links include digital account opening, children's accounts, and fast deposits.
+
+## Target Audience
+- חברים ומשפחה המעוניינים לפתוח חשבון השקעות, משקיעים מתחילים המחפשים פתרון קל וזול למסחר בבורסה
+- חברים ובני משפחה משקיעים
+- משקיעים צעירים מקצועיים
+- משקיעים טכנולוגיים
+
+## Industry
+שוק ההון, השקעות, מסחר בבורסה
+
 ---
 
 # Additional Resources
 
-- **Sitemap**: https://example.com/sitemap.xml
-- **Robots.txt**: https://example.com/robots.txt
+- **Sitemap**: https://eran-smoler-digital-project-ma.zappy5.app/sitemap.xml
+- **Robots.txt**: https://eran-smoler-digital-project-ma.zappy5.app/robots.txt
